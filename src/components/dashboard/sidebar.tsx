@@ -11,12 +11,13 @@ const Sidebar = () => {
       </Link>
       <div className="w-full flex flex-col space-y-1 mt-10">
         {cards.map((value, idx) => (
-          <div
-            key={idx}
-            className="w-full px-4 py-2 rounded-md hover:bg-primary hover:text-gray-900 hover:font-bold text-lg hover:text-xl cursor-pointer transform duration-500 "
-          >
-            {value.name}
-          </div>
+          <React.Fragment key={idx}>
+            <Link href={`${value.link}`}>
+              <div className="w-full px-4 py-2 rounded-md hover:bg-primary hover:text-gray-900 hover:font-bold text-lg hover:text-xl cursor-pointer transform duration-500 ">
+                {value.name}
+              </div>
+            </Link>
+          </React.Fragment>
         ))}
       </div>
       <div className="absolute bottom-4 left-0 w-full p-4">
