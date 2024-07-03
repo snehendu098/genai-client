@@ -27,18 +27,22 @@ export async function POST(req: Request) {
         }
 
         await user.save();
+        return Response.json({
+          success: true,
+          message: "Password Reset Successful",
+        });
       } else {
         return Response.json({
           succes: false,
           message: "Error verifying code",
         });
       }
-    } else {
-      return Response.json({
-        success: false,
-        message: "Please request for a new code",
-      });
     }
+
+    return Response.json({
+      success: false,
+      message: "Please request for a new code",
+    });
   } catch (err) {
     console.log("Error while verifying", err);
     return Response.json({
