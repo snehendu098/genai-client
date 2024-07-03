@@ -5,8 +5,8 @@ export interface User extends Document {
   password: string;
   forgotPasswordCode?: string;
   forgotPasswordCodeExpiry?: Date;
-  verifyCode?: string;
-  verifyCodeExpiry?: Date;
+  verifyCode: string;
+  verifyCodeExpiry: Date;
   docsGenerated: mongoose.Types.ObjectId[];
   isVerified: boolean;
 }

@@ -40,8 +40,8 @@ export default function VerificationEmail({
         </Row>
         <Row>
           <Text>
-            Thank you for registering. Please use the following verification
-            code to complete your registration:
+            Please use the following verification code to complete your
+            verification:
           </Text>
         </Row>
         <Row>

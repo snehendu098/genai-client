@@ -61,7 +61,7 @@ export async function POST(req: Request) {
     }
     return Response.json(
       {
-        success: false,
+        success: true,
         message:
           "User created successfully, please check your email for verification code. It expires in 1 hour",
       },

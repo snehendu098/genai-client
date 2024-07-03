@@ -10,20 +10,20 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import React from "react";
 
-function App() {
+const page = () => {
   return (
     <>
       <CardHeader>
-        <CardTitle className="text-2xl">Sign In</CardTitle>
+        <CardTitle className="text-2xl">Forgot Password?</CardTitle>
         <CardDescription>
-          Sign in to get started with using our platform
+          Enter your email to get a code and set your password
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form className="space-y-4">
-          <div className="grid gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+          <div className="grid grid-cols-3 gap-4">
+            <Label className="col-span-3">Enter Email</Label>
+            <div className="space-y-2 col-span-2">
               <Input
                 id="email"
                 type="email"
@@ -31,29 +31,34 @@ function App() {
                 required
               />
             </div>
+            <Button>Send Code</Button>
           </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">OTP</Label>
+            <Input id="password" type="password" required />
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" required />
-            <div className="flex flex-row-reverse">
-              <p className="text-sm text-white">
-                <Link href={"/forgot"}>Forgot Password</Link>
-              </p>
-            </div>
           </div>
-          <div className="mt-4 text-xs text-muted-foreground">
-            Don&apos;t have an account?{" "}
+          <div className="space-y-2">
+            <Label htmlFor="password">Confirm Password</Label>
+            <Input id="password" type="password" required />
+          </div>
+          <p className="text-muted-foreground text-xs">
+            Already have an account?{" "}
             <span className="text-white">
-              <Link href={"/sign-up"}>Sign Up</Link>
+              <Link href={"/sign-in"}>Log In</Link>
             </span>
-          </div>
+          </p>
           <Button type="submit" className="w-full">
-            Sign In
+            Reset Password
           </Button>
         </form>
       </CardContent>
     </>
   );
-}
+};
 
-export default App;
+export default page;

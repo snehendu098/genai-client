@@ -29,3 +29,35 @@ export async function sendVerificationEmail(
     return { success: false, message: "Failed to send verification email" };
   }
 }
+
+export async function sendForgotPasswordEmail(
+  email: string,
+  verifyCode: string,
+): Promise<ApiResponse> {
+  try {
+    const { data, error } = await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: email,
+      subject: "Here's the code for password change",
+      react: VerificationEmail({ email, otp: verifyCode }),
+    });
+
+    if (error) {
+      console.log(error);
+      return {
+        success: false,
+        message: "Password Reset Email Couldn't be sent",
+      };
+    }
+
+    return {
+      success: true,
+      message:
+        "Check your email for the verification code, it expires in one hour",
+      data,
+    };
+  } catch (emailError) {
+    console.error("Error sending verification email", emailError);
+    return { success: false, message: "Failed to send verification email" };
+  }
+}

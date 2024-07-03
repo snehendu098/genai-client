@@ -1,28 +1,18 @@
-import mongoose, { Schema, Model } from "mongoose";
+import { Schema } from "mongoose";
 
-export interface Response extends Document {
-  response: any; // assuming response is of JSON type
-  docId: mongoose.Types.ObjectId;
+export interface IResponse extends Document {
+  response: string; // assuming response is of JSON type
   type: number;
 }
 
 // AI Response Schema
-const responseSchema: Schema<Response> = new Schema({
+export const responseSchema: Schema<IResponse> = new Schema({
   response: {
-    type: Schema.Types.Mixed,
+    type: String,
     required: true,
-  },
-  docId: {
-    type: Schema.Types.ObjectId,
-    ref: "Doc",
   },
   type: {
     type: Number,
     required: true,
   },
 });
-
-const ResponsesModel: Model<Response> =
-  mongoose.models.Responses || mongoose.model("Response", responseSchema);
-
-export default ResponsesModel;

@@ -16,14 +16,12 @@ export async function middleware(request: NextRequest) {
   ) {
     return NextResponse.redirect(new URL("/", request.url));
   }
-
   if (
     !token &&
     (url.pathname.startsWith("/app1") || url.pathname.startsWith("/app2"))
   ) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
-
   return NextResponse.next();
 }
 
