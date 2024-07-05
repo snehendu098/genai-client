@@ -5,6 +5,7 @@ export interface Doc extends Document {
   url: string;
   responses: Response[];
   owner: mongoose.Types.ObjectId;
+  name: string;
 }
 
 const docSchema: Schema<Doc> = new Schema({
@@ -17,6 +18,10 @@ const docSchema: Schema<Doc> = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
+  },
+  name: {
+    type: String,
+    requried: true,
   },
 });
 

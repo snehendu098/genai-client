@@ -2,75 +2,80 @@ import dbConnect from "@/lib/dbConnect";
 import { getServerSession, User } from "next-auth";
 import DocModel from "@/models/Doc.model";
 import { authOptions } from "@/app/api/auth/[[...nextauth]]/options";
-import {
-  principlesChecklistDummy,
-  topicAssessmentDummyData,
-} from "@/constants/dashboard";
+import { principlesChecklistDummy } from "@/constants/dashboard";
 import { IResponse } from "@/models/Response.model";
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
   const docId = params.id;
-  await dbConnect();
-  const session = await getServerSession(authOptions);
-  const _user: User = session?.user as User;
 
-  if (!session || !_user) {
-    return Response.json(
-      { success: false, message: "Please login first" },
-      { status: 401 },
+  // Connect to the database
+  await dbConnect();
+
+  // Get user session
+  const session = await getServerSession(authOptions);
+  const user: User | undefined = session?.user as User | undefined;
+
+  // Check if user is authenticated
+  if (!session || !user) {
+    return new Response(
+      JSON.stringify({ success: false, message: "Please login first" }),
+      { status: 401, headers: { "Content-Type": "application/json" } },
     );
   }
 
   try {
-    // fetch document
+    // Fetch the document by ID
     const doc = await DocModel.findById(docId);
 
-    const responsesExist = doc?.responses && doc?.responses.length > 0;
-
-    // check if response type is 1
-    if (!responsesExist) {
-      // hit the api endpoint and fetch the data
-      const res = principlesChecklistDummy;
-      doc?.responses.push({
-        response: JSON.stringify(res),
-        type: 1,
-      } as IResponse);
-      await doc?.save();
-      return Response.json({
-        success: true,
-        message: "Ai response generated successfuly",
-        data: res,
-      });
+    // If document not found, return 404
+    if (!doc) {
+      return new Response(
+        JSON.stringify({ success: false, message: "Document not found" }),
+        { status: 404, headers: { "Content-Type": "application/json" } },
+      );
     }
 
-    const responseTypeExists = doc.responses.some(
+    // Check if a response of type 2 already exists
+    const existingResponse = doc.responses?.find(
       (element) => element.type === 2,
     );
 
-    if (responseTypeExists) {
-      let docResponse = doc.responses.find((element) => element.type === 2);
-      if (docResponse?.response) {
-        return Response.json({
+    if (existingResponse) {
+      // Return the existing response if found
+      return new Response(
+        JSON.stringify({
           success: true,
           message: "Doc response fetched successfully",
-          data: JSON.parse(docResponse.response),
-        });
-      } else {
-        console.log("No response found");
-        return Response.json({
-          success: false,
-          message: "Doc response not found",
-        });
-      }
+          data: JSON.parse(existingResponse.response),
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } },
+      );
     }
+
+    // If no response of type 2, generate a new one
+    const newResponse = {
+      response: JSON.stringify(principlesChecklistDummy),
+      type: 2,
+    } as IResponse;
+    doc.responses = doc.responses || [];
+    doc.responses.push(newResponse);
+    await doc.save();
+
+    // Return the new response
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: "AI response generated successfully",
+        data: principlesChecklistDummy,
+      }),
+      { status: 200, headers: { "Content-Type": "application/json" } },
+    );
   } catch (err) {
-    console.log("Error fetching response", err);
-    return Response.json(
-      {
-        success: false,
-        message: "Error fetching response",
-      },
-      { status: 500 },
+    console.error("Error fetching response", err);
+    // Return a 500 error if there was an issue with fetching the response
+    return new Response(
+      JSON.stringify({ success: false, message: "Error fetching response" }),
+      { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }
 }

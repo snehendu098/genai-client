@@ -1,7 +1,10 @@
+"use client";
+
 import { cards } from "@/constants/home";
 import React from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 const Sidebar = () => {
   return (
@@ -21,7 +24,11 @@ const Sidebar = () => {
         ))}
       </div>
       <div className="absolute bottom-4 left-0 w-full p-4">
-        <Button className="max-w-xs w-full" variant={"outline"}>
+        <Button
+          onClick={() => signOut()}
+          className="max-w-xs w-full"
+          variant={"outline"}
+        >
           Logout
         </Button>
       </div>

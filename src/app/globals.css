@@ -60,3 +60,9 @@
     @apply font-semibold text-3xl;
   }
 }
+
+@layer components {
+  .alert-label {
+    @apply text-lg font-semibold;
+  }
+}

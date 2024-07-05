@@ -8,12 +8,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const TableDataShow = ({ key, value }: { key: number; value: any }) => {
+const TableDataShow = ({
+  key,
+  value,
+  idx,
+}: {
+  key: any;
+  value: any;
+  idx: number;
+}) => {
   return (
     <div
       className="flex flex-col my-4 p-4 py-6 rounded-md bg-yellow-950/15"
       key={key}
     >
+      <h1 className="mb-4">Principles {idx + 1}</h1>
       <p className="text-xl font-semibold">BRSR Principles</p>
       <p className="text-sm text-muted-foreground">{value.brsr}</p>
       <p className="text-xl font-semibold mt-4">SDG Goals</p>
