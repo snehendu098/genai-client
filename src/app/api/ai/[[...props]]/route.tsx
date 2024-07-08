@@ -5,8 +5,12 @@ import { authOptions } from "@/app/api/auth/[[...nextauth]]/options";
 import { topicAssessmentDummyData } from "@/constants/dashboard";
 import { IResponse } from "@/models/Response.model";
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
-  const docId = params.id;
+export async function GET(
+  _: Request,
+  { params }: { params: { props: string[] } },
+) {
+  const docId = params.props[0];
+  const docType = Number(params.props[1]);
 
   // Connect to the database
   await dbConnect();
@@ -37,7 +41,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
 
     // Check if a response of type 1 already exists
     const existingResponse = doc.responses?.find(
-      (element) => element.type === 1,
+      (element) => element.type === docType,
     );
 
     if (existingResponse) {
@@ -55,7 +59,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
     // If no response of type 1, generate a new one
     const newResponse = {
       response: JSON.stringify(topicAssessmentDummyData),
-      type: 1,
+      type: docType,
     } as IResponse;
     doc.responses = doc.responses || [];
     doc.responses.push(newResponse);

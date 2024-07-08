@@ -1,14 +1,22 @@
 export const cards = [
   {
-    name: "App 1",
+    name: "ESG Document Summarization	",
     description:
-      "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem duis.",
+      "Summarize the materility topics from sustainability reports, annual reports.",
     link: "/app1",
   },
   {
-    name: "App 2",
+    name: "ESG Question Answer	",
     description:
-      "Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem et culpa duis.",
+      "Auto-populate responses to questions coming from an investors, sharehoders or customers using Generative AI.",
     link: "/app2",
+    desc2:
+      "Upload list of sustainability, annual reports (1000 pages) and ask questions",
+  },
+  {
+    name: "ESG Principles checklist",
+    description:
+      "Upload a sustainability report and assess how well the organisation had performed against SDG goals, BRSR principles.",
+    link: "/app3",
   },
 ];

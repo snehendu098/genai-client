@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { docsDummy } from "@/constants/dashboard";
 import axios from "axios";
 import { FileText, Loader2 } from "lucide-react";
 import Link from "next/link";

@@ -6,6 +6,7 @@ export interface Doc extends Document {
   responses: Response[];
   owner: mongoose.Types.ObjectId;
   name: string;
+  chatId?: mongoose.Types.ObjectId;
 }
 
 const docSchema: Schema<Doc> = new Schema({
@@ -22,6 +23,10 @@ const docSchema: Schema<Doc> = new Schema({
   name: {
     type: String,
     requried: true,
+  },
+  chatId: {
+    type: Schema.Types.ObjectId,
+    default: null,
   },
 });
 

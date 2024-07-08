@@ -1,38 +1,71 @@
 "use client";
 
-import { cards } from "@/constants/home";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { ScrollArea } from "../ui/scroll-area";
+import axios from "axios";
+import { toast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
 
-const Sidebar = () => {
+const Sidebar = ({
+  appType,
+  btnText,
+  btnLink,
+}: {
+  appType: number;
+  btnText: string;
+  btnLink: string;
+}) => {
+  const [docs, setDocs] = useState([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  async function getDocs() {
+    setLoading(true);
+    try {
+      const res = await axios.get("/api/docs");
+      console.log(res);
+      if (res.data.success) {
+        setDocs(res.data.docs);
+      }
+    } catch (err) {
+      console.log(err);
+      toast({ title: "Error occurred" });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getDocs();
+  }, [appType]);
+
   return (
-    <div className="w-full relative h-screen soff p-4 bg-gray-700/10 flex flex-col px-4">
-      <Link href={"/"}>
-        <h1>Example</h1>
-      </Link>
-      <div className="w-full flex flex-col space-y-1 mt-10">
-        {cards.map((value, idx) => (
-          <React.Fragment key={idx}>
-            <Link href={`${value.link}`}>
-              <div className="w-full px-4 py-2 rounded-md hover:bg-primary hover:text-gray-900 hover:font-bold text-lg hover:text-xl cursor-pointer transform duration-500 ">
-                {value.name}
-              </div>
-            </Link>
-          </React.Fragment>
-        ))}
-      </div>
-      <div className="absolute bottom-4 left-0 w-full p-4">
+    <ScrollArea className="col-span-1 space-y-6 min-h-full border-r px-4">
+      {btnText && (
         <Button
-          onClick={() => signOut()}
-          className="max-w-xs w-full"
-          variant={"outline"}
+          asChild
+          className="w-full flex items-center justify-center mb-6"
         >
-          Logout
+          <Link href={btnLink}>{btnText}</Link>
         </Button>
-      </div>
-    </div>
+      )}
+      {!loading ? (
+        docs
+          .filter((i: any) =>
+            i.responses.some((item: any) => item.type === appType),
+          )
+          .map((item: any, idx: number) => (
+            <div
+              className="px-4 py-2 hover:bg-gray-200/15 mb-2 rounded-md cursor-pointer transition duration-500"
+              key={idx}
+            >
+              {item?.name}
+            </div>
+          ))
+      ) : (
+        <p>Loading the documents</p>
+      )}
+    </ScrollArea>
   );
 };
 

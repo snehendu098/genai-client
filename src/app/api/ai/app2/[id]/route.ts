@@ -51,7 +51,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
         { status: 200, headers: { "Content-Type": "application/json" } },
       );
     }
-
+    // TODO; fetch ai data
     // If no response of type 2, generate a new one
     const newResponse = {
       response: JSON.stringify(principlesChecklistDummy),
