@@ -2,15 +2,11 @@ import dbConnect from "@/lib/dbConnect";
 import { getServerSession, User } from "next-auth";
 import DocModel from "@/models/Doc.model";
 import { authOptions } from "@/app/api/auth/[[...nextauth]]/options";
-import { topicAssessmentDummyData } from "@/constants/dashboard";
+import { principlesChecklistDummy } from "@/constants/dashboard";
 import { IResponse } from "@/models/Response.model";
 
-export async function GET(
-  _: Request,
-  { params }: { params: { props: string[] } },
-) {
-  const docId = params.props[0];
-  const docType = Number(params.props[1]);
+export async function GET(_: Request, { params }: { params: { id: string } }) {
+  const docId = params.id;
 
   // Connect to the database
   await dbConnect();
@@ -39,9 +35,9 @@ export async function GET(
       );
     }
 
-    // Check if a response of type 1 already exists
+    // Check if a response of type 2 already exists
     const existingResponse = doc.responses?.find(
-      (element) => element.type === docType,
+      (element) => element.type === 3,
     );
 
     if (existingResponse) {
@@ -55,11 +51,11 @@ export async function GET(
         { status: 200, headers: { "Content-Type": "application/json" } },
       );
     }
-    // TODO;api req to fetch ai data
-    // If no response of type 1, generate a new one
+    // TODO; fetch ai data
+    // If no response of type 2, generate a new one
     const newResponse = {
-      response: JSON.stringify(topicAssessmentDummyData),
-      type: docType,
+      response: JSON.stringify(principlesChecklistDummy),
+      type: 3,
     } as IResponse;
     doc.responses = doc.responses || [];
     doc.responses.push(newResponse);
@@ -70,7 +66,7 @@ export async function GET(
       JSON.stringify({
         success: true,
         message: "AI response generated successfully",
-        data: topicAssessmentDummyData,
+        data: principlesChecklistDummy,
       }),
       { status: 200, headers: { "Content-Type": "application/json" } },
     );

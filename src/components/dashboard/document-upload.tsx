@@ -64,6 +64,17 @@ const DocUpload = ({
 
         if (res.data.success) {
           toast({ title: "Document has successfully been saved" });
+          const gen_doc_res = await axios.get(
+            `/api/ai/app${appType}/${uploaded_data?.pdf_id}`,
+          );
+          if (!gen_doc_res.data.success) {
+            return toast({
+              title: "Error Occurred",
+              description:
+                "Please reload the page and open the file from the sidebar to view it",
+              variant: "destructive",
+            });
+          }
           return router.push(`/app${appType}/${uploaded_data?.pdf_id}`);
         } else {
           console.log(res);
@@ -83,7 +94,15 @@ const DocUpload = ({
       <div className="border-b w-full p-4 font-semibold text-md">{headTxt}</div>
       <div className="w-full h-full p-8 space-y-4">
         <p className="text-xl">Uplad a file to get started</p>
-        <Input type="file" className="w-1/3" />
+        <Input
+          type="file"
+          className="w-1/3"
+          accept="application/pdf"
+          onChange={(e) => {
+            const file = e.target.files ? e.target.files[0] : null;
+            setFile(file);
+          }}
+        />
         <Input
           className="w-1/3"
           onChange={(e) => setName(e.target.value)}

@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     }
 
     const chat = new ChatModel({ doc: docId, answer, question });
-    doc.chatId = new mongoose.Types.ObjectId(docId);
+    doc.chatId?.push(new mongoose.Types.ObjectId(docId));
     await doc.save();
     await chat.save();
 

@@ -9,10 +9,18 @@ import mongoose from "mongoose";
 export async function POST(req: Request) {
   await dbConnect();
   try {
-    const { url, id, name }: { url: string; id: string; name: string } =
+    const {
+      url,
+      id,
+      name,
+      chatInitiate,
+    }: { url: string; id: string; name: string; chatInitiate?: boolean } =
       await req.json();
     const session = await getServerSession(authOptions);
     const _user: User = session?.user as User;
+
+    const cnt = (chatInitiate !== null && chatInitiate) || false;
+    console.log("cnt", cnt);
 
     if (!session || !_user) {
       return Response.json(
@@ -27,6 +35,8 @@ export async function POST(req: Request) {
       responses: [],
       name,
       owner: _user._id,
+      chatId: null,
+      chatInitiate: cnt,
     });
 
     await newDoc.save();

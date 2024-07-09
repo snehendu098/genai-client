@@ -1,4 +1,5 @@
 import React from "react";
+import { ScrollArea } from "../ui/scroll-area";
 
 const AppLayouts = ({
   pdfLink,
@@ -8,16 +9,16 @@ const AppLayouts = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="max-h-screen flex-1  ">
-      <div className="w-full h-screen flex">
+    <div className="h-full w-full col-span-5">
+      <div className="w-full h-[calc(100vh-4rem)] flex">
         <iframe
           src={`https://docs.google.com/gview?url=${pdfLink}&embedded=true`}
           className="w-1/2 h-full"
         ></iframe>
 
-        <div className="w-1/2 h-full flex flex-col overflow-y-auto p-10">
+        <ScrollArea className="w-1/2 h-full flex flex-col p-10">
           {children}
-        </div>
+        </ScrollArea>
       </div>
     </div>
   );

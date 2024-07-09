@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 const Sidebar = ({
   appType,
@@ -18,12 +19,12 @@ const Sidebar = ({
 }) => {
   const [docs, setDocs] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const pathName = usePathname();
 
   async function getDocs() {
     setLoading(true);
     try {
       const res = await axios.get("/api/docs");
-      console.log(res);
       if (res.data.success) {
         setDocs(res.data.docs);
       }
@@ -37,7 +38,7 @@ const Sidebar = ({
 
   useEffect(() => {
     getDocs();
-  }, [appType]);
+  }, [appType, pathName]);
 
   return (
     <ScrollArea className="col-span-1 space-y-6 min-h-full border-r px-4">
