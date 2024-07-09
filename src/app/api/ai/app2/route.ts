@@ -34,7 +34,11 @@ export async function POST(req: Request) {
       JSON.stringify({
         success: true,
         message: "Chat saved successfully",
-        data: chat,
+        data: {
+          question: chat.question,
+          answer: chat.answer,
+          helpful: chat.helpful,
+        },
       }),
       { status: 200 },
     );

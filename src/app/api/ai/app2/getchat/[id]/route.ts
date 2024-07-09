@@ -2,7 +2,7 @@ import ChatModel from "@/models/Chat.model";
 
 import mongoose from "mongoose";
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function POST(_: Request, { params }: { params: { id: string } }) {
   try {
     const docId = params.id;
 
