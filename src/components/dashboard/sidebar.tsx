@@ -6,7 +6,9 @@ import axios from "axios";
 import { toast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { IChat } from "@/models/Chat.model";
+import { Doc } from "@/models/Doc.model";
 
 const Sidebar = ({
   appType,
@@ -52,16 +54,17 @@ const Sidebar = ({
       )}
       {!loading ? (
         docs
-          .filter((i: any) =>
-            i.responses.some((item: any) => item.type === appType),
+          .filter((i: Doc) =>
+            appType !== 2
+              ? i.responses.some((item: any) => item.type === appType)
+              : i.chatInitiate,
           )
           .map((item: any, idx: number) => (
-            <div
-              className="px-4 py-2 hover:bg-gray-200/15 mb-2 rounded-md cursor-pointer transition duration-500"
-              key={idx}
-            >
-              {item?.name}
-            </div>
+            <Link key={idx} href={`/app${appType}/${item._id}`}>
+              <div className="px-4 py-2 hover:bg-gray-200/15 mb-2 rounded-md cursor-pointer transition duration-500">
+                {item?.name}
+              </div>
+            </Link>
           ))
       ) : (
         <p>Loading the documents</p>

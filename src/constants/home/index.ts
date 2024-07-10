@@ -19,4 +19,10 @@ export const cards = [
       "Upload a sustainability report and assess how well the organisation had performed against SDG goals, BRSR principles.",
     link: "/app3",
   },
+  {
+    name: "ESG Search Engine",
+    description:
+      "Upload a sustainability report and assess how well the organisation had performed against SDG goals, BRSR principles.",
+    link: "/app3",
+  },
 ];

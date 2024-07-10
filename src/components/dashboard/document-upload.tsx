@@ -44,7 +44,7 @@ const DocUpload = ({
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        },
+        }
       );
 
       console.log(uploadedRes);
@@ -60,21 +60,25 @@ const DocUpload = ({
           id: uploaded_data?.pdf_id,
           name: name || file.name,
           url: uploaded_data?.file_url,
+          chatInitiate: appType === "2",
         });
 
         if (res.data.success) {
           toast({ title: "Document has successfully been saved" });
-          const gen_doc_res = await axios.get(
-            `/api/ai/app${appType}/${uploaded_data?.pdf_id}`,
-          );
-          if (!gen_doc_res.data.success) {
-            return toast({
-              title: "Error Occurred",
-              description:
-                "Please reload the page and open the file from the sidebar to view it",
-              variant: "destructive",
-            });
+          if (appType !== "2") {
+            const gen_doc_res = await axios.get(
+              `/api/ai/app${appType}/${uploaded_data?.pdf_id}`
+            );
+            if (!gen_doc_res.data.success) {
+              return toast({
+                title: "Error Occurred",
+                description:
+                  "Please reload the page and open the file from the sidebar to view it",
+                variant: "destructive",
+              });
+            }
           }
+          // data saving to the database
           return router.push(`/app${appType}/${uploaded_data?.pdf_id}`);
         } else {
           console.log(res);

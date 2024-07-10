@@ -18,7 +18,10 @@ export async function middleware(request: NextRequest) {
   }
   if (
     !token &&
-    (url.pathname.startsWith("/app1") || url.pathname.startsWith("/app2"))
+    (url.pathname.startsWith("/app1") ||
+      url.pathname.startsWith("/app2") ||
+      url.pathname.startsWith("/app3") ||
+      url.pathname.startsWith("/app4"))
   ) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
@@ -27,5 +30,14 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/sign-in", "/sign-up", "/", "/app1", "/app2", "/verify/:path*"],
+  matcher: [
+    "/sign-in",
+    "/sign-up",
+    "/",
+    "/app1",
+    "/app2",
+    "/verify/:path*",
+    "/app3",
+    "/app4",
+  ],
 };

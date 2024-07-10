@@ -14,13 +14,12 @@ export async function POST(req: Request) {
       id,
       name,
       chatInitiate,
-    }: { url: string; id: string; name: string; chatInitiate?: boolean } =
+    }: { url: string; id: string; name: string; chatInitiate: boolean } =
       await req.json();
     const session = await getServerSession(authOptions);
     const _user: User = session?.user as User;
 
-    const cnt = (chatInitiate !== null && chatInitiate) || false;
-    console.log("cnt", cnt);
+    //     console.log("cnt", { url, id, name, chatInitiate });
 
     if (!session || !_user) {
       return Response.json(
@@ -36,7 +35,7 @@ export async function POST(req: Request) {
       name,
       owner: _user._id,
       chatId: null,
-      chatInitiate: cnt,
+      chatInitiate,
     });
 
     await newDoc.save();
@@ -44,7 +43,7 @@ export async function POST(req: Request) {
 
     if (user) {
       user?.docsGenerated.push(newDoc.id);
-      console.log(user);
+      //    console.log(user);
       await user?.save();
 
       return Response.json({
