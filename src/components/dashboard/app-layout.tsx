@@ -16,7 +16,7 @@ const AppLayouts = ({
           className="w-1/2 h-full"
         ></iframe>
 
-        <ScrollArea className="w-1/2 h-full flex flex-col p-10">
+        <ScrollArea className="w-1/2 h-full relative flex flex-col p-10">
           {children}
         </ScrollArea>
       </div>
