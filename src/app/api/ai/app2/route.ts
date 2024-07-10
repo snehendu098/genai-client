@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     if (!docId || !question || !answer) {
       return new Response(
         JSON.stringify({ success: false, message: "Missing required fields" }),
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     if (!doc) {
       return new Response(
         JSON.stringify({ success: false, message: "Document not found" }),
-        { status: 404 },
+        { status: 404 }
       );
     }
 
@@ -34,19 +34,15 @@ export async function POST(req: Request) {
       JSON.stringify({
         success: true,
         message: "Chat saved successfully",
-        data: {
-          question: chat.question,
-          answer: chat.answer,
-          helpful: chat.helpful,
-        },
+        chat,
       }),
-      { status: 200 },
+      { status: 200 }
     );
   } catch (err) {
     console.error("Error occurred:", err);
     return new Response(
       JSON.stringify({ success: false, message: "Internal Server Error" }),
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

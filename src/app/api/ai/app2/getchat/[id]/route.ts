@@ -2,7 +2,7 @@ import ChatModel from "@/models/Chat.model";
 
 import mongoose from "mongoose";
 
-export async function POST(_: Request, { params }: { params: { id: string } }) {
+export async function GET(_: Request, { params }: { params: { id: string } }) {
   try {
     const docId = params.id;
 
@@ -15,19 +15,25 @@ export async function POST(_: Request, { params }: { params: { id: string } }) {
 
     const res = await ChatModel.find({
       doc: new mongoose.Types.ObjectId(docId),
-    });
+    }).sort({ createdAt: -1 });
 
-    if (!res.length) {
-      return new Response(
-        JSON.stringify({ success: false, message: "No chat history found" }),
-      );
+    let arr: any = [];
+    for (let i = 0; i < res.length; i++) {
+      const item = res[i];
+      arr.push({ content: item.question, type: 0 });
+      arr.push({
+        content: item.answer,
+        type: 1,
+        id: item.id,
+        helpful: item.helpful,
+      });
     }
 
     return new Response(
       JSON.stringify({
         success: true,
         message: "Chat history retrieved",
-        chat: res,
+        chat: arr,
       }),
       { status: 200 },
     );

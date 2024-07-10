@@ -7,24 +7,27 @@ export interface IChat extends Document {
   doc: mongoose.Types.ObjectId;
 }
 
-const chatSchema: Schema<IChat> = new Schema({
-  question: {
-    type: String,
-    required: true,
+const chatSchema: Schema<IChat> = new Schema(
+  {
+    question: {
+      type: String,
+      required: true,
+    },
+    answer: {
+      type: String,
+      required: true,
+    },
+    helpful: {
+      type: Boolean,
+      default: null,
+    },
+    doc: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
   },
-  answer: {
-    type: String,
-    required: true,
-  },
-  helpful: {
-    type: Boolean,
-    default: null,
-  },
-  doc: {
-    type: Schema.Types.ObjectId,
-    required: true,
-  },
-});
+  { timestamps: true }
+);
 
 const ChatModel: Model<IChat> =
   mongoose.models.Chat || mongoose.model("Chat", chatSchema);
