@@ -1,38 +1,14 @@
 "use client";
 
-import AppLayouts from "@/components/dashboard/app-layout";
 import TableDataShow from "@/components/dashboard/table-shower";
 import { toast } from "@/components/ui/use-toast";
 import { PrincipleChecklist } from "@/constants/dashboard";
 import axios from "axios";
-import { usePathname } from "next/navigation";
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 const App = ({ params }: { params: { id: string } }) => {
   const [apiData, setData] = useState<PrincipleChecklist[] | null>(null);
-  const [pdfUrl, setPdfUrl] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const urlPath = usePathname();
-
-  const currentOption = useMemo(() => {
-    if (urlPath.includes("/app1")) {
-      return "1";
-    } else if (urlPath.includes("/app2")) {
-      return "2";
-    } else {
-      return "3";
-    }
-  }, [urlPath]);
-
-  const getDoc = useCallback(async () => {
-    try {
-      const { data } = await axios.get(`/api/docs/${params.id}`);
-      if (!data.success) throw new Error("Error fetching document");
-      setPdfUrl(data.data.url || "");
-    } catch (error: any) {
-      toast({ title: error.message, variant: "destructive" });
-    }
-  }, [params.id]);
 
   const getResponse = useCallback(async () => {
     setLoading(true);
@@ -49,20 +25,15 @@ const App = ({ params }: { params: { id: string } }) => {
   }, [params.id]);
 
   useEffect(() => {
-    getDoc();
     getResponse();
-  }, [getDoc, getResponse]);
+  }, [getResponse]);
 
-  return (
-    <AppLayouts pdfLink={pdfUrl}>
-      {loading ? (
-        <h1>Api Response is loading</h1>
-      ) : (
-        apiData?.map((value, idx: number) => {
-          return <TableDataShow idx={idx} key={idx} value={value} />;
-        })
-      )}
-    </AppLayouts>
+  return loading ? (
+    <h1>Api Response is loading</h1>
+  ) : (
+    apiData?.map((value, idx: number) => {
+      return <TableDataShow idx={idx} key={idx} value={value} />;
+    })
   );
 };
 

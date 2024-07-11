@@ -31,7 +31,7 @@ function App() {
       redirect: false,
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (result?.error) {
       if (result.error === "CredentialsSignin") {

@@ -29,7 +29,7 @@ const App = ({ params }: { params: { id: string } }) => {
 
   const parseQuestionToArray = useCallback(() => {
     setRawQuestionArray(
-      rawQuestionBunch.split("\n").filter((item) => item !== ""),
+      rawQuestionBunch.split("\n").filter((item) => item !== "")
     );
   }, [rawQuestionBunch]);
 
@@ -41,11 +41,11 @@ const App = ({ params }: { params: { id: string } }) => {
     try {
       const { data } = await axios.get(`/api/ai/app2/getchat/${docId}`);
 
-      console.log("getdata", data);
+      // console.log("getdata", data);
 
       if (data.success) {
         setQna(data.chat);
-        console.log(qna);
+        // console.log(qna);
       }
     } catch (err) {
       console.log("get chat err", err);
@@ -106,7 +106,9 @@ const App = ({ params }: { params: { id: string } }) => {
 
       if (data.success) {
         arr.push({ content: data.chat.question, type: 0 });
-        console.log("arr1", arr);
+
+        // console.log("arr1", arr);
+
         arr.push({
           content: data.chat.answer,
           type: 1,

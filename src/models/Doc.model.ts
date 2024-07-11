@@ -2,7 +2,7 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 import { IResponse as Response, responseSchema } from "./Response.model";
 
 export interface Doc extends Document {
-  url: string;
+  docs: SingleDoc[];
   responses: Response[];
   owner: mongoose.Types.ObjectId;
   name: string;
@@ -10,11 +10,18 @@ export interface Doc extends Document {
   chatInitiate: boolean;
 }
 
+export type SingleDoc = {
+  url: string;
+  name: string;
+};
+
 const docSchema: Schema<Doc> = new Schema({
-  url: {
-    type: String,
-    required: true,
-  },
+  docs: [
+    {
+      type: Object,
+      required: true,
+    },
+  ],
   responses: [responseSchema],
   owner: {
     type: Schema.Types.ObjectId,

@@ -6,12 +6,12 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
 
     const doc = await DocModel.findById(id);
 
-    console.log(doc);
+    // console.log(doc);
 
     if (!doc) {
       return Response.json(
         { success: false, message: "No docuement found" },
-        { status: 401 },
+        { status: 401 }
       );
     }
 
@@ -19,12 +19,13 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
       success: true,
       message: "Document fetched",
       data: doc,
+      docs: doc.docs,
     });
   } catch (err) {
     console.log("Error while fetching single doc", err);
     return Response.json(
       { success: false, message: "Error fetching single doc" },
-      { status: 400 },
+      { status: 400 }
     );
   }
 }

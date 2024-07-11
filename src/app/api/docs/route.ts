@@ -1,5 +1,5 @@
 import dbConnect from "@/lib/dbConnect";
-import DocModel from "@/models/Doc.model";
+import DocModel, { SingleDoc } from "@/models/Doc.model";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[[...nextauth]]/options";
 import { User } from "next-auth";
@@ -10,26 +10,26 @@ export async function POST(req: Request) {
   await dbConnect();
   try {
     const {
-      url,
+      docs,
       id,
       name,
       chatInitiate,
-    }: { url: string; id: string; name: string; chatInitiate: boolean } =
+    }: { docs: SingleDoc[]; id: string; name: string; chatInitiate: boolean } =
       await req.json();
     const session = await getServerSession(authOptions);
     const _user: User = session?.user as User;
 
-    //     console.log("cnt", { url, id, name, chatInitiate });
+    //  console.log("cnt", { url, id, name, chatInitiate });
 
     if (!session || !_user) {
       return Response.json(
         { success: false, message: "Please login first" },
-        { status: 401 },
+        { status: 401 }
       );
     }
 
     const newDoc = new DocModel({
-      url,
+      docs,
       _id: new mongoose.Types.ObjectId(id),
       responses: [],
       name,
@@ -43,17 +43,18 @@ export async function POST(req: Request) {
 
     if (user) {
       user?.docsGenerated.push(newDoc.id);
-      //    console.log(user);
+      // console.log(user);
       await user?.save();
 
       return Response.json({
         success: true,
         message: "Document has been uploaded",
+        id: newDoc.id,
       });
     } else {
       return Response.json(
         { success: false, message: "Document uploading failed" },
-        { status: 401 },
+        { status: 401 }
       );
     }
   } catch (err) {
@@ -63,7 +64,7 @@ export async function POST(req: Request) {
         success: false,
         message: "Error occurred while uploading docs",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
@@ -77,7 +78,7 @@ export async function GET(_: Request) {
   if (!session || !_user) {
     return Response.json(
       { succes: false, message: "Please log in first" },
-      { status: 401 },
+      { status: 401 }
     );
   }
 
@@ -95,14 +96,14 @@ export async function GET(_: Request) {
     } else {
       return Response.json(
         { success: false, message: "Couldn't fetch docs" },
-        { status: 401 },
+        { status: 401 }
       );
     }
   } catch (err) {
     console.log("Error while fetching docs", err);
     return Response.json(
       { success: false, message: "Couldn't fetch docs" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

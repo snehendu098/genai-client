@@ -33,7 +33,7 @@ const Page = () => {
       const res = await axios.post("/api/verify", data);
 
       const response = res.data;
-      console.log(response);
+      // console.log(response);
 
       if (!response.success) {
         return toast({

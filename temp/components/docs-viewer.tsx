@@ -17,7 +17,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Input } from "../ui/input";
+import { Input } from "../../src/components/ui/input";
 import mongoose from "mongoose";
 
 const DocsViewer = ({ type }: { type: number }) => {
@@ -57,10 +57,10 @@ const DocsViewer = ({ type }: { type: number }) => {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        },
+        }
       );
 
-      console.log(uploadedRes);
+      // console.log(uploadedRes);
 
       if (uploadedRes.statusText === "OK") {
         const uploaded_data = uploadedRes.data;
@@ -78,7 +78,8 @@ const DocsViewer = ({ type }: { type: number }) => {
         if (res.data.success) {
           return toast({ title: "Document has successfully been saved" });
         } else {
-          console.log(res);
+          // console.log(res);
+          return toast({ title: "Error Occurred while uplloading docs" });
         }
       }
     } catch (err) {
@@ -144,7 +145,7 @@ const DocsViewer = ({ type }: { type: number }) => {
           docs.map(
             (
               value: { name: string; _id: string; url: string },
-              idx: number,
+              idx: number
             ) => (
               <React.Fragment key={idx}>
                 <Link href={`/app${type}/${value._id}`}>
@@ -154,7 +155,7 @@ const DocsViewer = ({ type }: { type: number }) => {
                   </div>
                 </Link>
               </React.Fragment>
-            ),
+            )
           )}
       </div>
     </div>

@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 import axios from "axios";
 import { toast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
+import { SingleDoc } from "@/models/Doc.model";
 
 const DocUpload = ({
   headTxt,
@@ -20,7 +21,7 @@ const DocUpload = ({
   description: string;
   appType: string;
 }) => {
-  const [file, setFile] = useState<File | null>();
+  const [files, setFiles] = useState<FileList | null>();
   const [name, setName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -28,68 +29,75 @@ const DocUpload = ({
   async function handleSubmit() {
     setLoading(true);
     const id = new mongoose.Types.ObjectId().toString();
-    if (!file) {
+    if (!files) {
       return toast({ title: "Please Select the file" });
     }
 
     try {
-      const formData = new FormData();
-      formData.append("pdf_file", file);
-      formData.append("pdf_id", id);
+      let arr: SingleDoc[] = [];
 
-      const uploadedRes = await axios.post(
-        "http://localhost:8000/app1/upload_pdf/",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const formData = new FormData();
+        formData.append("pdf_file", file);
+        formData.append("pdf_id", id);
 
-      console.log(uploadedRes);
-
-      if (uploadedRes.statusText === "OK") {
-        const uploaded_data = uploadedRes.data;
-
-        if (!uploaded_data.pdf_id || !uploaded_data.file_url) {
-          return toast({ title: "Error Occurred", variant: "destructive" });
-        }
-
-        const res = await axios.post("/api/docs/", {
-          id: uploaded_data?.pdf_id,
-          name: name || file.name,
-          url: uploaded_data?.file_url,
-          chatInitiate: appType === "2",
-        });
-
-        if (res.data.success) {
-          toast({ title: "Document has successfully been saved" });
-          if (appType !== "2") {
-            const gen_doc_res = await axios.get(
-              `/api/ai/app${appType}/${uploaded_data?.pdf_id}`
-            );
-            if (!gen_doc_res.data.success) {
-              return toast({
-                title: "Error Occurred",
-                description:
-                  "Please reload the page and open the file from the sidebar to view it",
-                variant: "destructive",
-              });
-            }
+        const uploadedRes = await axios.post(
+          "http://localhost:8000/app1/upload_pdf/",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
           }
-          // data saving to the database
-          return router.push(`/app${appType}/${uploaded_data?.pdf_id}`);
-        } else {
-          console.log(res);
+        );
+
+        // console.log(uploadedRes);
+
+        if (uploadedRes.statusText === "OK") {
+          const uploaded_data = uploadedRes.data;
+
+          if (!uploaded_data.pdf_id || !uploaded_data.file_url) {
+            return toast({ title: "Error Occurred", variant: "destructive" });
+          }
+
+          arr.push({ name: file.name, url: uploaded_data?.file_url });
         }
+      }
+
+      const res = await axios.post("/api/docs/", {
+        name: name,
+        docs: arr,
+        chatInitiate: appType === "2",
+      });
+
+      if (res.data.success) {
+        toast({ title: "Document has successfully been saved" });
+        if (appType !== "2") {
+          const gen_doc_res = await axios.get(
+            `/api/ai/app${appType}/${res?.data?.id}`
+          );
+          if (!gen_doc_res.data.success) {
+            return toast({
+              title: "Error Occurred",
+              description:
+                "Please reload the page and open the file from the sidebar to view it",
+              variant: "destructive",
+            });
+          }
+        }
+        // data saving to the database
+        return router.push(`/app${appType}/${res.data?.id}`);
+      } else {
+        // console.log(res);
+        return toast({ title: "Error Occurred while uplloading docs" });
       }
     } catch (err) {
       console.log(err);
-      return toast({ title: "Error Occurred" });
+      toast({ title: "Error Occurred" });
     } finally {
       setLoading(false);
-      setFile(null);
+      setFiles(null);
     }
   }
 
@@ -100,15 +108,16 @@ const DocUpload = ({
           {headTxt}
         </div>
         <div className="w-full h-full p-8 space-y-4">
-          <p className="text-xl">Uplad a file to get started</p>
+          <p className="text-xl">Upload a file to get started</p>
           <Input
             type="file"
             className="w-1/3"
             accept="application/pdf"
             onChange={(e) => {
-              const file = e.target.files ? e.target.files[0] : null;
-              setFile(file);
+              const file = e.target.files ? e.target.files : null;
+              setFiles(file);
             }}
+            multiple
           />
           <Input
             className="w-1/3"
@@ -116,7 +125,7 @@ const DocUpload = ({
             value={name}
             placeholder="Give a name for the conversation"
           />
-          <Button disabled={loading} onClick={handleSubmit}>
+          <Button disabled={loading || !name} onClick={handleSubmit}>
             Upload
           </Button>
         </div>
