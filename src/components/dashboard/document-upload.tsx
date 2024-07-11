@@ -94,30 +94,35 @@ const DocUpload = ({
   }
 
   return (
-    <ScrollArea className="col-span-5 ">
-      <div className="border-b w-full p-4 font-semibold text-md">{headTxt}</div>
-      <div className="w-full h-full p-8 space-y-4">
-        <p className="text-xl">Uplad a file to get started</p>
-        <Input
-          type="file"
-          className="w-1/3"
-          accept="application/pdf"
-          onChange={(e) => {
-            const file = e.target.files ? e.target.files[0] : null;
-            setFile(file);
-          }}
-        />
-        <Input
-          className="w-1/3"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          placeholder="Give a name for the conversation"
-        />
-        <Button disabled={loading} onClick={handleSubmit}>
-          Upload
-        </Button>
+    <ScrollArea className="col-span-5 h-[calc(100vh-4rem)]">
+      <div className="h-[calc((100vh-4rem)/2)]">
+        <div className="border-b w-full p-4 font-semibold text-md">
+          {headTxt}
+        </div>
+        <div className="w-full h-full p-8 space-y-4">
+          <p className="text-xl">Uplad a file to get started</p>
+          <Input
+            type="file"
+            className="w-1/3"
+            accept="application/pdf"
+            onChange={(e) => {
+              const file = e.target.files ? e.target.files[0] : null;
+              setFile(file);
+            }}
+          />
+          <Input
+            className="w-1/3"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            placeholder="Give a name for the conversation"
+          />
+          <Button disabled={loading} onClick={handleSubmit}>
+            Upload
+          </Button>
+        </div>
       </div>
-      <div className="mt-[10vh] border-t p-8">
+
+      <div className="h-[calc((100vh-4rem)/2)] bg-green-700/15 border-t p-8">
         <h1>{title}</h1>
         <p className="mt-5">{description} </p>
       </div>
