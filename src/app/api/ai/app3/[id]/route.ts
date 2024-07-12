@@ -52,7 +52,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
       );
     }
 
-    // TODO: fetch ai data
+    // TODO: fetch ai data principle checklist
     const data = principlesChecklistDummy;
     // If no response of type 2, generate a new one
     const newResponse = {

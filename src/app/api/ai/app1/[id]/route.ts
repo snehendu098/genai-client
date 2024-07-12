@@ -51,7 +51,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
         { status: 200, headers: { "Content-Type": "application/json" } }
       );
     }
-    // TODO: api req to fetch ai data
+    // TODO: api req to fetch ai data topic assessment
     const data = topicAssessmentDummyData;
 
     // If no response of type 1, generate a new one

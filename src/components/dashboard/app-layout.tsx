@@ -49,7 +49,7 @@ const AppLayouts = ({
                   {docs.map((item: any, idx: number) => (
                     <Badge
                       key={idx}
-                      variant={item === pdfView ? "outline" : "default"}
+                      variant={item !== pdfView ? "outline" : "default"}
                       onClick={() => setPdfView(item)}
                       className="cursor-pointer"
                     >

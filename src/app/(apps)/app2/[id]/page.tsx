@@ -58,7 +58,7 @@ const App = ({ params }: { params: { id: string } }) => {
     try {
       for (let i = rawQuestionArray.length - 1; i >= 0; i--) {
         const item = rawQuestionArray[i];
-        // TODO: ai call
+        // TODO: ai call for chat answer
         const answer =
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, nemo fugiat consequatur sed quos, perspiciatis repellat architecto omnis aspernatur nisi quia et quo error voluptatum asperiores nihil ea vero cum.";
 
@@ -96,7 +96,7 @@ const App = ({ params }: { params: { id: string } }) => {
     try {
       let arr: any = [];
 
-      // TODO: ai call to get answer
+      // TODO: ai call to get chat answer
       const answer =
         "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat. Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.";
 
