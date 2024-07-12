@@ -13,6 +13,7 @@ export interface Doc extends Document {
 export type SingleDoc = {
   url: string;
   name: string;
+  id: mongoose.Types.ObjectId;
 };
 
 const docSchema: Schema<Doc> = new Schema({

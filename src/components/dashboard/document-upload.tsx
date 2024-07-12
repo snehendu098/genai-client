@@ -28,7 +28,7 @@ const DocUpload = ({
 
   async function handleSubmit() {
     setLoading(true);
-    const id = new mongoose.Types.ObjectId().toString();
+
     if (!files) {
       return toast({ title: "Please Select the file" });
     }
@@ -38,10 +38,12 @@ const DocUpload = ({
 
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
+        const id = new mongoose.Types.ObjectId().toString();
         const formData = new FormData();
         formData.append("pdf_file", file);
         formData.append("pdf_id", id);
 
+        // TODO: upload pdf
         const uploadedRes = await axios.post(
           "http://localhost:8000/app1/upload_pdf/",
           formData,
@@ -61,7 +63,11 @@ const DocUpload = ({
             return toast({ title: "Error Occurred", variant: "destructive" });
           }
 
-          arr.push({ name: file.name, url: uploaded_data?.file_url });
+          arr.push({
+            name: file.name,
+            url: uploaded_data?.file_url,
+            id: uploaded_data?.pdf_id,
+          });
         }
       }
 
