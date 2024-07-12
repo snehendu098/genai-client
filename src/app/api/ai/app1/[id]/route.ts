@@ -19,7 +19,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
   if (!session || !user) {
     return new Response(
       JSON.stringify({ success: false, message: "Please login first" }),
-      { status: 401, headers: { "Content-Type": "application/json" } },
+      { status: 401, headers: { "Content-Type": "application/json" } }
     );
   }
 
@@ -31,13 +31,13 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
     if (!doc) {
       return new Response(
         JSON.stringify({ success: false, message: "Document not found" }),
-        { status: 404, headers: { "Content-Type": "application/json" } },
+        { status: 404, headers: { "Content-Type": "application/json" } }
       );
     }
 
     // Check if a response of type 1 already exists
     const existingResponse = doc.responses?.find(
-      (element) => element.type === 1,
+      (element) => element.type === 1
     );
 
     if (existingResponse) {
@@ -48,13 +48,15 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
           message: "Doc response fetched successfully",
           data: JSON.parse(existingResponse.response),
         }),
-        { status: 200, headers: { "Content-Type": "application/json" } },
+        { status: 200, headers: { "Content-Type": "application/json" } }
       );
     }
-    // TODO;api req to fetch ai data
+    // TODO: api req to fetch ai data
+    const data = topicAssessmentDummyData;
+
     // If no response of type 1, generate a new one
     const newResponse = {
-      response: JSON.stringify(topicAssessmentDummyData),
+      response: JSON.stringify(data),
       type: 1,
     } as IResponse;
     doc.responses = doc.responses || [];
@@ -68,14 +70,14 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
         message: "AI response generated successfully",
         data: topicAssessmentDummyData,
       }),
-      { status: 200, headers: { "Content-Type": "application/json" } },
+      { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (err) {
     console.error("Error fetching response", err);
     // Return a 500 error if there was an issue with fetching the response
     return new Response(
       JSON.stringify({ success: false, message: "Error fetching response" }),
-      { status: 500, headers: { "Content-Type": "application/json" } },
+      { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 }
