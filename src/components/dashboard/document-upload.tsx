@@ -137,7 +137,7 @@ const DocUpload = ({
         </div>
       </div>
 
-      <div className="h-[calc((100vh-4rem)/2)] bg-green-700/15 border-t p-8">
+      <div className="h-[calc((100vh-4rem)/2)] bg-primary-foreground border-t p-8">
         <h1>{title}</h1>
         <p className="mt-5">{description} </p>
       </div>
