@@ -45,7 +45,7 @@ const DocUpload = ({
 
         // TODO: upload pdf
         const uploadedRes = await axios.post(
-          "http://localhost:8000/app1/upload_pdf/",
+          `http://localhost:8000/app1/upload_pdf_app${appType}/`,
           formData,
           {
             headers: {
@@ -123,7 +123,7 @@ const DocUpload = ({
               const file = e.target.files ? e.target.files : null;
               setFiles(file);
             }}
-            multiple
+            multiple={appType === "2"}
           />
           <Input
             className="w-1/3"
