@@ -15,7 +15,7 @@ const App = ({ params }: { params: { id: string } }) => {
     try {
       const { data } = await axios.get(`/api/ai/app1/${params.id}`);
       if (!data.success) throw new Error("Error fetching response from AI");
-      setData(data.data);
+      setData(JSON.parse(data.data));
     } catch (error) {
       console.error(error);
       toast({ title: "Error Occurred", variant: "destructive" });

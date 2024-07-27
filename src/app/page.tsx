@@ -12,7 +12,7 @@ export default function Home() {
       <Navbar />
       <div className="w-full flex flex-col py-10 justify-center space-x-4 px-[10%]">
         <h1 className="my-[8%] text-7xl px-2">ESG AI Toolbox</h1>
-        <div className={clsx("grid md:grid-cols-4 gap-4")}>
+        <div className={clsx("grid lg:grid-cols-4 md:grid-cols-2 gap-4")}>
           {cards.map((value, idx) => (
             <React.Fragment key={idx}>
               <GenAiAppCard

@@ -9,6 +9,7 @@ import axios from "axios";
 import { toast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { SingleDoc } from "@/models/Doc.model";
+import { baseUrl } from "@/constants";
 
 const DocUpload = ({
   headTxt,
@@ -45,7 +46,7 @@ const DocUpload = ({
 
         // TODO: upload pdf
         const uploadedRes = await axios.post(
-          `http://localhost:8000/app1/upload_pdf_app${appType}/`,
+          `${baseUrl}/app1/upload_pdf/`,
           formData,
           {
             headers: {

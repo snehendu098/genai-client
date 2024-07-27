@@ -4,6 +4,8 @@ import DocModel from "@/models/Doc.model";
 import { authOptions } from "@/app/api/auth/[[...nextauth]]/options";
 import { principlesChecklistDummy } from "@/constants/dashboard";
 import { IResponse } from "@/models/Response.model";
+import axios from "axios";
+import { baseUrl } from "@/constants";
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
   const docId = params.id;
@@ -52,8 +54,20 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
       );
     }
 
-    // TODO: fetch ai data principle checklist
-    const data = principlesChecklistDummy;
+    // TODO: fetch ai data principle checklist, (check after formatting)
+
+    const formData = new FormData();
+    formData.append("pdf_id", doc.docs[0].id.toString());
+
+    console.log("id", doc.docs[0].id);
+
+    const { data } = await axios.post(`${baseUrl}/app1/esgAssess/`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    console.log("data", data);
     // If no response of type 2, generate a new one
     const newResponse = {
       response: JSON.stringify(data),
@@ -68,7 +82,8 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
       JSON.stringify({
         success: true,
         message: "AI response generated successfully",
-        data: principlesChecklistDummy,
+        // TODO: destructure data for principles checklist
+        data: data,
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );

@@ -5,11 +5,12 @@ import mongoose from "mongoose";
 export async function GET(_: Request, { params }: { params: { id: string } }) {
   try {
     const docId = params.id;
+    console.log("docis", docId);
 
     if (!docId) {
       return new Response(
         JSON.stringify({ success: false, message: "Document ID is required" }),
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -35,13 +36,13 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
         message: "Chat history retrieved",
         chat: arr,
       }),
-      { status: 200 },
+      { status: 200 }
     );
   } catch (err) {
     console.error("Error occurred:", err);
     return new Response(
       JSON.stringify({ success: false, message: "Internal Server Error" }),
-      { status: 500 },
+      { status: 500 }
     );
   }
 }
