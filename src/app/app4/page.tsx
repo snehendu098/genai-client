@@ -1,10 +1,49 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Input } from "@/components/ui/input";
 import Navbar from "@/components/core/home/navbar";
+import { toast } from "@/components/ui/use-toast";
+import axios from "axios";
+import { baseUrl } from "@/constants";
+import { Button } from "@/components/ui/button";
+import { SearchCheckIcon } from "lucide-react";
 
 function BackgroundBeamsDemo() {
+  const [txtInput, setTxtInput] = useState<string>("");
+  const [response, setResponse] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  async function handleResponse() {
+    try {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("query", txtInput);
+
+      const { data } = await axios.post(`${baseUrl}/app1/esgAgent/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const { response } = data;
+      if (!response) {
+        setLoading(false);
+        return toast({
+          title: "Error Occured while getting AI response",
+          variant: "destructive",
+        });
+      }
+
+      setResponse(response);
+    } catch (err) {
+      console.log(err);
+      toast({ title: "Error Occurred", variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="min-h-screen w-full rounded-md bg-neutral-950 relative flex flex-col items-center antialiased">
       <Navbar />
@@ -20,65 +59,33 @@ function BackgroundBeamsDemo() {
           password reset emails, or promotional campaigns, MailJet has got you
           covered.
         </p>
-        <Input
-          type="text"
-          placeholder="hi@manuarora.in"
-          className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500  w-full relative z-10 mt-4  bg-neutral-950 placeholder:text-neutral-700"
-        />
+        <div className="w-full grid grid-cols-6 gap-4 items-center mt-8">
+          <Input
+            type="text"
+            placeholder="hello"
+            className="rounded-lg border border-neutral-800 focus:ring-2 focus:ring-teal-500 col-span-5 relative z-10  bg-neutral-950 placeholder:text-neutral-700"
+            value={txtInput}
+            onChange={(e) => setTxtInput(e.target.value)}
+          />
+          <Button
+            disabled={loading}
+            onClick={handleResponse}
+            className="col-span-1 z-10"
+          >
+            <SearchCheckIcon />
+          </Button>
+        </div>
 
         <div className="mt-10 pb-12">
-          Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit
-          enim labore culpa sint ad nisi Lorem pariatur mollit ex esse
-          exercitation amet. Nisi anim cupidatat excepteur officia. Lorem ipsum
-          dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore
-          culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet.
-          Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud
-          ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est
-          proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea
-          nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis
-          laboris cupidatat officia voluptate. Culpa proident adipisicing id
-          nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua
-          reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate
-          laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa
-          duis.Lorem ipsum dolor sit amet, officia excepteur ex fugiat
-          reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex
-          esse exercitation amet. Nisi anim cupidatat excepteur officia.
-          Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate
-          voluptate dolor minim nulla est proident. Nostrud officia pariatur ut
-          officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit
-          commodo officia dolor Lorem duis laboris cupidatat officia voluptate.
-          Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis
-          officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis
-          sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea
-          consectetur et est culpa et culpa duis. Reprehenderit nostrud nostrud
-          ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est
-          proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea
-          nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis
-          laboris cupidatat officia voluptate. Culpa proident adipisicing id
-          nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua
-          reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate
-          laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa
-          duis. Lorem ipsum dolor sit amet, officia excepteur ex fugiat
-          reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex
-          esse exercitation amet. Nisi anim cupidatat excepteur officia.
-          Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate
-          voluptate dolor minim nulla est proident. Nostrud officia pariatur ut
-          officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit
-          commodo officia dolor Lorem duis laboris cupidatat officia voluptate.
-          Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis
-          officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis
-          sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea
-          consectetur et est culpa et culpa duis. Lorem ipsum dolor sit amet,
-          officia excepteur ex fugiat reprehenderit enim labore culpa sint ad
-          nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim
-          cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem
-          est aliquip amet voluptate voluptate dolor minim nulla est proident.
-          Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt
-          ex occaecat reprehenderit commodo officia dolor Lorem duis laboris
-          cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi
-          laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit
-          commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint
-          cupidatat ullamco ut ea consectetur et est culpa et culpa duis.
+          {!loading && !response && <></>}
+          {loading && !response && (
+            <p className="text-2xl font-semibold">Loading Your reponse...</p>
+          )}
+          {response && (
+            <div className="w-full p-4 bg-primary/15 rounded-lg">
+              <p className="text-lg font-semibold">{response}</p>
+            </div>
+          )}
         </div>
       </div>
       <BackgroundBeams className="fixed" />
