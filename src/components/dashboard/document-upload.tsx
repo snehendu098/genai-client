@@ -10,6 +10,7 @@ import { toast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { SingleDoc } from "@/models/Doc.model";
 import { baseUrl } from "@/constants";
+import { Loader2 } from "lucide-react";
 
 const DocUpload = ({
   headTxt,
@@ -133,7 +134,7 @@ const DocUpload = ({
             placeholder="Give a name for the conversation"
           />
           <Button disabled={loading || !name} onClick={handleSubmit}>
-            Upload
+            {!loading ? "Upload" : <Loader2 className="animate-spin" />}
           </Button>
         </div>
       </div>
