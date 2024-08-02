@@ -5,6 +5,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 import AuthProvider from "@/context/auth-provider";
 import { Toaster } from "@/components/ui/toaster";
 
+// pdfjs dist
+import "@react-pdf-viewer/core/lib/styles/index.css";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

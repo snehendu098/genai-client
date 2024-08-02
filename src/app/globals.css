@@ -65,4 +65,17 @@
   .alert-label {
     @apply text-lg font-semibold;
   }
+
+  .mkd a {
+    @apply font-semibold text-white
+  }
+
+  .mkd p {
+    @apply mt-2
+  }
+
+  .mkd li {
+    @apply mt-4
+  }
+
 }
