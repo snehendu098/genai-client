@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation";
 import { SingleDoc } from "@/models/Doc.model";
 import { baseUrl } from "@/constants";
 import { Loader2 } from "lucide-react";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 
 const DocUpload = ({
   headTxt,
@@ -27,6 +29,8 @@ const DocUpload = ({
   const [name, setName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+
+  const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
   async function handleSubmit() {
     setLoading(true);
