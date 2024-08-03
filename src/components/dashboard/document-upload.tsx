@@ -4,110 +4,111 @@ import React, { useState } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import mongoose from "mongoose";
 import axios from "axios";
 import { toast } from "../ui/use-toast";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { SingleDoc } from "@/models/Doc.model";
 import { baseUrl } from "@/constants";
 import { Loader2 } from "lucide-react";
+import { broadDesc } from "@/constants/dashboard";
 
-const DocUpload = ({
-  headTxt,
-  title,
-  description,
-  appType,
-}: {
+interface BroadDescItem {
+  type: number;
+  content: string;
+}
+
+interface BroadDesc {
+  [key: string]: BroadDescItem[];
+}
+
+interface DocUploadProps {
   headTxt: string;
   title: string;
-  description: string;
   appType: string;
-}) => {
-  const [files, setFiles] = useState<FileList | null>();
+}
+
+const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
+  const [files, setFiles] = useState<FileList | null>(null);
   const [name, setName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
+  const pathname = usePathname();
 
-  async function handleSubmit() {
+  const handleSubmit = async () => {
     setLoading(true);
 
     if (!files) {
-      return toast({ title: "Please Select the file" });
+      toast({ title: "Please select a file" });
+      setLoading(false);
+      return;
     }
 
     try {
-      let arr: SingleDoc[] = [];
+      const arr: SingleDoc[] = [];
 
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const id = new mongoose.Types.ObjectId().toString();
+      for (const file of Array.from(files)) {
         const formData = new FormData();
         formData.append("pdf_file", file);
-        formData.append("pdf_id", id);
+        formData.append("pdf_id", new Date().toISOString());
 
-        // TODO: upload pdf
         const uploadedRes = await axios.post(
           `${baseUrl}/app1/upload_pdf/`,
           formData,
           {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
+            headers: { "Content-Type": "multipart/form-data" },
+          },
         );
 
-        // console.log(uploadedRes);
+        if (uploadedRes.status === 200) {
+          const { pdf_id, file_url } = uploadedRes.data;
 
-        if (uploadedRes.statusText === "OK") {
-          const uploaded_data = uploadedRes.data;
-
-          if (!uploaded_data.pdf_id || !uploaded_data.file_url) {
-            return toast({ title: "Error Occurred", variant: "destructive" });
+          if (!pdf_id || !file_url) {
+            toast({ title: "Error occurred", variant: "destructive" });
+            setLoading(false);
+            return;
           }
 
           arr.push({
             name: file.name,
-            url: uploaded_data?.file_url,
-            id: uploaded_data?.pdf_id,
+            url: file_url,
+            id: pdf_id,
           });
         }
       }
 
       const res = await axios.post("/api/docs/", {
-        name: name,
+        name,
         docs: arr,
         chatInitiate: appType === "2",
       });
 
       if (res.data.success) {
-        toast({ title: "Document has successfully been saved" });
+        toast({ title: "Document has been successfully saved" });
         if (appType !== "2") {
-          const gen_doc_res = await axios.get(
-            `/api/ai/app${appType}/${res?.data?.id}`
+          const genDocRes = await axios.get(
+            `/api/ai/app${appType}/${res.data.id}`,
           );
-          if (!gen_doc_res.data.success) {
-            return toast({
-              title: "Error Occurred",
+          if (!genDocRes.data.success) {
+            toast({
+              title: "Error occurred",
               description:
                 "Please reload the page and open the file from the sidebar to view it",
               variant: "destructive",
             });
           }
         }
-        // data saving to the database
-        return router.push(`/app${appType}/${res.data?.id}`);
+        router.push(`/app${appType}/${res.data.id}`);
       } else {
-        // console.log(res);
-        return toast({ title: "Error Occurred while uplloading docs" });
+        toast({ title: "Error occurred while uploading docs" });
       }
     } catch (err) {
-      console.log(err);
-      toast({ title: "Error Occurred" });
+      console.error(err);
+      toast({ title: "Error occurred" });
     } finally {
       setLoading(false);
       setFiles(null);
     }
-  }
+  };
 
   return (
     <ScrollArea className="col-span-5 h-[calc(100vh-4rem)]">
@@ -121,10 +122,7 @@ const DocUpload = ({
             type="file"
             className="w-1/3"
             accept="application/pdf"
-            onChange={(e) => {
-              const file = e.target.files ? e.target.files : null;
-              setFiles(file);
-            }}
+            onChange={(e) => setFiles(e.target.files)}
             multiple={appType === "2"}
           />
           <Input
@@ -141,7 +139,15 @@ const DocUpload = ({
 
       <div className="h-[calc((100vh-4rem)/2)] bg-primary-foreground border-t p-8">
         <h1>{title}</h1>
-        <p className="mt-5">{description} </p>
+        {pathname &&
+          (broadDesc as BroadDesc)[pathname]?.map((item, index) => (
+            <React.Fragment key={index}>
+              {item.type === 0 && (
+                <p className="text-lg font-semibold my-4">{item.content}</p>
+              )}
+              {item.type === 1 && <p className="">- {item.content}</p>}
+            </React.Fragment>
+          ))}
       </div>
     </ScrollArea>
   );

@@ -56,11 +56,9 @@ function BackgroundBeamsDemo() {
         </h1>
         <p></p>
         <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
-          Welcome to MailJet, the best transactional email service on the web.
-          We provide reliable, scalable, and customizable email solutions for
-          your business. Whether you&apos;re sending order confirmations,
-          password reset emails, or promotional campaigns, MailJet has got you
-          covered.
+          An autonomous ESG agent designed for your ESG research to provide
+          rapid insights and comprehensive reports. It takes care of everything
+          from accurate source gathering to organizing research results
         </p>
         <div className="w-full grid grid-cols-6 gap-4 items-center mt-8">
           <Input
