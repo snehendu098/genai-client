@@ -125,7 +125,7 @@ export const broadDesc = {
     {
       type: 0,
       content:
-        "Company policies are under increasing regulatory scrutiny. Quikable AI identifies gaps in companies' policies, risk analysis, and competitor study:",
+        "Quikable AI evaluates SEBI BRSR reports, annual reports in minutes - useful for Competitor analysis, rating agencies, shareholders, and customers.\n\n\nIt can also identify gaps in companies' policies, risk analysis, and competitor study:",
     },
     {
       type: 1,

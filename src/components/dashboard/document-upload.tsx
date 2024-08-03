@@ -56,7 +56,7 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
           formData,
           {
             headers: { "Content-Type": "multipart/form-data" },
-          },
+          }
         );
 
         if (uploadedRes.status === 200) {
@@ -86,7 +86,7 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
         toast({ title: "Document has been successfully saved" });
         if (appType !== "2") {
           const genDocRes = await axios.get(
-            `/api/ai/app${appType}/${res.data.id}`,
+            `/api/ai/app${appType}/${res.data.id}`
           );
           if (!genDocRes.data.success) {
             toast({
@@ -117,7 +117,7 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
           {headTxt}
         </div>
         <div className="w-full h-full p-8 space-y-4">
-          <p className="text-xl">Upload a file to get started</p>
+          <p className="text-xl font-bold">Upload a file to get started</p>
           <Input
             type="file"
             className="w-1/3"
@@ -138,14 +138,17 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
       </div>
 
       <div className="h-[calc((100vh-4rem)/2)] bg-primary-foreground border-t p-8">
-        <h1>{title}</h1>
+        <h1 className="mb-12">{title}</h1>
         {pathname &&
           (broadDesc as BroadDesc)[pathname]?.map((item, index) => (
             <React.Fragment key={index}>
-              {item.type === 0 && (
-                <p className="text-lg font-semibold my-4">{item.content}</p>
+              {item.type === 0 && index === 0 && (
+                <p className="text-xl font-semibold my-4">{item.content}</p>
               )}
-              {item.type === 1 && <p className="">- {item.content}</p>}
+              {item.type === 0 && index !== 0 && (
+                <p className="text-xl font-semibold mt-8">{item.content}</p>
+              )}
+              {item.type === 1 && <p>- {item.content}</p>}
             </React.Fragment>
           ))}
       </div>

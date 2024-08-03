@@ -19,11 +19,11 @@ const NavBar = () => {
 
   const options = useMemo(
     () => ({
-      "/app1": "ESG Document Summarization",
-      "/app2": "ESG Question Answer",
-      "/app3": "ESG Principles Checklist",
+      "/app1": "ESG Document Summarizer",
+      "/app2": "ESG Questionnaire",
+      "/app3": "ESG Governance",
     }),
-    [],
+    []
   );
 
   const currentOption = useMemo(() => {
@@ -39,7 +39,9 @@ const NavBar = () => {
   return (
     <nav className="top-0 border border-b sticky grid grid-cols-6 right-0 left-0 items-center w-full h-16 backdrop-blur px-10">
       <Link href={"/"}>
-        <h1 className="col-span-2 flex items-center">ESG Ai Toolbox</h1>
+        <p className="text-xl font-bold">
+          <span className="text-primary text-3xl ">Q</span>uikable
+        </p>
       </Link>
       <div className="col-span-4">
         <DropdownMenu>

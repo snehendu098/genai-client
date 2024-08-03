@@ -17,7 +17,7 @@ export default function GenAiAppCard({
 }) {
   return (
     <Link href={`${link}`}>
-      <Card className="h-80 bg-primary-foreground">
+      <Card className="min-h-80 bg-primary-foreground">
         <CardHeader>
           <CardTitle>{title}</CardTitle>
         </CardHeader>

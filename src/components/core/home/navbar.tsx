@@ -14,7 +14,9 @@ const Navbar = () => {
     <nav className="min-w-full border-b h-16  px-10 flex justify-between items-center backdrop-blur-sm z-20">
       <div>
         <Link href={"/"}>
-          <h1>Wisdom AI</h1>
+          <p className="text-xl font-bold">
+            <span className="text-primary text-3xl ">Q</span>uikable
+          </p>
         </Link>
       </div>
       {session.status === "authenticated" ? (

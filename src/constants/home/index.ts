@@ -1,27 +1,29 @@
 export const cards = [
   {
-    name: "ESG Document Summarization	",
+    name: "ESG Document Summarizer",
     description:
-      "Summarize the materility topics from sustainability reports, annual reports.",
+      "Summarize the material topics from sustainability documents, annual reports, and stakeholder documents in minutes",
     link: "/app1",
   },
   {
-    name: "ESG Question Answer	",
+    name: "ESG Questionnaire",
     description:
-      "Auto-populate responses to questions coming from an investors, sharehoders or customers using Generative AI.",
+      "As a Sustainability leader are you inundated with Questions from investors, shareholders, rating agencies, and customers?",
     link: "/app2",
     desc2:
       "Upload list of sustainability, annual reports (1000 pages) and ask questions",
   },
   {
-    name: "ESG Principles checklist",
+    name: "ESG Governance",
     description:
-      "Upload a sustainability report and assess how well the organisation had performed against SDG goals, BRSR principles.",
+      "Evaluate SEBI BRSR reports, sustainability documents in minutes - useful for Competitor analysis, rating agencies, shareholders, and customers.",
     link: "/app3",
   },
   {
     name: "ESG Search Engine",
     description: "Say Goodbye to hours of ESG research from the Internet",
     link: "/app4",
+    desc2:
+      "An autonomous ESG agent designed for your ESG research from Internet",
   },
 ];
