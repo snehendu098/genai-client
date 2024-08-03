@@ -6,6 +6,11 @@ import { Badge } from "../ui/badge";
 import axios from "axios";
 import { toast } from "../ui/use-toast";
 import { SingleDoc } from "@/models/Doc.model";
+import { Plugin, Viewer, Worker } from "@react-pdf-viewer/core";
+import {
+  DefaultLayoutPlugin,
+  defaultLayoutPlugin,
+} from "@react-pdf-viewer/default-layout";
 
 const AppLayouts = ({
   params,
@@ -16,6 +21,8 @@ const AppLayouts = ({
 }) => {
   const [pdfView, setPdfView] = useState<SingleDoc | null>(null);
   const [docs, setDocs] = useState<SingleDoc[]>([]);
+
+  const defaultLayoutPluginInstance: any = defaultLayoutPlugin();
 
   const getDocs = useCallback(async () => {
     try {
@@ -59,10 +66,14 @@ const AppLayouts = ({
                 </div>
                 <ScrollBar orientation="horizontal" />
               </ScrollArea>
-              <iframe
-                src={`https://docs.google.com/gview?url=${pdfView.url}&embedded=true`}
-                className="w-full h-[calc(100%-3rem)]"
-              ></iframe>
+              <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.js">
+                <div className="h-[calc(100vh-4rem)]">
+                  <Viewer
+                    fileUrl={pdfView.url}
+                    plugins={[defaultLayoutPluginInstance]}
+                  />
+                </div>
+              </Worker>
             </React.Fragment>
           )}
         </div>
