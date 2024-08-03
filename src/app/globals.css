@@ -71,7 +71,7 @@
   }
 
   .mkd p {
-    @apply mt-2
+    @apply mt-2 
   }
 
   .mkd li {

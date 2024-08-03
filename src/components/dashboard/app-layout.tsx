@@ -66,10 +66,10 @@ const AppLayouts = ({
                 </div>
                 <ScrollBar orientation="horizontal" />
               </ScrollArea>
-              <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.15.349/build/pdf.worker.js">
+              <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.js">
                 <div className="h-[calc(100vh-4rem)]">
                   <Viewer
-                    fileUrl="http://localhost:8000/public/app/66ac9d1457bcd6153dd23b3b.pdf"
+                    fileUrl={pdfView.url}
                     plugins={[defaultLayoutPluginInstance]}
                   />
                 </div>
