@@ -10,10 +10,7 @@ import React from "react";
 const App = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   return (
-    <AuthLayout
-      title="Continue to quickable"
-      description="Some fancy description over here"
-    >
+    <AuthLayout>
       <Card className="mx-auto w-full max-w-xl">{children}</Card>
       {pathname !== "/verify" && (
         <Button className="fixed right-10 top-10" asChild variant="secondary">
