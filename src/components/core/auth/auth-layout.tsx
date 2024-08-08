@@ -3,12 +3,8 @@ import React from "react";
 
 export default function AuthLayout({
   children,
-  title,
-  description,
 }: Readonly<{
   children: React.ReactNode;
-  title: string;
-  description: string;
 }>) {
   return (
     <>
