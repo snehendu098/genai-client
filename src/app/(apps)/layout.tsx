@@ -1,3 +1,4 @@
+import AuthLayout from "@/components/core/auth/auth-layout";
 import NavBar from "@/components/dashboard/navbar";
 import Sidebar from "@/components/dashboard/sidebar";
 import React from "react";
