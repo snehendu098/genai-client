@@ -1,7 +1,8 @@
 import React from "react";
-import { ScrollArea } from "../ui/scroll-area";
+
 import Link from "next/link";
-import { Menu } from "@/constants/management";
+import { Menu } from "@/constants/management-framework/management";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const Sidebar = ({ appType, menu }: { appType: string; menu: Menu[] }) => {
   return (

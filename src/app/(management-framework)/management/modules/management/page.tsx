@@ -1,11 +1,10 @@
+import HorizontalShow from "@/components/management-framework/modules/horizontal-item-shower";
+import VertialShow from "@/components/management-framework/modules/vertical-table-shower";
 import {
-  supplierGroupDummy,
   suppliersDummy,
   templateDummy,
-} from "@/constants/dummy";
+} from "@/constants/management-framework/dummy";
 import React from "react";
-import HorizontalShow from "@/components/modules/horizontal-item-shower";
-import TableShower from "@/components/modules/vertical-table-shower";
 import { FcFolder } from "react-icons/fc";
 
 const Page = () => {
@@ -18,7 +17,7 @@ const Page = () => {
       />
       {/* Suppliers */}
       <div className="w-full h-[65%]">
-        <TableShower data={suppliersDummy} />
+        <VertialShow data={suppliersDummy} />
       </div>
     </div>
   );

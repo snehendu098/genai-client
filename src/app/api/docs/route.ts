@@ -21,6 +21,7 @@ export async function POST(req: Request) {
 
     //  console.log("cnt", { url, id, name, chatInitiate });
 
+    console.log("user", _user);
     if (!session || !_user) {
       return Response.json(
         { success: false, message: "Please login first" },

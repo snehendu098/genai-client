@@ -8,7 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import { cards } from "@/constants/home";
 import { usePathname } from "next/navigation";

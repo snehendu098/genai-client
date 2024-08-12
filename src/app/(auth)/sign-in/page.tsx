@@ -41,6 +41,7 @@ function App() {
           variant: "destructive",
         });
       } else {
+        console.log(result);
         return toast({
           title: "Login Failed",
           description: result.error,

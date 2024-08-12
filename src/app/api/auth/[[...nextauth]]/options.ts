@@ -17,34 +17,34 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials: any): Promise<any> {
         await dbConnect();
-        try {
-          const user = await UserModel.findOne({
-            $and: [{ email: credentials.email }],
-          });
 
-          if (!user) {
-            throw new Error("No User Found with this email");
-          }
+        const user = await UserModel.findOne({
+          $and: [{ email: credentials.email }],
+        });
 
-          if (!user.isVerified) {
-            throw new Error(
-              "Please Verify Your Account first before login. To get a new token head over to registration and put up your credentials"
-            );
-          }
+        if (!user) {
+          throw new Error("No User Found with this email");
+        }
 
-          const isPassCorrect = await bcrypt.compare(
-            credentials.password,
-            user.password
+        if (!user.isVerified) {
+          throw new Error(
+            "Please Verify Your Account first before login. To get a new token head over to registration and put up your credentials"
           );
+        }
 
-          if (isPassCorrect) {
-            return user;
-          } else {
-            throw new Error("Incorrect Password");
-          }
-        } catch (err) {
-          console.log(err);
-          throw new Error("Error occurred");
+        if (!user.isApproved) {
+          throw new Error("Get approved to get started");
+        }
+
+        const isPassCorrect = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+
+        if (isPassCorrect) {
+          return user;
+        } else {
+          throw new Error("Incorrect Password");
         }
       },
     }),
