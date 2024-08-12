@@ -9,6 +9,8 @@ export interface User extends Document {
   verifyCodeExpiry: Date;
   docsGenerated: mongoose.Types.ObjectId[];
   isVerified: boolean;
+  isApproved: boolean;
+  supplierIds: mongoose.Types.ObjectId[];
 }
 
 const userSchema: Schema<User> = new Schema({
@@ -27,6 +29,8 @@ const userSchema: Schema<User> = new Schema({
   verifyCodeExpiry: Date,
   docsGenerated: [{ type: Schema.Types.ObjectId, ref: "Doc" }],
   isVerified: { type: Boolean, default: false },
+  supplierIds: [{ type: Schema.Types.ObjectId, ref: "Supplier" }],
+  isApproved: { type: Boolean, default: false },
 });
 
 const UserModel: Model<User> =

@@ -1,4 +1,4 @@
-import DocUpload from "@/components/dashboard/document-upload";
+import DocUpload from "@/components/ai-toolbox/dashboard/document-upload";
 import React from "react";
 
 const App = () => {

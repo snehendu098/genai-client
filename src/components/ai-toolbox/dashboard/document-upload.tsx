@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { ScrollArea } from "../ui/scroll-area";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { ScrollArea } from "../../ui/scroll-area";
+import { Input } from "../../ui/input";
+import { Button } from "../../ui/button";
 import axios from "axios";
-import { toast } from "../ui/use-toast";
+import { toast } from "../../ui/use-toast";
 import { usePathname, useRouter } from "next/navigation";
-import { SingleDoc } from "@/models/Doc.model";
+import { SingleDoc } from "@/models/ai-toolbox/Doc.model";
 import { baseUrl } from "@/constants";
 import { Loader2 } from "lucide-react";
 import { broadDesc } from "@/constants/dashboard";
@@ -101,12 +101,16 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
       } else {
         toast({ title: "Error occurred while uploading docs" });
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      toast({ title: "Error occurred" });
+      toast({
+        title: "Error occurred",
+        description: err?.response?.data?.message,
+      });
     } finally {
       setLoading(false);
       setFiles(null);
+      setName("");
     }
   };
 

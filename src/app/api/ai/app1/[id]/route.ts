@@ -1,9 +1,9 @@
 import dbConnect from "@/lib/dbConnect";
 import { getServerSession, User } from "next-auth";
-import DocModel from "@/models/Doc.model";
+import DocModel from "@/models/ai-toolbox/Doc.model";
 import { authOptions } from "@/app/api/auth/[[...nextauth]]/options";
 import { topicAssessmentDummyData } from "@/constants/dashboard";
-import { IResponse } from "@/models/Response.model";
+import { IResponse } from "@/models/ai-toolbox/Response.model";
 import axios from "axios";
 import { baseUrl } from "@/constants";
 
@@ -22,6 +22,16 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
     return new Response(
       JSON.stringify({ success: false, message: "Please login first" }),
       { status: 401, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  if (!user.isApproved) {
+    return Response.json(
+      {
+        success: false,
+        message: "Approval Pending",
+      },
+      { status: 401 }
     );
   }
 

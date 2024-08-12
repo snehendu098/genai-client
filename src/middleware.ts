@@ -39,5 +39,7 @@ export const config = {
     "/verify/:path*",
     "/app3",
     "/app4",
+    "/api/ai/:function",
+    "/api/docs/:function",
   ],
 };

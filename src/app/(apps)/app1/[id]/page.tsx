@@ -1,6 +1,6 @@
 "use client";
 
-import AppLayouts from "@/components/dashboard/app-layout";
+import AppLayouts from "@/components/ai-toolbox/dashboard/app-layout";
 import { toast } from "@/components/ui/use-toast";
 import { TopicAssessment } from "@/constants/dashboard";
 import axios from "axios";
@@ -12,13 +12,19 @@ const App = ({ params }: { params: { id: string } }) => {
 
   const getResponse = useCallback(async () => {
     setLoading(true);
+
     try {
       const { data } = await axios.get(`/api/ai/app1/${params.id}`);
       if (!data.success) throw new Error("Error fetching response from AI");
       setData(JSON.parse(data.data));
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      toast({ title: "Error Occurred", variant: "destructive" });
+
+      toast({
+        title: "Error Occurred",
+        variant: "destructive",
+        description: error?.response?.data?.message,
+      });
     } finally {
       setLoading(false);
     }

@@ -1,9 +1,9 @@
 import dbConnect from "@/lib/dbConnect";
 import { getServerSession, User } from "next-auth";
-import DocModel from "@/models/Doc.model";
+import DocModel from "@/models/ai-toolbox/Doc.model";
 import { authOptions } from "@/app/api/auth/[[...nextauth]]/options";
 import { principlesChecklistDummy } from "@/constants/dashboard";
-import { IResponse } from "@/models/Response.model";
+import { IResponse } from "@/models/ai-toolbox/Response.model";
 import axios from "axios";
 import { baseUrl } from "@/constants";
 

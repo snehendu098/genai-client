@@ -19,29 +19,29 @@ const NavBar = () => {
 
   const options = useMemo(
     () => ({
-      "/app1": "ESG Document Summarizer",
-      "/app2": "ESG Questionnaire",
-      "/app3": "ESG Governance",
+      "/management": "Data Management",
+      "/analytics": "Data Analytics",
+      "/ai": "AI Module",
     }),
     []
   );
 
   const currentOption = useMemo(() => {
-    if (urlPath.includes("/app1")) {
-      return "/app1";
-    } else if (urlPath.includes("/app2")) {
-      return "/app2";
+    if (urlPath.includes("/management")) {
+      return "/management";
+    } else if (urlPath.includes("/analytics")) {
+      return "/analytics";
     } else {
-      return "/app3";
+      return "/ai";
     }
   }, [urlPath]);
 
   return (
     <nav className="top-0 border border-b sticky grid grid-cols-6 right-0 left-0 items-center w-full h-16 backdrop-blur px-10">
       <Link href={"/"}>
-        <p className="text-xl font-bold">
-          <span className="text-primary text-3xl ">Q</span>uikable
-        </p>
+        <h1 className="col-span-2 flex items-center">
+          Wisdom <span className="text-primary">AI</span>
+        </h1>
       </Link>
       <div className="col-span-4">
         <DropdownMenu>
@@ -52,7 +52,7 @@ const NavBar = () => {
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuLabel>ESG Ai Toolbox</DropdownMenuLabel>
+            <DropdownMenuLabel>Wisdom Ai</DropdownMenuLabel>
             <DropdownMenuSeparator />
             {cards.map((item, idx) => (
               <DropdownMenuItem asChild key={idx}>

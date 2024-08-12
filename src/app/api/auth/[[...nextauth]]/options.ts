@@ -28,13 +28,13 @@ export const authOptions: NextAuthOptions = {
 
           if (!user.isVerified) {
             throw new Error(
-              "Please Verify Your Account first before login. To get a new token head over to registration and put up your credentials",
+              "Please Verify Your Account first before login. To get a new token head over to registration and put up your credentials"
             );
           }
 
           const isPassCorrect = await bcrypt.compare(
             credentials.password,
-            user.password,
+            user.password
           );
 
           if (isPassCorrect) {
@@ -62,6 +62,7 @@ export const authOptions: NextAuthOptions = {
         session.user._id = token._id;
         session.user.isVerified = token.isVerified;
         session.user.email = token.email;
+        session.user.isApproved = token.isApproved;
       }
 
       return session;
@@ -71,6 +72,7 @@ export const authOptions: NextAuthOptions = {
         token._id = user._id?.toString();
         token.isVerified = user.isVerified;
         token.email = user.email;
+        token.isApproved = user.isApproved;
       }
 
       return token;

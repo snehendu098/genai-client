@@ -19,7 +19,7 @@ export async function POST(req: Request) {
           success: false,
           message: "Your email is already verified, please login",
         },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -42,6 +42,7 @@ export async function POST(req: Request) {
         verifyCode,
         verifyCodeExpiry: expiryDate,
         docsGenerated: [],
+        supplierIds: [],
       });
 
       await newUser.save();
@@ -56,7 +57,7 @@ export async function POST(req: Request) {
           success: false,
           message: emailResponse.message,
         },
-        { status: 500 },
+        { status: 500 }
       );
     }
     return Response.json(
@@ -65,7 +66,7 @@ export async function POST(req: Request) {
         message:
           "User created successfully, please check your email for verification code. It expires in 1 hour",
       },
-      { status: 201 },
+      { status: 201 }
     );
   } catch (error) {
     console.error("Error registering user", error);
@@ -74,7 +75,7 @@ export async function POST(req: Request) {
         success: false,
         message: "Error registering user",
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

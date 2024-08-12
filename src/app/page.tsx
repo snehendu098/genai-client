@@ -1,7 +1,7 @@
 "use client";
 
-import GenAiAppCard from "@/components/core/home/genai-app-cards";
-import Navbar from "@/components/core/home/navbar";
+import GenAiAppCard from "@/components/ai-toolbox/core/home/genai-app-cards";
+import Navbar from "@/components/ai-toolbox/core/home/navbar";
 import { cards } from "@/constants/home";
 import clsx from "clsx";
 import React from "react";

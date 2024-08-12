@@ -1,6 +1,6 @@
 "use client";
 
-import AuthLayout from "@/components/core/auth/auth-layout";
+import AuthLayout from "@/components/ai-toolbox/core/auth/auth-layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";

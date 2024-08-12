@@ -15,8 +15,8 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "@/components/ui/use-toast";
 import axios from "axios";
-import ChatShow from "@/components/dashboard/chat-show";
-import DocModel from "@/models/Doc.model";
+import ChatShow from "@/components/ai-toolbox/dashboard/chat-show";
+import DocModel from "@/models/ai-toolbox/Doc.model";
 import { baseUrl } from "@/constants";
 import { headers } from "next/headers";
 

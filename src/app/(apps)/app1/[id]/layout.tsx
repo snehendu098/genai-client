@@ -1,4 +1,4 @@
-import AppLayouts from "@/components/dashboard/app-layout";
+import AppLayouts from "@/components/ai-toolbox/dashboard/app-layout";
 import React from "react";
 
 const App = ({

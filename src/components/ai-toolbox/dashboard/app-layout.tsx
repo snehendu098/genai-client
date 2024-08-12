@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { Badge } from "../ui/badge";
+import { ScrollArea, ScrollBar } from "../../ui/scroll-area";
+import { Badge } from "../../ui/badge";
 import axios from "axios";
-import { toast } from "../ui/use-toast";
-import { SingleDoc } from "@/models/Doc.model";
+import { toast } from "../../ui/use-toast";
+import { SingleDoc } from "@/models/ai-toolbox/Doc.model";
 import { Plugin, Viewer, Worker } from "@react-pdf-viewer/core";
 import {
   DefaultLayoutPlugin,

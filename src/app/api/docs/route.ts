@@ -1,5 +1,5 @@
 import dbConnect from "@/lib/dbConnect";
-import DocModel, { SingleDoc } from "@/models/Doc.model";
+import DocModel, { SingleDoc } from "@/models/ai-toolbox/Doc.model";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[[...nextauth]]/options";
 import { User } from "next-auth";
@@ -24,6 +24,16 @@ export async function POST(req: Request) {
     if (!session || !_user) {
       return Response.json(
         { success: false, message: "Please login first" },
+        { status: 401 }
+      );
+    }
+
+    if (!_user.isApproved) {
+      return Response.json(
+        {
+          success: false,
+          message: "Approval Pending",
+        },
         { status: 401 }
       );
     }

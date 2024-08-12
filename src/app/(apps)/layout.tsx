@@ -1,4 +1,4 @@
-import NavBar from "@/components/dashboard/navbar";
+import NavBar from "@/components/ai-toolbox/dashboard/navbar";
 import React from "react";
 
 const App = ({ children }: { children: React.ReactNode }) => {

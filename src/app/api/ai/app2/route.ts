@@ -1,6 +1,8 @@
-import ChatModel from "@/models/Chat.model";
-import DocModel from "@/models/Doc.model";
+import ChatModel from "@/models/ai-toolbox/Chat.model";
+import DocModel from "@/models/ai-toolbox/Doc.model";
 import mongoose from "mongoose";
+import { getServerSession, User } from "next-auth";
+import { authOptions } from "../../auth/[[...nextauth]]/options";
 
 export async function POST(req: Request) {
   try {
@@ -9,6 +11,26 @@ export async function POST(req: Request) {
       question,
       answer,
     }: { docId: string; question: string; answer: string } = await req.json();
+
+    const session = await getServerSession(authOptions);
+    const _user: User = session?.user as User;
+
+    if (!session || !_user) {
+      return Response.json(
+        { success: false, message: "Please login first" },
+        { status: 401 }
+      );
+    }
+
+    if (!_user.isApproved) {
+      return Response.json(
+        {
+          success: false,
+          message: "Approval Pending",
+        },
+        { status: 401 }
+      );
+    }
 
     if (!docId || !question || !answer) {
       return new Response(

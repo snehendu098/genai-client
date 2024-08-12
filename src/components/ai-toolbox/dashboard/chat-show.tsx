@@ -2,9 +2,9 @@
 
 import { cn } from "@/lib/utils";
 import React, { useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
-import { toast } from "../ui/use-toast";
+import { toast } from "../../ui/use-toast";
 import axios from "axios";
 
 const ChatShow = ({

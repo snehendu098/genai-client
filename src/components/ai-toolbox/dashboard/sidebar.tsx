@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ScrollArea } from "../ui/scroll-area";
+import { ScrollArea } from "../../ui/scroll-area";
 import axios from "axios";
-import { toast } from "../ui/use-toast";
-import { Button } from "../ui/button";
+import { toast } from "../../ui/use-toast";
+import { Button } from "../../ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { IChat } from "@/models/Chat.model";
-import { Doc } from "@/models/Doc.model";
+import { IChat } from "@/models/ai-toolbox/Chat.model";
+import { Doc } from "@/models/ai-toolbox/Doc.model";
 
 const Sidebar = ({
   appType,
@@ -57,7 +57,7 @@ const Sidebar = ({
           .filter((i: Doc) =>
             appType !== 2
               ? i.responses.some((item: any) => item.type === appType)
-              : i.chatInitiate,
+              : i.chatInitiate
           )
           .map((item: any, idx: number) => (
             <Link key={idx} href={`/app${appType}/${item._id}`}>

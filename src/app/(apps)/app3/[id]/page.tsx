@@ -1,6 +1,6 @@
 "use client";
 
-import TableDataShow from "@/components/dashboard/table-shower";
+import TableDataShow from "@/components/ai-toolbox/dashboard/table-shower";
 import { toast } from "@/components/ui/use-toast";
 import { PrincipleChecklist } from "@/constants/dashboard";
 import axios from "axios";
