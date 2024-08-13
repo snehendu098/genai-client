@@ -60,6 +60,7 @@ interface IndicatorGRIAndAssessment {
   ind: string;
   gri: string;
   assessment: string;
+  pages: number[];
 }
 
 export interface PrincipleChecklist {
@@ -68,14 +69,14 @@ export interface PrincipleChecklist {
   indicator_gri_and_assessment: IndicatorGRIAndAssessment[];
 }
 
-export const principlesChecklistDummy: PrincipleChecklist[] = [
+export const principlesChecklistDummy = [
   {
     brsr: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     sdg: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
     indicator_gri_and_assessment: [
-      { ind: "lorem1", gri: "lorem2", assessment: "lorem3" },
-      { ind: "lorem1", gri: "lorem2", assessment: "lorem3" },
-      { ind: "lorem1", gri: "lorem2", assessment: "lorem3" },
+      { ind: "lorem1", gri: "lorem2", assessment: "lorem3", pages: [1, 2] },
+      { ind: "lorem1", gri: "lorem2", assessment: "lorem3", pages: [1, 2] },
+      { ind: "lorem1", gri: "lorem2", assessment: "lorem3", pages: [1, 2] },
     ],
   },
   {

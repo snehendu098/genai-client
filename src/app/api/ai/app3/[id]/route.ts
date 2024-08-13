@@ -58,6 +58,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
 
     const formData = new FormData();
     formData.append("pdf_id", doc.docs[0].id.toString());
+    formData.append("user_id", user._id || "");
 
     console.log("id", doc.docs[0].id);
 

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Table,
@@ -7,6 +9,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { PrincipleChecklist } from "@/constants/dashboard";
+import { usePageContext } from "@/context/pdf-page-provider";
 
 const TableDataShow = ({
   key,
@@ -14,9 +18,11 @@ const TableDataShow = ({
   idx,
 }: {
   key: any;
-  value: any;
+  value: PrincipleChecklist;
   idx: number;
 }) => {
+  const { setPage } = usePageContext();
+
   return (
     <div
       className="flex flex-col my-4 p-4 py-6 rounded-md bg-yellow-950/15"
@@ -33,19 +39,29 @@ const TableDataShow = ({
             <TableHead>Indicators</TableHead>
             <TableHead>Gri Mapping</TableHead>
             <TableHead>Assessment</TableHead>
+            <TableHead>Pages</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {value.indicator_gri_and_assessment.length > 0 &&
-            value.indicator_gri_and_assessment.map(
-              (value: any, idx: number) => (
-                <TableRow key={idx}>
-                  <TableCell>{value.ind}</TableCell>
-                  <TableCell>{value.gri}</TableCell>
-                  <TableCell>{value.assessment}</TableCell>
-                </TableRow>
-              ),
-            )}
+            value.indicator_gri_and_assessment.map((value, idx: number) => (
+              <TableRow key={idx}>
+                <TableCell>{value.ind}</TableCell>
+                <TableCell>{value.gri}</TableCell>
+                <TableCell>{value.assessment}</TableCell>
+                <TableCell className="flex space-x-2">
+                  {(value.pages &&
+                    value.pages.map((item) => (
+                      <p
+                        onClick={() => setPage(item - 1)}
+                        className="cursor-pointer hover:text-blue-400"
+                      >
+                        {item}
+                      </p>
+                    ))) || <p>0</p>}
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </div>
