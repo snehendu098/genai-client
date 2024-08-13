@@ -1,14 +1,19 @@
 "use client";
-
-import AppLayouts from "@/components/ai-toolbox/dashboard/app-layout";
+import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
-import { TopicAssessment } from "@/constants/dashboard";
+import {
+  TopicAssessment,
+  topicAssessmentDummyData,
+} from "@/constants/dashboard";
+import { usePageContext } from "@/context/pdf-page-provider";
 import axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
 
 const App = ({ params }: { params: { id: string } }) => {
   const [apiData, setData] = useState<TopicAssessment | null>(null);
+  // const apiData = topicAssessmentDummyData;
   const [loading, setLoading] = useState<boolean>(false);
+  const { setPage } = usePageContext();
 
   const getResponse = useCallback(async () => {
     setLoading(true);
@@ -41,13 +46,14 @@ const App = ({ params }: { params: { id: string } }) => {
       Object.keys(apiData).map((key, idx) => (
         <div key={idx}>
           <h1>{key}</h1>
+
           {Object.keys(apiData[key]).map((subhead, subIdx) => (
             <div
               key={subIdx}
               className="flex flex-col p-8 bg-yellow-950/15 rounded-md shadow-white my-4"
             >
               <p className="text-xl">{subhead}</p>
-              {apiData[key][subhead].map((point, pointIdx) => (
+              {apiData[key][subhead]["content"].map((point, pointIdx) => (
                 <p
                   key={pointIdx}
                   className="text-sm my-2 text-muted-foreground"
@@ -55,6 +61,22 @@ const App = ({ params }: { params: { id: string } }) => {
                   {point}
                 </p>
               ))}
+              {apiData[key][subhead]["pages"] &&
+                apiData[key][subhead]["pages"].length > 0 && (
+                  <div className="flex space-x-4 mt-3">
+                    {apiData[key][subhead]["pages"].map((item, idx) => (
+                      <div
+                        className="p-2 px-4 cursor-pointer bg-yellow-200/15 hover:bg-yellow-200/40 "
+                        key={idx}
+                        onClick={() => {
+                          setPage(item - 1);
+                        }}
+                      >
+                        Page: {item}
+                      </div>
+                    ))}
+                  </div>
+                )}
             </div>
           ))}
         </div>

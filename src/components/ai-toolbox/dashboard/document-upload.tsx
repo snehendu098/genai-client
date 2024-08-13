@@ -11,6 +11,8 @@ import { SingleDoc } from "@/models/ai-toolbox/Doc.model";
 import { baseUrl } from "@/constants";
 import { Loader2 } from "lucide-react";
 import { broadDesc } from "@/constants/dashboard";
+import { useSession } from "next-auth/react";
+import { v4 } from "uuid";
 
 interface BroadDescItem {
   type: number;
@@ -34,6 +36,8 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const { data: session } = useSession();
+
   const handleSubmit = async () => {
     setLoading(true);
 
@@ -49,7 +53,8 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
       for (const file of Array.from(files)) {
         const formData = new FormData();
         formData.append("pdf_file", file);
-        formData.append("pdf_id", new Date().toISOString());
+        formData.append("pdf_id", v4());
+        formData.append("user_id", session?.user._id || "");
 
         const uploadedRes = await axios.post(
           `${baseUrl}/app1/upload_pdf/`,

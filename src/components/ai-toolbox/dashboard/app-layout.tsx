@@ -6,11 +6,10 @@ import { Badge } from "../../ui/badge";
 import axios from "axios";
 import { toast } from "../../ui/use-toast";
 import { SingleDoc } from "@/models/ai-toolbox/Doc.model";
-import { Plugin, Viewer, Worker } from "@react-pdf-viewer/core";
-import {
-  DefaultLayoutPlugin,
-  defaultLayoutPlugin,
-} from "@react-pdf-viewer/default-layout";
+import { Viewer, Worker } from "@react-pdf-viewer/core";
+import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
+import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
+import { usePageContext } from "@/context/pdf-page-provider";
 
 const AppLayouts = ({
   params,
@@ -22,6 +21,9 @@ const AppLayouts = ({
   const [pdfView, setPdfView] = useState<SingleDoc | null>(null);
   const [docs, setDocs] = useState<SingleDoc[]>([]);
 
+  const { page } = usePageContext();
+
+  const pageNavigationPluginInstance = pageNavigationPlugin();
   const defaultLayoutPluginInstance: any = defaultLayoutPlugin();
 
   const getDocs = useCallback(async () => {
@@ -41,9 +43,9 @@ const AppLayouts = ({
     getDocs();
   }, [getDocs]);
 
-  // useEffect(() => {
-  //   console.log("pv", pdfView);
-  // }, [pdfView]);
+  useEffect(() => {
+    pageNavigationPluginInstance.jumpToPage(page);
+  }, [page]);
 
   return (
     <div className="h-full w-full col-span-5">
@@ -67,10 +69,13 @@ const AppLayouts = ({
                 <ScrollBar orientation="horizontal" />
               </ScrollArea>
               <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.js">
-                <div className="h-[calc(100vh-4rem)]">
+                <div className="h-[calc(100vh-7rem)]">
                   <Viewer
                     fileUrl={pdfView.url}
-                    plugins={[defaultLayoutPluginInstance]}
+                    plugins={[
+                      defaultLayoutPluginInstance,
+                      pageNavigationPluginInstance,
+                    ]}
                   />
                 </div>
               </Worker>
