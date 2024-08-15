@@ -25,18 +25,23 @@ export default function AuthLayout({
             </p>
           </div>
           <div className="relative z-20 mt-auto">
-            <blockquote className="space-y-2">
-              <p className="text-neutral-300">
-                Our innovative tool is designed to significantly accelerate the
-                process of uncovering crucial{" "}
-                <span className="text-primary">ESG key insights</span>. By
-                leveraging advanced algorithms and data analytics, we enable
-                users to swiftly identify and analyze the most relevant{" "}
-                <span className="text-primary">environmental</span>,{" "}
-                <span className="text-primary">social</span>, and{" "}
-                <span className="text-primary">governance</span> factors,
-                empowering them to make informed decisions with greater
-                efficiency and confidence.
+            <blockquote className="space-y-2 text-neutral-300">
+              <p>
+                Revolutionizing{" "}
+                <span className="text-primary">ESG data collection</span> and{" "}
+                <span className="text-primary">reporting</span> with{" "}
+                <span className="text-primary">AI</span> to streamline tedious
+                tasks, saving time and resources. Quikable{" "}
+                <span className="text-primary">AI toolkit</span> enables
+                sustainability teams to gather{" "}
+                <span className="text-primary">ESG data</span> faster, &
+                automate <span className="text-primary">ESG assessments</span>{" "}
+                and seamless reporting.
+              </p>
+              <p>
+                Our <span className="text-primary">AI tool</span> is designed to
+                accelerate <span className="text-primary">ESG reporting</span>{" "}
+                from cumbersome excel spreadsheets to AI-driven precision.
               </p>
             </blockquote>
           </div>
