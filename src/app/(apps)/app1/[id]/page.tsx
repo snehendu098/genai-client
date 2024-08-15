@@ -7,6 +7,7 @@ import {
 } from "@/constants/dashboard";
 import { usePageContext } from "@/context/pdf-page-provider";
 import axios from "axios";
+import { CopyIcon } from "lucide-react";
 import React, { useEffect, useState, useCallback } from "react";
 
 const App = ({ params }: { params: { id: string } }) => {
@@ -39,13 +40,36 @@ const App = ({ params }: { params: { id: string } }) => {
     getResponse();
   }, [getResponse]);
 
+  const handleCopy = (key: any) => {
+    // Gather all text from the section
+    if (apiData) {
+      const sectionText = Object.keys(apiData[key])
+        .map((subhead) => {
+          const pointsText = apiData[key][subhead]["content"].join("\n");
+          return `${subhead}\n${pointsText}`;
+        })
+        .join("\n\n");
+
+      // Copy to clipboard
+      navigator.clipboard.writeText(sectionText).then(() => {
+        alert("Text copied to clipboard!");
+      });
+    }
+  };
+
   return loading ? (
     <h1>Api Response is loading</h1>
   ) : (
     apiData &&
       Object.keys(apiData).map((key, idx) => (
-        <div key={idx}>
-          <h1>{key}</h1>
+        <div className="relative" key={idx}>
+          <div className="flex w-full items-center">
+            <h1>{key}</h1>
+            <CopyIcon
+              className="ml-6 cursor-pointer w-4 h-4 hover:text-blue-600"
+              onClick={() => handleCopy(key)}
+            />
+          </div>
 
           {Object.keys(apiData[key]).map((subhead, subIdx) => (
             <div
