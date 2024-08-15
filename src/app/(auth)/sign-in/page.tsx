@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -23,8 +24,11 @@ function App() {
     password: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     const result = await signIn("credentials", {
       email: data.email,
       password: data.password,
@@ -35,6 +39,7 @@ function App() {
 
     if (result?.error) {
       if (result.error === "CredentialsSignin") {
+        setLoading(false);
         return toast({
           title: "Login Failed",
           description: "Incorrect username or password",
@@ -53,6 +58,7 @@ function App() {
     if (result?.url) {
       router.replace("/");
     }
+    setLoading(false);
   };
 
   return (
@@ -100,7 +106,11 @@ function App() {
             </span>
           </div>
           <Button type="submit" className="w-full">
-            Sign In
+            {!loading ? (
+              "Sign In"
+            ) : (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            )}
           </Button>
         </form>
       </CardContent>
