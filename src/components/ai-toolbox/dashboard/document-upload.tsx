@@ -53,6 +53,7 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
   const { data: session } = useSession();
 
   const handleFileUpload = async () => {
+    setLoading(true);
     try {
       if (!files) {
         toast({ title: "Please select a file" });
@@ -220,6 +221,7 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
               <PlusIcon />
             </div>
           </div>
+          {/* Uploader and  */}
           <ScrollArea className="h-[calc(100%-4rem)] p-2">
             {!uploader ? (
               <>
@@ -284,8 +286,16 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
                       onChange={(e) => setFiles(e.target.files)}
                       multiple
                     />
-                    <Button onClick={handleFileUpload} className="mt-6">
-                      Upload
+                    <Button
+                      disabled={loading}
+                      onClick={handleFileUpload}
+                      className="mt-6"
+                    >
+                      {loading ? (
+                        <Loader2 className="animate-spin" />
+                      ) : (
+                        "Upload"
+                      )}
                     </Button>
                   </CardContent>
                 </Card>
