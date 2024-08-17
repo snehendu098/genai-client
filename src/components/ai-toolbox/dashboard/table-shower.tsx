@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table";
 import { PrincipleChecklist } from "@/constants/dashboard";
 import { usePageContext } from "@/context/pdf-page-provider";
+import { Button } from "@/components/ui/button";
 
 const TableDataShow = ({
   key,
@@ -39,7 +40,7 @@ const TableDataShow = ({
             <TableHead>Indicators</TableHead>
             <TableHead>Gri Mapping</TableHead>
             <TableHead>Assessment</TableHead>
-            <TableHead>Pages</TableHead>
+            <TableHead>Page No.</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -52,12 +53,12 @@ const TableDataShow = ({
                 <TableCell className="flex space-x-2">
                   {(value.pages &&
                     value.pages.map((item) => (
-                      <p
+                      <Button
                         onClick={() => setPage(item - 1)}
-                        className="cursor-pointer hover:text-blue-400"
+                        className="cursor-pointer"
                       >
                         {item}
-                      </p>
+                      </Button>
                     ))) || <p>0</p>}
                 </TableCell>
               </TableRow>

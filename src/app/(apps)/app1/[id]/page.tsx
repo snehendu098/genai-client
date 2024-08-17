@@ -66,7 +66,7 @@ const App = ({ params }: { params: { id: string } }) => {
           <div className="flex w-full items-center">
             <h1>{key}</h1>
             <CopyIcon
-              className="ml-6 cursor-pointer w-4 h-4 hover:text-blue-600"
+              className="ml-6 cursor-pointer w-8 h-8 hover:text-blue-600 text-yellow-500 "
               onClick={() => handleCopy(key)}
             />
           </div>
