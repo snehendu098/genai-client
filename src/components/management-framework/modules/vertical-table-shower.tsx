@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-
 import Link from "next/link";
-
 import {
   Table,
   TableBody,
@@ -15,15 +13,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  BinaryIcon,
-  Delete,
-  DeleteIcon,
-  Edit2Icon,
-  LucideDelete,
-} from "lucide-react";
 import { MdDelete, MdModeEdit } from "react-icons/md";
-import { Checkbox } from "@/components/ui/checkbox";
 
 const VertialShow = ({
   data,
