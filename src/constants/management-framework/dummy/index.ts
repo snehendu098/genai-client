@@ -1,5 +1,5 @@
 export type Supplier = {
-  __id: number;
+  _id: number;
   username: string;
   password: string;
   owner: string;
@@ -276,7 +276,7 @@ export const templateDummy = [
 
 export const suppliersDummy: Supplier[] = [
   {
-    __id: 1,
+    _id: 1,
     username: "dummy1",
     password: "auhfuhsh&&**((*EYA*E*EYFE*HU@)$*$jjdnuhf",
     owner: "owner1",
@@ -284,7 +284,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Hello",
   },
   {
-    __id: 2,
+    _id: 2,
     username: "dummy2",
     password: "sdf$%*&^%#@JDjd82737HSJHsd9(*&^ksj",
     owner: "owner2",
@@ -292,7 +292,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "World",
   },
   {
-    __id: 3,
+    _id: 3,
     username: "dummy3",
     password: "2387sdf*&&*(SDFsdf93728jdJKJkjd8*(*",
     owner: "owner3",
@@ -300,7 +300,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Test",
   },
   {
-    __id: 4,
+    _id: 4,
     username: "dummy4",
     password: "asf7*(&^%^98SDFsdjSDF*&(&sdskJDF8sd",
     owner: "owner4",
@@ -308,7 +308,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Example",
   },
   {
-    __id: 5,
+    _id: 5,
     username: "dummy5",
     password: "iu98&*()*^&dfhHFDJHdjfh8932*(&*dsfJH",
     owner: "owner5",
@@ -316,7 +316,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Sample",
   },
   {
-    __id: 6,
+    _id: 6,
     username: "dummy6",
     password: "uj98sdSDF*(&^*(*sdfJKJ897sdSDF*(*",
     owner: "owner6",
@@ -324,7 +324,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Supplier",
   },
   {
-    __id: 7,
+    _id: 7,
     username: "dummy7",
     password: "kl8*()*)*&^89dHFDJK*&(&fJHJK*&JHsd",
     owner: "owner7",
@@ -332,7 +332,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Provider",
   },
   {
-    __id: 8,
+    _id: 8,
     username: "dummy8",
     password: "sd7*()(&^98SDJKFJ*&(&sdJKDJ&*(8*()",
     owner: "owner8",
@@ -340,7 +340,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Vendor",
   },
   {
-    __id: 9,
+    _id: 9,
     username: "dummy9",
     password: "2398sdSDF*(&(*sdfJDF*()()87(*sdfSDF",
     owner: "owner9",
@@ -348,7 +348,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Contractor",
   },
   {
-    __id: 10,
+    _id: 10,
     username: "dummy10",
     password: "asd78*(&^98sdSDF*(sd*&(*SDF98sdf",
     owner: "owner10",
@@ -359,7 +359,7 @@ export const suppliersDummy: Supplier[] = [
 
 export const supplierGroupDummy = [
   {
-    __id: "27485bhfe8fushf9d9uf",
+    _id: "27485bhfe8fushf9d9uf",
     name: "Demo Group 1",
     supplierIds: [
       "4895959fdfbdfb8933bhb434",
@@ -368,7 +368,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    __id: "3847bhfhf9834hfh8934h",
+    _id: "3847bhfhf9834hfh8934h",
     name: "Sample Group 2",
     supplierIds: [
       "3498fhfhf9843hfhfhf8f8",
@@ -377,7 +377,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    __id: "5738fhfhf9834hf8fhf8h",
+    _id: "5738fhfhf9834hf8fhf8h",
     name: "Example Group 3",
     supplierIds: [
       "7398fhdhfhf9834hf8fhf8",
@@ -386,7 +386,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    __id: "4785hfhf9834hf8fhf8fh",
+    _id: "4785hfhf9834hf8fhf8fh",
     name: "Test Group 4",
     supplierIds: [
       "378fhfhfh8f9d8f8f8f8f8",
@@ -395,7 +395,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    __id: "5839fhfhf9834hf8fhf8h",
+    _id: "5839fhfhf9834hf8fhf8h",
     name: "Trial Group 5",
     supplierIds: [
       "483fhfhfh8f9d8f8f8f8fh",
@@ -404,7 +404,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    __id: "3984hfhf9834hf8fhf8fh",
+    _id: "3984hfhf9834hf8fhf8fh",
     name: "Pilot Group 6",
     supplierIds: [
       "298fhfhfh8f9d8f8f8f8fh",
@@ -413,7 +413,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    __id: "4938fhfhf9834hf8fhf8h",
+    _id: "4938fhfhf9834hf8fhf8h",
     name: "Mock Group 7",
     supplierIds: [
       "298fhfhfh8f9d8f8f8f8fh",
@@ -422,7 +422,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    __id: "5984fhfhf9834hf8fhf8h",
+    _id: "5984fhfhf9834hf8fhf8h",
     name: "Beta Group 8",
     supplierIds: [
       "298fhfhfh8f9d8f8f8f8fh",
@@ -431,7 +431,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    __id: "6938fhfhf9834hf8fhf8h",
+    _id: "6938fhfhf9834hf8fhf8h",
     name: "Alpha Group 9",
     supplierIds: [
       "298fhfhfh8f9d8f8f8f8fh",
@@ -440,7 +440,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    __id: "7948fhfhf9834hf8fhf8h",
+    _id: "7948fhfhf9834hf8fhf8h",
     name: "Control Group 10",
     supplierIds: [
       "398fhfhfh8f9d8f8f8f8fh",
