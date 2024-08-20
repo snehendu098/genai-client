@@ -4,7 +4,7 @@ export interface Menu {
 }
 
 export const managementMenu: Menu[] = [
-  { name: "Home", url: "" },
+  { name: "Home", url: "/" },
   { name: "Suppliers", url: "/suppliers" },
   { name: "Templates", url: "/templates" },
 ];

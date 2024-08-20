@@ -5,7 +5,7 @@ import React from "react";
 const ManagementLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="w-full h-full grid grid-cols-6">
-      <Sidebar appType={"management"} menu={managementMenu} />
+      <Sidebar baseUrl={"/management/data-management"} menu={managementMenu} />
       <div className="col-span-5">{children}</div>
     </div>
   );
