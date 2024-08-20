@@ -17,6 +17,7 @@ const Page = () => {
         headerTxt="Supplier Groups"
         btnTxt="Create Group"
         redirectUrl="/modules/management/suppliers/create/group"
+        baseUrl="/suppliers/groups"
       />
       {/* Suppliers */}
       <div className="w-full h-[65%]">
@@ -24,6 +25,7 @@ const Page = () => {
           data={suppliersDummy}
           btnText="Create Supplier"
           redirectUrl="/modules/management/suppliers/create"
+          baseUrl="/suppliers"
         />
       </div>
     </div>

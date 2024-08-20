@@ -1,5 +1,5 @@
 export type Supplier = {
-  _id: number;
+  __id: number;
   username: string;
   password: string;
   owner: string;
@@ -7,23 +7,23 @@ export type Supplier = {
   identifier: string;
 };
 
-export const templateDummy: any[] = [
+export const templateDummy = [
   {
-    id: "template1",
+    _id: "template1",
     name: "General Assessment",
     qna_pair: [
       {
         q: "What is your favorite color?",
         opt: ["Red", "Blue", "Green", "Yellow"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "personal",
       },
       {
         q: "Rate your satisfaction with our service.",
         opt: ["1", "2", "3", "4", "5"],
         type: "rating",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -31,21 +31,21 @@ export const templateDummy: any[] = [
     endDate: "2024-12-31T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -53,21 +53,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -75,21 +75,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -97,21 +97,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -119,21 +119,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -141,21 +141,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -163,21 +163,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -185,21 +185,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -207,21 +207,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -229,21 +229,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -251,21 +251,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -276,7 +276,7 @@ export const templateDummy: any[] = [
 
 export const suppliersDummy: Supplier[] = [
   {
-    _id: 1,
+    __id: 1,
     username: "dummy1",
     password: "auhfuhsh&&**((*EYA*E*EYFE*HU@)$*$jjdnuhf",
     owner: "owner1",
@@ -284,7 +284,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Hello",
   },
   {
-    _id: 2,
+    __id: 2,
     username: "dummy2",
     password: "sdf$%*&^%#@JDjd82737HSJHsd9(*&^ksj",
     owner: "owner2",
@@ -292,7 +292,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "World",
   },
   {
-    _id: 3,
+    __id: 3,
     username: "dummy3",
     password: "2387sdf*&&*(SDFsdf93728jdJKJkjd8*(*",
     owner: "owner3",
@@ -300,7 +300,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Test",
   },
   {
-    _id: 4,
+    __id: 4,
     username: "dummy4",
     password: "asf7*(&^%^98SDFsdjSDF*&(&sdskJDF8sd",
     owner: "owner4",
@@ -308,7 +308,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Example",
   },
   {
-    _id: 5,
+    __id: 5,
     username: "dummy5",
     password: "iu98&*()*^&dfhHFDJHdjfh8932*(&*dsfJH",
     owner: "owner5",
@@ -316,7 +316,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Sample",
   },
   {
-    _id: 6,
+    __id: 6,
     username: "dummy6",
     password: "uj98sdSDF*(&^*(*sdfJKJ897sdSDF*(*",
     owner: "owner6",
@@ -324,7 +324,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Supplier",
   },
   {
-    _id: 7,
+    __id: 7,
     username: "dummy7",
     password: "kl8*()*)*&^89dHFDJK*&(&fJHJK*&JHsd",
     owner: "owner7",
@@ -332,7 +332,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Provider",
   },
   {
-    _id: 8,
+    __id: 8,
     username: "dummy8",
     password: "sd7*()(&^98SDJKFJ*&(&sdJKDJ&*(8*()",
     owner: "owner8",
@@ -340,7 +340,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Vendor",
   },
   {
-    _id: 9,
+    __id: 9,
     username: "dummy9",
     password: "2398sdSDF*(&(*sdfJDF*()()87(*sdfSDF",
     owner: "owner9",
@@ -348,7 +348,7 @@ export const suppliersDummy: Supplier[] = [
     identifier: "Contractor",
   },
   {
-    _id: 10,
+    __id: 10,
     username: "dummy10",
     password: "asd78*(&^98sdSDF*(sd*&(*SDF98sdf",
     owner: "owner10",
@@ -359,7 +359,7 @@ export const suppliersDummy: Supplier[] = [
 
 export const supplierGroupDummy = [
   {
-    _id: "27485bhfe8fushf9d9uf",
+    __id: "27485bhfe8fushf9d9uf",
     name: "Demo Group 1",
     supplierIds: [
       "4895959fdfbdfb8933bhb434",
@@ -368,7 +368,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    _id: "3847bhfhf9834hfh8934h",
+    __id: "3847bhfhf9834hfh8934h",
     name: "Sample Group 2",
     supplierIds: [
       "3498fhfhf9843hfhfhf8f8",
@@ -377,7 +377,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    _id: "5738fhfhf9834hf8fhf8h",
+    __id: "5738fhfhf9834hf8fhf8h",
     name: "Example Group 3",
     supplierIds: [
       "7398fhdhfhf9834hf8fhf8",
@@ -386,7 +386,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    _id: "4785hfhf9834hf8fhf8fh",
+    __id: "4785hfhf9834hf8fhf8fh",
     name: "Test Group 4",
     supplierIds: [
       "378fhfhfh8f9d8f8f8f8f8",
@@ -395,7 +395,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    _id: "5839fhfhf9834hf8fhf8h",
+    __id: "5839fhfhf9834hf8fhf8h",
     name: "Trial Group 5",
     supplierIds: [
       "483fhfhfh8f9d8f8f8f8fh",
@@ -404,7 +404,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    _id: "3984hfhf9834hf8fhf8fh",
+    __id: "3984hfhf9834hf8fhf8fh",
     name: "Pilot Group 6",
     supplierIds: [
       "298fhfhfh8f9d8f8f8f8fh",
@@ -413,7 +413,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    _id: "4938fhfhf9834hf8fhf8h",
+    __id: "4938fhfhf9834hf8fhf8h",
     name: "Mock Group 7",
     supplierIds: [
       "298fhfhfh8f9d8f8f8f8fh",
@@ -422,7 +422,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    _id: "5984fhfhf9834hf8fhf8h",
+    __id: "5984fhfhf9834hf8fhf8h",
     name: "Beta Group 8",
     supplierIds: [
       "298fhfhfh8f9d8f8f8f8fh",
@@ -431,7 +431,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    _id: "6938fhfhf9834hf8fhf8h",
+    __id: "6938fhfhf9834hf8fhf8h",
     name: "Alpha Group 9",
     supplierIds: [
       "298fhfhfh8f9d8f8f8f8fh",
@@ -440,7 +440,7 @@ export const supplierGroupDummy = [
     ],
   },
   {
-    _id: "7948fhfhf9834hf8fhf8h",
+    __id: "7948fhfhf9834hf8fhf8h",
     name: "Control Group 10",
     supplierIds: [
       "398fhfhfh8f9d8f8f8f8fh",

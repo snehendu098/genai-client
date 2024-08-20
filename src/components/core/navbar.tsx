@@ -47,6 +47,7 @@ const NavBar = () => {
           <span className="text-primary text-3xl ">Q</span>uikable
         </p>
       </Link>
+      {/* dropdown */}
       <div className="col-span-4">
         <DropdownMenu>
           <DropdownMenuTrigger>
@@ -60,8 +61,10 @@ const NavBar = () => {
               item.head ? (
                 <React.Fragment key={index}>
                   {index !== 0 && <DropdownMenuSeparator />}
-                  <DropdownMenuLabel key={index}>
-                    <Link href={item.url}>{item.name}</Link>
+                  <DropdownMenuLabel asChild key={index}>
+                    <Link className="text-lg font-extrabold" href={item.url}>
+                      {item.name}
+                    </Link>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                 </React.Fragment>

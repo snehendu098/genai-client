@@ -10,12 +10,14 @@ const HorizontalShow = ({
   headerTxt,
   btnTxt,
   redirectUrl,
+  baseUrl,
 }: {
   data: any[];
   icon: React.ReactElement;
   headerTxt?: string;
   btnTxt?: string;
   redirectUrl?: string;
+  baseUrl: string;
 }) => {
   return (
     <div className="w-full p-8 h-[35%]">
@@ -29,7 +31,7 @@ const HorizontalShow = ({
       <ScrollArea className="w-full mb-4 overflow-x-auto">
         <div className="flex py-8 whitespace-nowrap space-x-10">
           {data.map((item, index) => (
-            <Link key={index} href={"/"}>
+            <Link key={index} href={`/${baseUrl}/${item._id}`}>
               <div className="border rounded-md w-40 flex flex-col items-center overflow-hidden">
                 {icon}
                 <Separator />
