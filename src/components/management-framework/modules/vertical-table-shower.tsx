@@ -26,7 +26,7 @@ const VertialShow = ({
   heading?: string;
   btnText?: string;
   redirectUrl?: string;
-  baseUrl: string;
+  baseUrl?: string;
 }) => {
   return (
     <>

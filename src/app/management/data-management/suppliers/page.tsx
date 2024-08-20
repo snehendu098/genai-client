@@ -5,7 +5,7 @@ import {
   suppliersDummy,
 } from "@/constants/management-framework/dummy";
 import React from "react";
-import { FcFolder } from "react-icons/fc";
+import { FcFolder, FcManager } from "react-icons/fc";
 
 const Page = () => {
   return (
@@ -13,7 +13,7 @@ const Page = () => {
       {/* Templates */}
       <HorizontalShow
         data={supplierGroupDummy}
-        icon={<FcFolder className="w-32 h-32" />}
+        icon={<FcManager className="w-32 h-32" />}
         headerTxt="Supplier Groups"
         btnTxt="Create Group"
         redirectUrl="/modules/management/suppliers/create/group"
