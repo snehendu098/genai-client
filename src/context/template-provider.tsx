@@ -7,13 +7,13 @@ interface Option {
   score: number;
 }
 
-interface Question {
+export interface IQuestion {
   question: string;
   opts: Option[];
 }
 
 interface Subcategory {
-  [subcategory: string]: Question[];
+  [subcategory: string]: IQuestion[];
 }
 
 interface Category {
