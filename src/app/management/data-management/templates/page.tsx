@@ -59,7 +59,7 @@ const Page = () => {
     }
 
     // TODO: handle clicked in axios
-    const id = "ugasygueg747y84923498";
+    const id = "62f2613987d6f8199b56c123";
     router.push(`/management/data-management/templates/${id}`);
     setOptions({ ...options, loading: false });
   };
@@ -135,6 +135,7 @@ const Page = () => {
           </Button>
         </div>
       </div>
+
       {/* Table */}
       <ScrollArea className="w-full px-8 h-[56%] mt-6">
         <div className="flex flex-col pr-6">

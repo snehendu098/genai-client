@@ -1,29 +1,45 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
-const TemplateContext = createContext<any>(undefined);
-
-interface Answer {
-  answer: string;
+interface Option {
+  opt_content: string;
   score: number;
 }
 
 interface Question {
-  title: string;
-  answer: Answer[];
+  question: string;
+  opts: Option[];
 }
 
-interface ITemplateOption {
-  [key: string]: Question[];
+interface Subcategory {
+  [subcategory: string]: Question[];
 }
+
+interface Category {
+  Environment: Subcategory;
+  Social: Subcategory;
+  Governance: Subcategory;
+}
+
+const TemplateContext = createContext<{
+  templateOptions: Category | undefined;
+  setTemplateOptions: React.Dispatch<
+    React.SetStateAction<Category | undefined>
+  >;
+}>({
+  templateOptions: undefined,
+  setTemplateOptions: () => {},
+});
 
 export const TemplateWrappper = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [templateOptions, setTemplateOptions] = useState<ITemplateOption>({});
+  const [templateOptions, setTemplateOptions] = useState<
+    Category | undefined
+  >();
 
   return (
     <TemplateContext.Provider value={{ templateOptions, setTemplateOptions }}>
@@ -32,6 +48,6 @@ export const TemplateWrappper = ({
   );
 };
 
-export function usePageContext() {
+export function useTemplateContext() {
   return useContext(TemplateContext);
 }
