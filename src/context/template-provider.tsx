@@ -23,7 +23,7 @@ interface Category {
 }
 
 const TemplateContext = createContext<{
-  templateOptions: Category | undefined;
+  templateOptions: any | undefined;
   setTemplateOptions: React.Dispatch<
     React.SetStateAction<Category | undefined>
   >;
@@ -37,9 +37,11 @@ export const TemplateWrappper = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [templateOptions, setTemplateOptions] = useState<
-    Category | undefined
-  >();
+  const [templateOptions, setTemplateOptions] = useState<Category | undefined>({
+    Environment: {},
+    Governance: {},
+    Social: {},
+  });
 
   return (
     <TemplateContext.Provider value={{ templateOptions, setTemplateOptions }}>
