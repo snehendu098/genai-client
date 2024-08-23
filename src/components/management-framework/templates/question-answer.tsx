@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
-import { IQuestion, useTemplateContext } from "@/context/template-provider";
+import { useTemplateContext } from "@/context/template-provider";
 import React, { useCallback, useEffect, useState } from "react";
 
 import {
@@ -253,18 +253,17 @@ const QuestionAnswer = ({ mainCate }: Options) => {
                   handleSave();
                 }
 
-                if (!disableQuestionChange && !disableOptionChange) {
-                  console.log("h1");
-                  setDisableQuestionChange(true);
-                }
+                // if (!disableQuestionChange && !disableOptionChange) {
+                //   console.log("h1");
+                //   setDisableQuestionChange(true);
+                // }
 
-                if (disableQuestionChange && !disableOptionChange) {
-                  console.log("h2");
-                  setDisableOptionChange(true);
-                }
+                // if (disableQuestionChange && !disableOptionChange) {
+                //   console.log("h2");
+                //   setDisableOptionChange(true);
+                // }
 
                 if (disableOptionChange && disableQuestionChange) {
-                  console.log("ping");
                   setDisableOptionChange(false);
                   setDisableQuestionChange(false);
                 }
@@ -294,6 +293,9 @@ const QuestionAnswer = ({ mainCate }: Options) => {
               ? "Proceed to Next"
               : "Proceed to add option"}
           </Button>
+        )}
+        {disableQuestionChange && !disableOptionChange && (
+          <Button>Go back to questions</Button>
         )}
         {disableOptionChange && (
           <Button
