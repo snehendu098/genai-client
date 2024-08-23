@@ -1,4 +1,4 @@
-export const baseUrl = "https://www.clipp.fun";
+export const baseUrl = "http://localhost:8000";
 
 type DropdownOption = {
   head?: boolean;

@@ -24,6 +24,18 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Label } from "@/components/ui/label";
 
 interface BroadDescItem {
   type: number;
@@ -49,6 +61,7 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const [uploader, setUploader] = useState<boolean>(false);
   const [fetchedFiles, setFetchedFiles] = useState<string[]>([]);
+  const [alertShow, setAlertShow] = useState<boolean>(false);
 
   const { data: session } = useSession();
 
@@ -170,7 +183,7 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      // console.log(data);
+      console.log(data);
 
       if (JSON.parse(data)) {
         setFetchedFiles(Object.keys(JSON.parse(data)));
@@ -190,35 +203,54 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
 
   return (
     <ScrollArea className="col-span-5 h-[calc(100vh-4rem)]">
-      <div className="h-[calc((100vh-4rem)/2)] w-full grid grid-cols-2">
-        {/* Grid col 1 */}
-        <div className="w-full h-full">
-          <div className="border-b w-full p-4 font-semibold text-md">
-            {headTxt}
-          </div>
-          <div className="w-full h-full p-8 space-y-4">
-            <p className="text-xl font-bold">Upload a file to get started</p>
-
-            <Input
-              className="w-1/2"
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              placeholder="Give a name for the conversation"
-            />
-            <Button disabled={loading || !name} onClick={handleSubmit}>
-              {!loading ? "Upload" : <Loader2 className="animate-spin" />}
-            </Button>
-          </div>
-        </div>
+      <div className="h-[calc((100vh-4rem)/2)] w-full grid grid-cols-1">
         {/* File History */}
         <div className="w-full min-h-full border-l">
           <div className="border-b w-full px-4 p-2 flex justify-between items-center">
             <p className="font-semibold text-md">Files</p>
-            <div
-              onClick={() => setUploader(!uploader)}
-              className="p-2 rounded-md bg-primary-foreground cursor-pointer hover:bg-primary/80"
-            >
-              <PlusIcon />
+            <div className="flex">
+              {selectedFiles.length > 0 && (
+                <div className="mr-2">
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button className="bg-blue-500 hover:bg-blue-400">
+                        Proceed
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Set A name</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          <p>
+                            To proceed you need to set a name to act as an
+                            identifier if you wish to access it in future
+                          </p>
+                          <div className="flex items-center mt-4">
+                            <Label className="mr-2">Name: </Label>
+                            <Input
+                              onChange={(e) => setName(e.target.value)}
+                              value={name}
+                              placeholder="Give a name for the conversation"
+                            />
+                          </div>
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <Button disabled={loading} onClick={handleSubmit}>
+                          Continue
+                        </Button>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
+              )}
+              <div
+                onClick={() => setUploader(!uploader)}
+                className="p-2 rounded-md bg-primary-foreground cursor-pointer hover:bg-primary/80"
+              >
+                <PlusIcon />
+              </div>
             </div>
           </div>
           {/* Uploader and  */}
