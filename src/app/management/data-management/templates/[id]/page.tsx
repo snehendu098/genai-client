@@ -33,6 +33,8 @@ import {
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 
+// TODO: Context saving
+
 type Option = {
   id: string;
   text: string;
@@ -298,31 +300,6 @@ export default function Component() {
     );
   };
 
-  const transformDataForPublish = () => {
-    const transformedData: Record<string, Record<string, any[]>> = {};
-
-    categories.forEach((category) => {
-      transformedData[category.name] = {};
-      category.subcategories.forEach((subcategory) => {
-        transformedData[category.name][subcategory.name] =
-          subcategory.questions.map((question) => ({
-            question: question.text,
-            opts: question.options.map((option) => ({
-              opt_content: option.text,
-              score: option.score,
-            })),
-          }));
-      });
-    });
-
-    return transformedData;
-  };
-
-  const handlePublish = () => {
-    const data = transformDataForPublish();
-    setPublishedData(JSON.stringify(data, null, 2));
-  };
-
   const removeQuestion = (
     categoryId: string,
     subcategoryId: string,
@@ -379,30 +356,6 @@ export default function Component() {
         questions.push(currentQuestion);
       }
     }
-
-    // lines.forEach((line) => {
-    //   if (!line.startsWith(" ") && !line.startsWith("\t")) {
-    //     if (currentQuestion) {
-    //       questions.push(currentQuestion);
-    //     }
-    //     currentQuestion = {
-    //       id: v4(),
-    //       text: line.trim(),
-    //       options: [],
-    //     };
-    //   } else if (currentQuestion) {
-    //     currentQuestion.options.push({
-    //       id: v4(),
-    //       text: line.trim(),
-    //       score: 0,
-    //     });
-    //   }
-    // });
-
-    // if (currentQuestion) {
-    //   questions.push(currentQuestion);
-    // }
-
     return questions;
   };
 
@@ -437,6 +390,31 @@ export default function Component() {
     setImportedQuestions([]);
     setImportingForCategory(null);
     setImportingForSubcategory(null);
+  };
+
+  const transformDataForPublish = () => {
+    const transformedData: Record<string, Record<string, any[]>> = {};
+
+    categories.forEach((category) => {
+      transformedData[category.name] = {};
+      category.subcategories.forEach((subcategory) => {
+        transformedData[category.name][subcategory.name] =
+          subcategory.questions.map((question) => ({
+            question: question.text,
+            opts: question.options.map((option) => ({
+              opt_content: option.text,
+              score: option.score,
+            })),
+          }));
+      });
+    });
+
+    return transformedData;
+  };
+
+  const handlePublish = () => {
+    const data = transformDataForPublish();
+    setPublishedData(JSON.stringify(data, null, 2));
   };
 
   useEffect(() => {

@@ -15,10 +15,16 @@ const Page = () => {
         baseUrl="/"
         data={templateDummy}
         icon={<FcFolder className="w-32 h-32" />}
+        redirectUrl="/management/data-management/templates"
+        btnTxt="Create New"
       />
       {/* Suppliers */}
       <div className="w-full h-[65%]">
-        <VertialShow baseUrl="/" data={suppliersDummy} />
+        <VertialShow
+          redirectUrl="/management/data-management/suppliers"
+          baseUrl="/"
+          data={suppliersDummy}
+        />
       </div>
     </div>
   );

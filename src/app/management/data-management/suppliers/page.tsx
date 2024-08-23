@@ -16,7 +16,7 @@ const Page = () => {
         icon={<FcManager className="w-32 h-32" />}
         headerTxt="Supplier Groups"
         btnTxt="Create Group"
-        redirectUrl="/modules/management/suppliers/create/group"
+        redirectUrl="/management/data-management/suppliers/create/group"
         baseUrl="/suppliers/groups"
       />
       {/* Suppliers */}
@@ -24,7 +24,7 @@ const Page = () => {
         <VertialShow
           data={suppliersDummy}
           btnText="Create Supplier"
-          redirectUrl="/modules/management/suppliers/create"
+          redirectUrl="/management/data-management/suppliers/create"
           baseUrl="/suppliers"
         />
       </div>

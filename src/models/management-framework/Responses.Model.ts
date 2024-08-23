@@ -5,22 +5,22 @@ interface IQnaOption {
 }
 
 export interface IResponse extends Document {
-  qna_responses: IQnaOption;
+  qnaData: IQnaOption;
   owner: mongoose.Types.ObjectId;
   quesionnareId: mongoose.Types.ObjectId;
-  score: number;
+  scoreData: object;
 }
 
 const responseSchema: Schema<IResponse> = new Schema(
   {
-    qna_responses: { type: Object, required: true },
+    qnaData: { type: Object, required: true },
     owner: { type: Schema.Types.ObjectId, ref: "User", required: true },
     quesionnareId: {
       type: Schema.Types.ObjectId,
       ref: "Template",
       required: true,
     },
-    score: { type: Number, required: true },
+    scoreData: { type: Object, required: true },
   },
   { timestamps: true }
 );
