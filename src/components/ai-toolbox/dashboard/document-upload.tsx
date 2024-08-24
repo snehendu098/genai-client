@@ -138,7 +138,10 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
       });
 
       if (res.data.success) {
-        toast({ title: "Document has been successfully saved" });
+        toast({
+          title: "Document has been successfully saved",
+          description: "Please wait for a few seconds to get the answer",
+        });
         if (appType !== "2") {
           const genDocRes = await axios.get(
             `/api/ai/app${appType}/${res.data.id}`
@@ -154,7 +157,10 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
         }
         router.push(`/app${appType}/${res.data.id}`);
       } else {
-        toast({ title: "Error occurred while uploading docs" });
+        toast({
+          title: "Error occurred while uploading docs",
+          className: "border-4",
+        });
       }
     } catch (err: any) {
       console.error(err);
