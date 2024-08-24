@@ -1,9 +1,7 @@
 "use client";
 
 import React from "react";
-
 import Link from "next/link";
-
 import {
   Table,
   TableBody,
@@ -15,17 +13,20 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { MdDelete, MdModeEdit } from "react-icons/md";
 
 const VertialShow = ({
   data,
   heading,
   btnText,
   redirectUrl,
+  baseUrl,
 }: {
   data: any[];
   heading?: string;
   btnText?: string;
   redirectUrl?: string;
+  baseUrl?: string;
 }) => {
   return (
     <>
@@ -45,17 +46,23 @@ const VertialShow = ({
                 <TableHead>Username</TableHead>
                 <TableHead>Identifier</TableHead>
 
-                <TableHead className="text-right">Responses</TableHead>
+                <TableHead className="text-right">Options</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {data.map((item) => (
-                <TableRow key={item._id}>
+                <TableRow className="border-b border-background" key={item._id}>
                   <TableCell className="font-medium">{item.username}</TableCell>
                   <TableCell>{item.identifier}</TableCell>
 
-                  <TableCell className="text-right">
-                    {item.responseIds ? item.responseIds.length : 0}
+                  <TableCell className="flex flex-row-reverse items-center ">
+                    <div className="text-lg border-2 border-red-400 text-red-400 p-2 rounded-lg hover:bg-red-200/15 transition duration-500 cursor-pointer">
+                      <MdDelete />
+                    </div>
+
+                    <div className="text-lg border-2 border-blue-400 text-blue-400 p-2 mx-2 rounded-lg hover:bg-blue-200/15 transition duration-500 cursor-pointer">
+                      <MdModeEdit />
+                    </div>
                   </TableCell>
                 </TableRow>
               ))}

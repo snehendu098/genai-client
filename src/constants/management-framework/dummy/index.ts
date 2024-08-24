@@ -7,23 +7,23 @@ export type Supplier = {
   identifier: string;
 };
 
-export const templateDummy: any[] = [
+export const templateDummy = [
   {
-    id: "template1",
+    _id: "template1",
     name: "General Assessment",
     qna_pair: [
       {
         q: "What is your favorite color?",
         opt: ["Red", "Blue", "Green", "Yellow"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "personal",
       },
       {
         q: "Rate your satisfaction with our service.",
         opt: ["1", "2", "3", "4", "5"],
         type: "rating",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -31,21 +31,21 @@ export const templateDummy: any[] = [
     endDate: "2024-12-31T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -53,21 +53,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -75,21 +75,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -97,21 +97,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -119,21 +119,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -141,21 +141,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -163,21 +163,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -185,21 +185,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -207,21 +207,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -229,21 +229,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],
@@ -251,21 +251,21 @@ export const templateDummy: any[] = [
     endDate: "2024-11-30T00:00:00Z",
   },
   {
-    id: "template2",
+    _id: "template2",
     name: "Customer Feedback",
     qna_pair: [
       {
         q: "How likely are you to recommend our product?",
         opt: ["Very likely", "Somewhat likely", "Not likely"],
         type: "multiple-choice",
-        id: 1,
+        _id: 1,
         subtype: "feedback",
       },
       {
         q: "Please provide any additional comments.",
         opt: [],
         type: "text",
-        id: 2,
+        _id: 2,
         subtype: "feedback",
       },
     ],

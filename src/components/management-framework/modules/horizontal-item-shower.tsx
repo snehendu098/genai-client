@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Separator } from "@radix-ui/react-dropdown-menu";
+import clsx from "clsx";
 
 const HorizontalShow = ({
   data,
@@ -10,26 +11,30 @@ const HorizontalShow = ({
   headerTxt,
   btnTxt,
   redirectUrl,
+  baseUrl,
 }: {
   data: any[];
   icon: React.ReactElement;
   headerTxt?: string;
   btnTxt?: string;
   redirectUrl?: string;
+  baseUrl?: string;
 }) => {
   return (
-    <div className="w-full p-8 h-[35%]">
+    <div className={clsx(`w-full p-8 h-[35%]`)}>
       <div className="w-full flex justify-between">
         <p className="text-4xl font-semibold">{headerTxt || "Templates"}</p>
-        <Button asChild>
-          {/* TODO: Link fix */}
-          <Link href={redirectUrl || "/"}>{btnTxt || "View All"}</Link>
-        </Button>
+        {redirectUrl && (
+          <Button asChild>
+            {/* TODO: Link fix */}
+            <Link href={redirectUrl || "/"}>{btnTxt || "View All"}</Link>
+          </Button>
+        )}
       </div>
       <ScrollArea className="w-full mb-4 overflow-x-auto">
         <div className="flex py-8 whitespace-nowrap space-x-10">
           {data.map((item, index) => (
-            <Link key={index} href={"/"}>
+            <Link key={index} href={`${baseUrl}/${item._id}`}>
               <div className="border rounded-md w-40 flex flex-col items-center overflow-hidden">
                 {icon}
                 <Separator />

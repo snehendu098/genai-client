@@ -1,4 +1,4 @@
-import NavBar from "@/components/ai-toolbox/dashboard/navbar";
+import NavBar from "@/components/core/navbar";
 import { PageAppWrappper } from "@/context/pdf-page-provider";
 import React from "react";
 

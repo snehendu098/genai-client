@@ -1,0 +1,117 @@
+{
+  "Environment": {
+    "Subcategory 1": [
+      {
+        "question": "lorem ipsum .....",
+        "opts": [
+          { "opt_content": "lorem", "score": 100 },
+          { "opt_content": "lorem", "score": 50 },
+          { "opt_content": "lorem", "score": 50 }
+        ]
+      },
+      {
+        "question": "lorem ipsum .....",
+        "opts": [
+          { "opt_content": "lorem", "score": 100 },
+          { "opt_content": "lorem", "score": 50 },
+          { "opt_content": "lorem", "score": 50 }
+        ]
+      }
+    ],
+    "Subcategory 2": [
+      {
+        "question": "lorem ipsum .....",
+        "opts": [
+          { "opt_content": "lorem", "score": 100 },
+          { "opt_content": "lorem", "score": 50 },
+          { "opt_content": "lorem", "score": 50 }
+        ]
+      },
+      {
+        "question": "lorem ipsum .....",
+        "opts": [
+          { "opt_content": "lorem", "score": 100 },
+          { "opt_content": "lorem", "score": 50 },
+          { "opt_content": "lorem", "score": 50 }
+        ]
+      }
+    ]
+  },
+
+  "Social": {
+    "Subcategory 1": [
+      {
+        "question": "lorem ipsum .....",
+        "opts": [
+          { "opt_content": "lorem", "score": 100 },
+          { "opt_content": "lorem", "score": 50 },
+          { "opt_content": "lorem", "score": 50 }
+        ]
+      },
+      {
+        "question": "lorem ipsum .....",
+        "opts": [
+          { "opt_content": "lorem", "score": 100 },
+          { "opt_content": "lorem", "score": 50 },
+          { "opt_content": "lorem", "score": 50 }
+        ]
+      }
+    ],
+    "Subcategory 2": [
+      {
+        "question": "lorem ipsum .....",
+        "opts": [
+          { "opt_content": "lorem", "score": 100 },
+          { "opt_content": "lorem", "score": 50 },
+          { "opt_content": "lorem", "score": 50 }
+        ]
+      },
+      {
+        "question": "lorem ipsum .....",
+        "opts": [
+          { "opt_content": "lorem", "score": 100 },
+          { "opt_content": "lorem", "score": 50 },
+          { "opt_content": "lorem", "score": 50 }
+        ]
+      }
+    ]
+  },
+  "Governance": {
+    "Subcategory 1": [
+      {
+        "question": "lorem ipsum .....",
+        "opts": [
+          { "opt_content": "lorem", "score": 100 },
+          { "opt_content": "lorem", "score": 50 },
+          { "opt_content": "lorem", "score": 50 }
+        ]
+      },
+      {
+        "question": "lorem ipsum .....",
+        "opts": [
+          { "opt_content": "lorem", "score": 100 },
+          { "opt_content": "lorem", "score": 50 },
+          { "opt_content": "lorem", "score": 50 }
+        ]
+      }
+    ],
+    "Subcategory 2": [
+      {
+        "question": "lorem ipsum .....",
+        "opts": [
+          { "opt_content": "lorem", "score": 100 },
+          { "opt_content": "lorem", "score": 50 },
+          { "opt_content": "lorem", "score": 50 }
+        ]
+      },
+      {
+        "question": "lorem ipsum .....",
+        "opts": [
+          { "opt_content": "lorem", "score": 100 },
+          { "opt_content": "lorem", "score": 50 },
+          { "opt_content": "lorem", "score": 50 }
+        ]
+      }
+    ]
+  }
+}

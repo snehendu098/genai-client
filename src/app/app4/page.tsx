@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Input } from "@/components/ui/input";
-import Navbar from "@/components/ai-toolbox/core/home/navbar";
+import Navbar from "@/components/core/navbar";
 import { toast } from "@/components/ui/use-toast";
 import axios from "axios";
 import { baseUrl } from "@/constants";

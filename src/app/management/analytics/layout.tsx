@@ -5,7 +5,7 @@ import React from "react";
 const AnalyticsLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="w-full h-full grid grid-cols-6">
-      <Sidebar appType={"Data Management"} menu={analyticsMenu} />
+      <Sidebar baseUrl={"Data Management"} menu={analyticsMenu} />
       {children}
     </div>
   );

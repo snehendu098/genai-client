@@ -2,13 +2,13 @@ export const cards = [
   {
     name: "Data Management",
     description: "Create and upload suppliers, Publish assessment questionnare",
-    link: "/management/modules/management",
+    link: "/management/data-management",
     desc2: "Upload Supplier documents, data, certificates",
   },
   {
     name: "Data Analystics and Reporting",
     description: "Summarize Environmental, Social and Governance data points",
-    link: "/management/modules/analytics",
+    link: "/management/analytics",
   },
   {
     name: "AI Module",
