@@ -1,7 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { PlusCircle, Trash2, ChevronDown, Save, X, Import } from "lucide-react";
+import {
+  PlusCircle,
+  Trash2,
+  ChevronDown,
+  Save,
+  X,
+  Import,
+  GitPullRequestDraft,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -425,25 +433,31 @@ export default function Component() {
     <div className="container mx-auto p-4 space-y-8 bg-background min-h-screen">
       <div className="flex justify-between items-center">
         <h1 className="text-4xl font-bold mb-6 ">Create Template</h1>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button
-              onClick={handlePublish}
-              className="bg-purple-600 hover:bg-purple-700 text-white"
-            >
-              <Save className="h-4 w-4 mr-2" />
-              Publish
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-background text-foreground">
-            <DialogHeader>
-              <DialogTitle>Published Data</DialogTitle>
-            </DialogHeader>
-            <pre className="bg-muted p-4 rounded-md overflow-x-auto text-muted-foreground">
-              {publishedData}
-            </pre>
-          </DialogContent>
-        </Dialog>
+        <div className="grid grid-cols-2 gap-4">
+          {/* <Dialog>
+            <DialogTrigger asChild> */}
+          <Button
+            onClick={handlePublish}
+            className="bg-purple-600 hover:bg-purple-700 text-white"
+          >
+            <Save className="h-4 w-4 mr-2" />
+            Publish
+          </Button>
+          {/* </DialogTrigger>
+            <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-background text-foreground">
+              <DialogHeader>
+                <DialogTitle>Published Data</DialogTitle>
+              </DialogHeader>
+              <pre className="bg-muted p-4 rounded-md overflow-x-auto text-muted-foreground">
+                {publishedData}
+              </pre>
+            </DialogContent>
+          </Dialog> */}
+
+          <Button className="bg-blue-600 hover:bg-blue-700">
+            <GitPullRequestDraft className="h-4 w-4 mr-2" /> Save As Draft
+          </Button>
+        </div>
       </div>
       <Accordion type="single" collapsible className="w-full space-y-4">
         {categories.map((category) => (

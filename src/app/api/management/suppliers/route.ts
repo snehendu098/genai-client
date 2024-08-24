@@ -45,3 +45,54 @@ export async function POST(req: Request) {
     });
   }
 }
+
+export async function GET(req: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return Response.json(
+        { success: false, message: "User not found" },
+        { status: 400 }
+      );
+    }
+
+    const _user: User = session?.user as User;
+
+    if (!_user._id) {
+      return Response.json(
+        { success: false, message: "User not found" },
+        { status: 401 }
+      );
+    }
+
+    const supplier = await Supplier.aggregate([
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+      {
+        $match: {
+          owner: _user._id,
+        },
+      },
+    ]);
+
+    if (supplier.length === 0) {
+      return Response.json({ success: true, message: "No supplier found" });
+    }
+
+    return Response.json({
+      success: true,
+      supplier,
+      message: "Suppliers fetched successfully",
+    });
+  } catch (err) {
+    console.log("Error while fetching supplier", err);
+    return Response.json({
+      success: false,
+      message: "Error while fetching supplier",
+    });
+  }
+}

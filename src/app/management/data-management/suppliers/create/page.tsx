@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 import axios, { AxiosError } from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Page = () => {
@@ -16,6 +17,7 @@ const Page = () => {
     password: "",
   });
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const handleSaveSupplier = async (e: any) => {
     e.preventDefault();
@@ -49,6 +51,7 @@ const Page = () => {
       }
 
       toast({ title: data.message });
+      router.push("/management/data-management/suppliers");
     } catch (err: any) {
       console.log("supplier save error", err);
       toast({

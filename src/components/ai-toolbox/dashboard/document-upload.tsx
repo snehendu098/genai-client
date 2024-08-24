@@ -61,7 +61,6 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
   const [uploader, setUploader] = useState<boolean>(false);
   const [fetchedFiles, setFetchedFiles] = useState<string[]>([]);
-  const [alertShow, setAlertShow] = useState<boolean>(false);
 
   const { data: session } = useSession();
 

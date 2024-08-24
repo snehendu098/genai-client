@@ -5,6 +5,7 @@ export interface ITemplate extends Document {
   questionJson: object;
   responseIds: mongoose.Types.ObjectId[];
   endDate: Date;
+  published: boolean;
 }
 
 const assessmentTemplateSchema: Schema<ITemplate> = new Schema(
@@ -13,6 +14,7 @@ const assessmentTemplateSchema: Schema<ITemplate> = new Schema(
     questionJson: { type: Object, required: true },
     responseIds: [{ type: Schema.Types.ObjectId, ref: "Response" }],
     endDate: { type: Date, required: true },
+    published: { type: Boolean, required: true },
   },
   { timestamps: true }
 );
