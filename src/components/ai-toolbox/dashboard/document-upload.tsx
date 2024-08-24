@@ -106,6 +106,8 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
         description: "Error While uploading file",
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
