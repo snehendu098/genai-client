@@ -4,11 +4,11 @@ import { ApiResponse } from "@/types/ApiResponse";
 
 export async function sendVerificationEmail(
   email: string,
-  verifyCode: string,
+  verifyCode: string
 ): Promise<ApiResponse> {
   try {
     const { data, error } = await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: "send@mail.quikable.com",
       to: email,
       subject: "Please Verifiy Your Account",
       react: VerificationEmail({ email, otp: verifyCode }),
@@ -32,11 +32,11 @@ export async function sendVerificationEmail(
 
 export async function sendForgotPasswordEmail(
   email: string,
-  verifyCode: string,
+  verifyCode: string
 ): Promise<ApiResponse> {
   try {
     const { data, error } = await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: "send@mail.quikable.com",
       to: email,
       subject: "Here's the code for password change",
       react: VerificationEmail({ email, otp: verifyCode }),
