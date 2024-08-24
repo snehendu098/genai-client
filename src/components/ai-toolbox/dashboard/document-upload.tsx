@@ -226,18 +226,18 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
-                        <AlertDialogTitle>Set A name</AlertDialogTitle>
+                        <AlertDialogTitle>Give a name</AlertDialogTitle>
                         <AlertDialogDescription>
                           <p>
-                            To proceed you need to set a name to act as an
+                            To proceed you need to give a name to act as an
                             identifier if you wish to access it in future
                           </p>
                           <div className="flex items-center mt-4">
-                            <Label className="mr-2">Name: </Label>
+                            <Label className="mr-2">Identifier: </Label>
                             <Input
                               onChange={(e) => setName(e.target.value)}
                               value={name}
-                              placeholder="Give a name for the conversation"
+                              placeholder="Give a name"
                             />
                           </div>
                         </AlertDialogDescription>
