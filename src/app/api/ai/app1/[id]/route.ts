@@ -65,7 +65,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
       );
     }
 
-    console.log("hello 1", doc.docs);
+    // console.log("hello 1", doc.docs);
 
     // TODO: api req to get summarization
 

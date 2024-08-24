@@ -91,10 +91,11 @@ const App = () => {
         });
       }
 
-      return toast({
+      toast({
         title: "Group Created Succesfully",
         description: data.message || "",
       });
+      router.push("/management/data-management/suppliers");
     } catch (err) {
       console.log("err", err);
       toast({

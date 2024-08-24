@@ -2,6 +2,7 @@ import { getServerSession, User } from "next-auth";
 import { authOptions } from "../../auth/[[...nextauth]]/options";
 import { Supplier } from "@/models/management-framework/Supplier.Model";
 import bcrypt from "bcryptjs";
+import mongoose from "mongoose";
 
 export async function POST(req: Request) {
   try {
@@ -74,7 +75,7 @@ export async function GET(_: Request) {
       },
       {
         $match: {
-          owner: _user._id,
+          owner: new mongoose.Types.ObjectId(_user._id),
         },
       },
     ]);

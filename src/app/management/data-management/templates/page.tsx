@@ -32,6 +32,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { toast } from "@/components/ui/use-toast";
+import axios from "axios";
 
 interface Option {
   title: string;
@@ -50,18 +51,31 @@ const Page = () => {
 
   const handleAlertContinue = async () => {
     setOptions({ ...options, loading: true });
-    if (!options.title) {
-      return toast({
-        title: "No title found",
-        description: "Enter a title to continue",
-        variant: "destructive",
-      });
-    }
+    try {
+      if (!options.title) {
+        return toast({
+          title: "No title found",
+          description: "Enter a title to continue",
+          variant: "destructive",
+        });
+      }
 
-    // TODO: handle clicked in axios
-    const id = "62f2613987d6f8199b56c123";
-    router.push(`/management/data-management/templates/${id}`);
-    setOptions({ ...options, loading: false });
+      // TODO: handle clicked in axios
+      const { data } = await axios.post("/api/management/templates", {
+        name: options.title,
+        description: options.description,
+      });
+
+      if (data.success) {
+        const id = await data.id;
+        router.push(`/management/data-management/templates/${id}`);
+      }
+    } catch (error) {
+      console.log(error);
+      toast({ title: "Error Occurred", variant: "destructive" });
+    } finally {
+      setOptions({ ...options, loading: false });
+    }
   };
 
   return (

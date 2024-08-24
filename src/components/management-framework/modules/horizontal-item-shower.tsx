@@ -12,6 +12,7 @@ const HorizontalShow = ({
   btnTxt,
   redirectUrl,
   baseUrl,
+  defaultTxt,
 }: {
   data: any[];
   icon: React.ReactElement;
@@ -19,6 +20,7 @@ const HorizontalShow = ({
   btnTxt?: string;
   redirectUrl?: string;
   baseUrl?: string;
+  defaultTxt?: string;
 }) => {
   return (
     <div className={clsx(`w-full p-8 h-[35%]`)}>
@@ -33,19 +35,25 @@ const HorizontalShow = ({
       </div>
       <ScrollArea className="w-full mb-4 overflow-x-auto">
         <div className="flex py-8 whitespace-nowrap space-x-10">
-          {data.map((item, index) => (
-            <Link key={index} href={`${baseUrl}/${item._id}`}>
-              <div className="border rounded-md w-40 flex flex-col items-center overflow-hidden">
-                {icon}
-                <Separator />
-                <div className="w-full bg-primary-foreground">
-                  <p className="truncate px-2 text-sm text-center font-semibold">
-                    {item.name}
-                  </p>
+          {data.length > 0 ? (
+            data.map((item, index) => (
+              <Link key={index} href={`${baseUrl}/${item._id}`}>
+                <div className="border rounded-md w-40 flex flex-col items-center overflow-hidden">
+                  {icon}
+                  <Separator />
+                  <div className="w-full bg-primary-foreground">
+                    <p className="truncate px-2 text-sm text-center font-semibold">
+                      {item.name}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))
+          ) : (
+            <p className="text-lg text-neutral-400">
+              {defaultTxt || "No Records found"}
+            </p>
+          )}
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
