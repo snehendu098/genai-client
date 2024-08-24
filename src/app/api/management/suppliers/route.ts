@@ -46,7 +46,7 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(req: Request) {
+export async function GET(_: Request) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -78,10 +78,6 @@ export async function GET(req: Request) {
         },
       },
     ]);
-
-    if (supplier.length === 0) {
-      return Response.json({ success: true, message: "No supplier found" });
-    }
 
     return Response.json({
       success: true,

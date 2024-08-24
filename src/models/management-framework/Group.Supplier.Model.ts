@@ -3,14 +3,14 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 interface ISupplierGroup extends Document {
   name: string;
   supplierIds: mongoose.Types.ObjectId[];
-  identifier: string;
+  owner: mongoose.Types.ObjectId;
 }
 
 const supplierSchema: Schema<ISupplierGroup> = new Schema(
   {
     name: { type: String, required: true },
     supplierIds: [{ type: Schema.Types.ObjectId, ref: "Supplier" }],
-    identifier: { type: String, required: true },
+    owner: { type: Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );
