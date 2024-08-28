@@ -213,8 +213,8 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
       <div className="h-[calc((100vh-4rem)/2)] w-full grid grid-cols-1">
         {/* File History */}
         <div className="w-full min-h-full border-l">
-          <div className="border-b w-full px-4 p-2 flex justify-between items-center">
-            <p className="font-semibold text-md">Files</p>
+          <div className="border-b w-full px-6  py-8 flex items-center">
+            <p className="font-semibold text-xl mr-8">Upload Files</p>
             <div className="flex">
               {selectedFiles.length > 0 && (
                 <div className="mr-2">
@@ -254,7 +254,7 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
               )}
               <div
                 onClick={() => setUploader(!uploader)}
-                className="p-2 rounded-md bg-primary-foreground cursor-pointer hover:bg-primary/80"
+                className="p-2 rounded-md hover:bg-blue-500 bg-blue-600 cursor-pointer hover:bg-primary/80"
               >
                 <PlusIcon />
               </div>
@@ -265,7 +265,7 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
             {!uploader ? (
               <>
                 {!loading && fetchedFiles.length === 0 && (
-                  <p>Upload A File to get started</p>
+                  <p className="ml-4">You can upload up to 5 PDFs per chat</p>
                 )}
                 {fetchedFiles.length > 0 && (
                   <Table>

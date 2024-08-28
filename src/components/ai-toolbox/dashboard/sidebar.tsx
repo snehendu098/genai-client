@@ -47,7 +47,7 @@ const Sidebar = ({
       {btnText && (
         <Button
           asChild
-          className="w-full flex items-center justify-center mb-6"
+          className="w-full flex items-center justify-center mb-6 mt-2"
         >
           <Link href={btnLink}>{btnText}</Link>
         </Button>

@@ -18,7 +18,7 @@ export default function AuthLayout({
           </div>
           <div className="relative z-20 mt-10">
             <p className="text-6xl tracking-wide font-semibold text-neutral-300">
-              <span className="text-primary text-8xl">Q</span>uickable:{" "}
+              <span className="text-primary text-8xl">Q</span>uikable:{" "}
               <span className="text-primary">Revolutionizing</span> ESG data
               collection and reporting with{" "}
               <span className="text-primary">AI</span>
@@ -27,16 +27,11 @@ export default function AuthLayout({
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2 text-neutral-300">
               <p>
-                Revolutionizing{" "}
-                <span className="text-primary">ESG data collection</span> and{" "}
-                <span className="text-primary">reporting</span> with{" "}
-                <span className="text-primary">AI</span> to streamline tedious
-                tasks, saving time and resources. Quikable{" "}
-                <span className="text-primary">AI toolkit</span> enables
-                sustainability teams to gather{" "}
+                Quikable <span className="text-primary">AI toolkit</span>{" "}
+                enables sustainability teams to gather{" "}
                 <span className="text-primary">ESG data</span> faster, &
                 automate <span className="text-primary">ESG assessments</span>{" "}
-                and seamless reporting.
+                and reporting.
               </p>
               <p>
                 Our <span className="text-primary">AI tool</span> is designed to
