@@ -10,32 +10,26 @@ const Page = async () => {
   return (
     <div className="w-full pb-6  h-[calc(100vh-4rem)] overflow-hidden flex-1">
       {/* Templates */}
-      {group ? (
-        <HorizontalShow
-          data={group}
-          icon={<FcManager className="w-32 h-32" />}
-          headerTxt="Supplier Groups"
-          btnTxt="Create Group"
-          redirectUrl="/management/data-management/suppliers/create/group"
-          baseUrl="/suppliers/groups"
-        />
-      ) : (
-        <h1>No Groups present</h1>
-      )}
+
+      <HorizontalShow
+        data={group || []}
+        icon={<FcManager className="w-32 h-32" />}
+        headerTxt="Supplier Groups"
+        btnTxt="Create Group"
+        redirectUrl="/management/data-management/suppliers/create/group"
+        baseUrl="/suppliers/groups"
+      />
+
       {/* Suppliers */}
 
-      {supplier ? (
-        <div className="w-full h-[65%]">
-          <VertialShow
-            data={supplier}
-            btnText="Create Supplier"
-            redirectUrl="/management/data-management/suppliers/create"
-            baseUrl="/suppliers"
-          />
-        </div>
-      ) : (
-        <h1>No Suppliers found</h1>
-      )}
+      <div className="w-full h-[65%]">
+        <VertialShow
+          data={supplier || []}
+          btnText="Create Supplier"
+          redirectUrl="/management/data-management/suppliers/create"
+          baseUrl="/suppliers"
+        />
+      </div>
     </div>
   );
 };

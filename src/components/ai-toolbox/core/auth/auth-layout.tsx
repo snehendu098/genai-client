@@ -18,7 +18,7 @@ export default function AuthLayout({
           </div>
           <div className="relative z-20 mt-10">
             <p className="text-6xl tracking-wide font-semibold text-neutral-300">
-              <span className="text-primary text-8xl">Q</span>uickable:{" "}
+              <span className="text-primary text-8xl">Q</span>uikable:{" "}
               <span className="text-primary">Revolutionizing</span> ESG data
               collection and reporting with{" "}
               <span className="text-primary">AI</span>

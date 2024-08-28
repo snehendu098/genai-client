@@ -47,7 +47,11 @@ export async function getSupplierHomeData() {
 
     return {
       success: true,
-      supplier,
+      supplier: supplier.map((item) => {
+        item.owner = item.owner.toString();
+        item._id = item._id.toString();
+        return item;
+      }),
       group,
       message: "Suppliers fetched successfully",
     };

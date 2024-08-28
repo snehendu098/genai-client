@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MdDelete, MdModeEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
 import { toast } from "@/components/ui/use-toast";
 import axios from "axios";
