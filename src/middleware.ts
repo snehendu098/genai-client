@@ -21,7 +21,8 @@ export async function middleware(request: NextRequest) {
     (url.pathname.startsWith("/app1") ||
       url.pathname.startsWith("/app2") ||
       url.pathname.startsWith("/app3") ||
-      url.pathname.startsWith("/app4"))
+      url.pathname.startsWith("/app4") ||
+      url.pathname.startsWith("/management"))
   ) {
     return NextResponse.redirect(new URL("/sign-in", request.url));
   }
@@ -41,5 +42,6 @@ export const config = {
     "/app4",
     "/api/ai/:function",
     "/api/docs/:function",
+    "/management/:path",
   ],
 };

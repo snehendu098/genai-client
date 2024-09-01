@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -47,6 +47,13 @@ const Page = () => {
     loading: false,
   });
 
+  const [homeData, setHomeData] = useState({
+    published: [],
+    drafts: [],
+  });
+
+  const [fetched, setFetched] = useState(false);
+
   const router = useRouter();
 
   const handleAlertContinue = async () => {
@@ -78,13 +85,34 @@ const Page = () => {
     }
   };
 
+  const getData = async () => {
+    try {
+      const { data } = await axios.get("/api/management/templates");
+      console.log(data);
+      if (data.success) {
+        setHomeData({ published: data.published, drafts: data.drafts });
+      }
+    } catch (err) {
+      console.log(err);
+      toast({ title: "Error while fetching template" });
+    } finally {
+      setFetched(true);
+    }
+  };
+
+  useEffect(() => {
+    if (!fetched) {
+      getData();
+    }
+  }, [options.loading]);
+
   return (
     <div className="w-full h-[calc(100vh-4rem)] overflow-hidden flex-1">
       <HorizontalShow
-        data={templateDummy}
+        data={homeData.drafts || []}
         icon={<FcDocument className="h-32 w-32" />}
         headerTxt="Drafts"
-        baseUrl=""
+        baseUrl="/management/data-management/templates"
       />
       {/* Your Templates heading */}
       <div className="flex px-8 items-center justify-between">
@@ -167,29 +195,30 @@ const Page = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {templateDummy.map((tmplt) => (
-                <TableRow key={tmplt._id}>
-                  <TableCell>
-                    <Checkbox />
-                  </TableCell>
-                  <TableCell>{tmplt.name}</TableCell>
-                  <TableCell className="text-center">
-                    {tmplt.responseIds.length}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    <Link href={"/"}>
-                      <p className="text-blue-300">Show Responses</p>
-                    </Link>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    {new Date() > new Date(tmplt.endDate) ? (
-                      <div className="text-blue-400">Active</div>
-                    ) : (
-                      <div className="text-red-400">Ended</div>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))}
+              {homeData.published.length > 0 &&
+                homeData.published.map((tmplt: any) => (
+                  <TableRow key={tmplt._id}>
+                    <TableCell>
+                      <Checkbox />
+                    </TableCell>
+                    <TableCell>{tmplt.name}</TableCell>
+                    <TableCell className="text-center">
+                      {tmplt.responseIds.length}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <Link href={"/"}>
+                        <p className="text-blue-300">Show Responses</p>
+                      </Link>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {new Date() > new Date(tmplt.endDate) ? (
+                        <div className="text-blue-400">Active</div>
+                      ) : (
+                        <div className="text-red-400">Ended</div>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </div>
