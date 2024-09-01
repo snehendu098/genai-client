@@ -173,4 +173,22 @@ export const broadDesc = {
         "Collaborate with your team members and easily share your research findings",
     },
   ],
+
+  "/app5": [
+    {
+      type: 0,
+      content:
+        "An autonomous ESG agent designed for your ESG research to provide rapid insights and comprehensive reports. It takes care of everything from accurate source gathering to organizing research results",
+    },
+    { type: 1, content: "Get comprehensive Google research with AI" },
+    {
+      type: 1,
+      content: "Accurate information gathering from relevant sources",
+    },
+    {
+      type: 1,
+      content:
+        "Collaborate with your team members and easily share your research findings",
+    },
+  ],
 };

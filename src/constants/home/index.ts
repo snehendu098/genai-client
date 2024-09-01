@@ -26,4 +26,11 @@ export const cards = [
     desc2:
       "An autonomous ESG agent designed for your ESG research from Internet",
   },
+  {
+    name: "ESG Graph Generator",
+    description: "Say Goodbye to hours of ESG research from the Internet",
+    link: "/app5",
+    desc2:
+      "An autonomous ESG agent designed for your ESG research from Internet",
+  },
 ];

@@ -9,7 +9,7 @@ import { toast } from "../../ui/use-toast";
 import { usePathname, useRouter } from "next/navigation";
 import { SingleDoc } from "@/models/ai-toolbox/Doc.model";
 import { baseUrl } from "@/constants";
-import { Loader2, PlusCircleIcon, PlusIcon } from "lucide-react";
+import { DownloadIcon, Loader2, PlusCircleIcon, PlusIcon } from "lucide-react";
 import { broadDesc } from "@/constants/dashboard";
 import { useSession } from "next-auth/react";
 import { v4 } from "uuid";
@@ -50,9 +50,15 @@ interface DocUploadProps {
   headTxt: string;
   title: string;
   appType: string;
+  shortDesc?: string;
 }
 
-const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
+const DocUpload: React.FC<DocUploadProps> = ({
+  headTxt,
+  title,
+  appType,
+  shortDesc,
+}) => {
   const [files, setFiles] = useState<FileList | null>(null);
   const [name, setName] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -258,6 +264,13 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
               >
                 <PlusIcon />
               </div>
+              {pathname === "/app5" && (
+                <div>
+                  <Button className="flex items-center ml-2">
+                    <DownloadIcon className="mr-2" /> Download Template
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
           {/* Uploader and  */}
@@ -265,7 +278,9 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
             {!uploader ? (
               <>
                 {!loading && fetchedFiles.length === 0 && (
-                  <p className="ml-4">You can upload up to 5 PDFs per chat</p>
+                  <p className="ml-4">
+                    {shortDesc || "You can upload up to 5 PDFs per chat"}
+                  </p>
                 )}
                 {fetchedFiles.length > 0 && (
                   <Table>
@@ -321,9 +336,11 @@ const DocUpload: React.FC<DocUploadProps> = ({ headTxt, title, appType }) => {
                     <Input
                       type="file"
                       className="w-full"
-                      accept="application/pdf"
+                      accept={`application/pdf, ${
+                        pathname === "/app5" && ".xlsx, .csv, .xls"
+                      }`}
                       onChange={(e) => setFiles(e.target.files)}
-                      multiple
+                      multiple={pathname !== "/app5"}
                     />
                     <Button
                       disabled={loading}
