@@ -27,6 +27,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { toast } from "@/components/ui/use-toast";
+import axios from "axios";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useAppContext } from "@/context/pdf-page-provider";
 
 // Mock data for demonstration
 const mockData = [
@@ -71,9 +75,20 @@ const mockData = [
   // Add more mock data as needed
 ];
 
+interface Action {
+  name: string | null;
+  action: any | null;
+}
+
+type ModalProps = {
+  title: string;
+  data: any[];
+  actions: Action[];
+};
+
 export default function Component({ params }: { params: { id: string } }) {
-  const [completeData] = useState(mockData);
-  const [gapsData] = useState([
+  const [completeData, setCompleteData] = useState(mockData);
+  const [gapsData, setGapsData] = useState([
     ...mockData,
     [
       "Chicago",
@@ -95,7 +110,7 @@ export default function Component({ params }: { params: { id: string } }) {
       "210",
     ],
   ]);
-  const [duplicatesData] = useState([
+  const [duplicatesData, setDuplicatesData] = useState([
     ...mockData,
     [
       "New York",
@@ -117,7 +132,7 @@ export default function Component({ params }: { params: { id: string } }) {
       "2100",
     ],
   ]);
-  const [anomaliesData] = useState([
+  const [anomaliesData, setAnomaliesData] = useState([
     ...mockData,
     [
       "San Francisco",
@@ -140,68 +155,49 @@ export default function Component({ params }: { params: { id: string } }) {
     ],
   ]);
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState({ title: "", data: [] });
+  const [modalContent, setModalContent] = useState<ModalProps>({
+    title: "",
+    data: [],
+    actions: [],
+  });
 
-  const openModal = (title: any, data: any) => {
-    setModalContent({ title, data });
+  const openModal = (title: any, data: any, actions: Action[]) => {
+    setModalContent({ title, data, actions });
     setModalOpen(true);
   };
 
-  const renderTable = (data: any, showActions = false) => (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>Location</TableHead>
-          <TableHead>Category</TableHead>
-          <TableHead>Type</TableHead>
-          <TableHead>Unit</TableHead>
-          <TableHead>Year</TableHead>
-          <TableHead>Jan</TableHead>
-          <TableHead>Feb</TableHead>
-          <TableHead>Mar</TableHead>
-          <TableHead>Apr</TableHead>
-          <TableHead>May</TableHead>
-          <TableHead>Jun</TableHead>
-          <TableHead>Jul</TableHead>
-          <TableHead>Aug</TableHead>
-          <TableHead>Sep</TableHead>
-          <TableHead>Oct</TableHead>
-          <TableHead>Nov</TableHead>
-          <TableHead>Dec</TableHead>
-          {showActions && (
-            <>
-              <TableHead>Action 1</TableHead>
-              <TableHead>Action 2</TableHead>
-            </>
-          )}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {data.map((row: any, index: number) => (
-          <TableRow key={index}>
-            {row.map((cell: any, cellIndex: number) => (
-              <TableCell key={cellIndex}>{cell}</TableCell>
-            ))}
-            {showActions && (
-              <>
-                <TableCell>
-                  <Button variant="outline" size="sm">
-                    Action 1
-                  </Button>
-                </TableCell>
-                <TableCell>
-                  <Button variant="outline" size="sm">
-                    Action 2
-                  </Button>
-                </TableCell>
-              </>
-            )}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
+  const handleAction1Click = async (type: number, row_index: any) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.post("/api/app5/");
+      switch (type) {
+        case 1:
+          // data gap handling
+          break;
+
+        case 2:
+          // duplicates handling
+          break;
+
+        case 3:
+          // anomalies handling
+          break;
+
+        default:
+          break;
+      }
+    } catch (err) {
+      console.log(err);
+      toast({
+        title: "Error while handling data manipulation events",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="container mx-auto p-4 space-y-16">
@@ -249,7 +245,23 @@ export default function Component({ params }: { params: { id: string } }) {
             <CardTitle>Data Gaps</CardTitle>
           </CardHeader>
           <CardContent>
-            <Button onClick={() => openModal("Data Gaps", gapsData)}>
+            <Button
+              onClick={() =>
+                openModal("Data Gaps", gapsData, [
+                  {
+                    name: "Drop",
+                    action: () => console.log("drop"),
+                  },
+                  { name: "Mean", action: () => console.log("mean") },
+                  { name: "Median", action: () => console.log("median") },
+                  { name: "Mode", action: () => console.log("mode") },
+                  {
+                    name: "Placeholder",
+                    action: () => console.log("placeholder"),
+                  },
+                ])
+              }
+            >
               View Data Gaps
             </Button>
           </CardContent>
@@ -259,7 +271,13 @@ export default function Component({ params }: { params: { id: string } }) {
             <CardTitle>Duplicates</CardTitle>
           </CardHeader>
           <CardContent>
-            <Button onClick={() => openModal("Duplicates", duplicatesData)}>
+            <Button
+              onClick={() =>
+                openModal("Duplicates", duplicatesData, [
+                  { name: "Drop", action: () => console.log("drop") },
+                ])
+              }
+            >
               View Duplicates
             </Button>
           </CardContent>
@@ -269,14 +287,20 @@ export default function Component({ params }: { params: { id: string } }) {
             <CardTitle>Anomalies</CardTitle>
           </CardHeader>
           <CardContent>
-            <Button onClick={() => openModal("Anomalies", anomaliesData)}>
+            <Button
+              onClick={() =>
+                openModal("Anomalies", anomaliesData, [
+                  { name: "Drop", action: () => console.log("drop") },
+                ])
+              }
+            >
               View Anomalies
             </Button>
           </CardContent>
         </Card>
       </div>
 
-      <div className="overflow-x-auto">{renderTable(completeData)}</div>
+      <div className="overflow-x-auto">{renderTable(completeData, [])}</div>
 
       <Dialog open={modalOpen} onOpenChange={setModalOpen}>
         <DialogContent className="max-w-[90vw] w-full">
@@ -284,10 +308,75 @@ export default function Component({ params }: { params: { id: string } }) {
             <DialogTitle>{modalContent.title}</DialogTitle>
           </DialogHeader>
           <div className="overflow-x-auto">
-            {renderTable(modalContent.data, true)}
+            {renderTable(modalContent.data, modalContent.actions, true)}
           </div>
         </DialogContent>
       </Dialog>
     </div>
   );
 }
+
+const renderTable = (data: any, actions: Action[], showActions = false) => {
+  const { handleDataContext, setHandleDataContext } = useAppContext();
+
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Location</TableHead>
+          <TableHead>Category</TableHead>
+          <TableHead>Type</TableHead>
+          <TableHead>Unit</TableHead>
+          <TableHead>Year</TableHead>
+          <TableHead>Jan</TableHead>
+          <TableHead>Feb</TableHead>
+          <TableHead>Mar</TableHead>
+          <TableHead>Apr</TableHead>
+          <TableHead>May</TableHead>
+          <TableHead>Jun</TableHead>
+          <TableHead>Jul</TableHead>
+          <TableHead>Aug</TableHead>
+          <TableHead>Sep</TableHead>
+          <TableHead>Oct</TableHead>
+          <TableHead>Nov</TableHead>
+          <TableHead>Dec</TableHead>
+          {showActions &&
+            actions.length > 0 &&
+            actions.map((item, index) => (
+              <TableHead key={index}>{item.name}</TableHead>
+            ))}
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {data.map((row: any, index: number) => (
+          <TableRow
+            onClick={() => console.log(index, handleDataContext[index])}
+            key={index}
+          >
+            {row.map((cell: any, cellIndex: number) => (
+              <TableCell key={cellIndex}>{cell}</TableCell>
+            ))}
+
+            {showActions &&
+              actions.length > 0 &&
+              actions.map((item, actionIndex: number) => (
+                <TableCell className="text-center" key={actionIndex}>
+                  <Checkbox
+                    // disabled function check
+                    disabled={handleDataContext[index] && true}
+                    onCheckedChange={(check) => {
+                      setHandleDataContext({
+                        ...handleDataContext,
+                        [index]: check ? index : null,
+                      });
+                      console.log(handleDataContext);
+                    }}
+                  />
+                </TableCell>
+              ))}
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+};

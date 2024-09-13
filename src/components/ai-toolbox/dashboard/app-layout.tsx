@@ -9,7 +9,7 @@ import { SingleDoc } from "@/models/ai-toolbox/Doc.model";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
-import { usePageContext } from "@/context/pdf-page-provider";
+import { useAppContext } from "@/context/pdf-page-provider";
 
 const AppLayouts = ({
   params,
@@ -21,7 +21,7 @@ const AppLayouts = ({
   const [pdfView, setPdfView] = useState<SingleDoc | null>(null);
   const [docs, setDocs] = useState<SingleDoc[]>([]);
 
-  const { page } = usePageContext();
+  const { page } = useAppContext();
 
   const pageNavigationPluginInstance = pageNavigationPlugin();
   const defaultLayoutPluginInstance: any = defaultLayoutPlugin();

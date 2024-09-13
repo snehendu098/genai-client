@@ -2,22 +2,25 @@
 
 import React, { createContext, useContext, useState } from "react";
 
-const PageContext = createContext<any>(undefined);
+const AppContext = createContext<any>(undefined);
 
-export const PageAppWrappper = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+interface AnalyticsData {
+  [type: number]: number;
+}
+
+export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
   const [page, setPage] = useState<number>(0);
+  const [handleDataContext, setHandleDataContext] = useState<AnalyticsData>();
 
   return (
-    <PageContext.Provider value={{ page, setPage }}>
+    <AppContext.Provider
+      value={{ page, setPage, handleDataContext, setHandleDataContext }}
+    >
       {children}
-    </PageContext.Provider>
+    </AppContext.Provider>
   );
 };
 
-export function usePageContext() {
-  return useContext(PageContext);
+export function useAppContext() {
+  return useContext(AppContext);
 }

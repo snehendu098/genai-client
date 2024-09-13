@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PrincipleChecklist } from "@/constants/dashboard";
-import { usePageContext } from "@/context/pdf-page-provider";
+import { useAppContext } from "@/context/pdf-page-provider";
 import { Button } from "@/components/ui/button";
 
 const TableDataShow = ({
@@ -22,7 +22,7 @@ const TableDataShow = ({
   value: PrincipleChecklist;
   idx: number;
 }) => {
-  const { setPage } = usePageContext();
+  const { setPage } = useAppContext();
 
   return (
     <div

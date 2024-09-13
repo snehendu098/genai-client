@@ -1,11 +1,8 @@
 "use client";
-import { Button } from "@/components/ui/button";
+
 import { toast } from "@/components/ui/use-toast";
-import {
-  TopicAssessment,
-  topicAssessmentDummyData,
-} from "@/constants/dashboard";
-import { usePageContext } from "@/context/pdf-page-provider";
+import { TopicAssessment } from "@/constants/dashboard";
+import { useAppContext } from "@/context/pdf-page-provider";
 import axios from "axios";
 import { CopyIcon } from "lucide-react";
 import React, { useEffect, useState, useCallback } from "react";
@@ -14,7 +11,7 @@ const App = ({ params }: { params: { id: string } }) => {
   const [apiData, setData] = useState<TopicAssessment | null>(null);
   // const apiData = topicAssessmentDummyData;
   const [loading, setLoading] = useState<boolean>(false);
-  const { setPage } = usePageContext();
+  const { setPage } = useAppContext();
 
   const getResponse = useCallback(async () => {
     setLoading(true);
