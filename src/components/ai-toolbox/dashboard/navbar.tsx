@@ -22,6 +22,7 @@ const NavBar = () => {
       "/app1": "ESG Document Summarizer",
       "/app2": "ESG Questionnaire",
       "/app3": "ESG Governance",
+      "/app5": "ESG Graph Generator",
     }),
     []
   );
@@ -31,13 +32,17 @@ const NavBar = () => {
       return "/app1";
     } else if (urlPath.includes("/app2")) {
       return "/app2";
-    } else {
+    } else if (urlPath.includes("/app3")) {
       return "/app3";
+    } else if (urlPath.includes("/app5")) {
+      return "/app5";
+    } else {
+      return "/app5";
     }
   }, [urlPath]);
 
   return (
-    <nav className="top-0 border border-b sticky grid grid-cols-6 right-0 left-0 items-center w-full h-16 backdrop-blur px-10">
+    <nav className="top-0 border-b sticky grid grid-cols-6 right-0 left-0 items-center w-full h-16 backdrop-blur px-10">
       <Link href={"/"}>
         <p className="text-xl font-bold">
           <span className="text-primary text-3xl ">Q</span>uikable

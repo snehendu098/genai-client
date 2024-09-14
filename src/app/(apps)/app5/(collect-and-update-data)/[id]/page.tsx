@@ -363,7 +363,9 @@ const renderTable = (data: any, actions: Action[], showActions = false) => {
                 <TableCell className="text-center" key={actionIndex}>
                   <Checkbox
                     // disabled function check
-                    disabled={handleDataContext[index] && true}
+                    disabled={
+                      handleDataContext && handleDataContext[index] && true
+                    }
                     onCheckedChange={(check) => {
                       setHandleDataContext({
                         ...handleDataContext,
