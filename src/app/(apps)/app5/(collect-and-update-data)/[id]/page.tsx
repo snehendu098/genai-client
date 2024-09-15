@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -24,13 +24,23 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 import axios from "axios";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useAppContext } from "@/context/pdf-page-provider";
+import { Progress } from "@/components/ui/progress";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Mock data for demonstration
 const mockData = [
@@ -39,40 +49,292 @@ const mockData = [
     "Sales",
     "Revenue",
     "USD",
-    "2023",
-    "1000",
-    "1200",
-    "1100",
-    "1300",
-    "1400",
-    "1500",
-    "1600",
-    "1700",
-    "1800",
-    "1900",
-    "2000",
-    "2100",
+    "2024",
+    1431,
+    2341,
+    1567,
+    1987,
+    2198,
+    2456,
+    2789,
+    3012,
+    3211,
+    3412,
+    3613,
+    3814,
   ],
   [
     "Los Angeles",
     "Marketing",
-    "Clicks",
-    "Count",
+    "Expenses",
+    "EUR",
     "2023",
-    "500",
-    "600",
-    null,
-    "700",
-    "750",
-    "800",
-    "850",
-    "900",
-    "950",
-    "1000",
-    "1050",
-    "1100",
+    1000,
+    2000,
+    3000,
+    4000,
+    5000,
+    6000,
+    7000,
+    8000,
+    9000,
+    10000,
+    11000,
+    12000,
   ],
-  // Add more mock data as needed
+  [
+    "Chicago",
+    "Operations",
+    "Profit",
+    "GBP",
+    "2022",
+    500,
+    1000,
+    1500,
+    2000,
+    2500,
+    3000,
+    3500,
+    4000,
+    4500,
+    5000,
+    5500,
+
+    6500,
+  ],
+  [
+    "Houston",
+    "Finance",
+    "Loss",
+    "JPY",
+    "2021",
+    200,
+    400,
+    600,
+    800,
+    1000,
+    1200,
+    1400,
+    1600,
+    1800,
+
+    2200,
+    2400,
+    2600,
+  ],
+  [
+    "Phoenix",
+    "HR",
+    "Assets",
+    "CNY",
+    "2020",
+    100,
+    200,
+    300,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200,
+    1300,
+  ],
+  [
+    "New York",
+    "Sales",
+    "Revenue",
+    "USD",
+    "2024",
+    1431,
+    2341,
+    1567,
+    1987,
+    2198,
+    2456,
+    2789,
+    3012,
+    3211,
+    3412,
+    3613,
+    3814,
+  ],
+  [
+    "Los Angeles",
+    "Marketing",
+    "Expenses",
+    "EUR",
+    "2023",
+    1000,
+    2000,
+    3000,
+    4000,
+    5000,
+    6000,
+    7000,
+    8000,
+    9000,
+    10000,
+    11000,
+    12000,
+  ],
+  [
+    "Chicago",
+    "Operations",
+    "Profit",
+    "GBP",
+    "2022",
+    500,
+    1000,
+    1500,
+    2000,
+    2500,
+    3000,
+    3500,
+    4000,
+    4500,
+    5000,
+    5500,
+
+    6500,
+  ],
+  [
+    "Houston",
+    "Finance",
+    "Loss",
+    "JPY",
+    "2021",
+    200,
+    400,
+    600,
+    800,
+    1000,
+    1200,
+    1400,
+    1600,
+    1800,
+
+    2200,
+    2400,
+    2600,
+  ],
+  [
+    "Phoenix",
+    "HR",
+    "Assets",
+    "CNY",
+    "2020",
+    100,
+    200,
+    300,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200,
+    1300,
+  ],
+  [
+    "New York",
+    "Sales",
+    "Revenue",
+    "USD",
+    "2024",
+    1431,
+    2341,
+    1567,
+    1987,
+    2198,
+    2456,
+    2789,
+    3012,
+    3211,
+    3412,
+    3613,
+    3814,
+  ],
+  [
+    "Los Angeles",
+    "Marketing",
+    "Expenses",
+    "EUR",
+    "2023",
+    1000,
+    2000,
+    3000,
+    4000,
+    5000,
+    6000,
+    7000,
+    8000,
+    9000,
+    10000,
+    11000,
+    12000,
+  ],
+  [
+    "Chicago",
+    "Operations",
+    "Profit",
+    "GBP",
+    "2022",
+    500,
+    1000,
+    1500,
+    2000,
+    2500,
+    3000,
+    3500,
+    4000,
+    4500,
+    5000,
+    5500,
+
+    6500,
+  ],
+  [
+    "Houston",
+    "Finance",
+    "Loss",
+    "JPY",
+    "2021",
+    200,
+    400,
+    600,
+    800,
+    1000,
+    1200,
+    1400,
+    1600,
+    1800,
+
+    2200,
+    2400,
+    2600,
+  ],
+  [
+    "Phoenix",
+    "HR",
+    "Assets",
+    "CNY",
+    "2020",
+    100,
+    200,
+    300,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200,
+    1300,
+  ],
 ];
 
 interface Action {
@@ -86,74 +348,215 @@ type ModalProps = {
   actions: Action[];
 };
 
+{
+  /* <Card
+          onClick={() =>
+            openModal("Anomalies", anomaliesData, [
+              { name: "Drop", action: () => console.log("drop") },
+            ])
+          }
+          className="hover:bg-muted/15"
+        >
+          <CardHeader>
+            <CardTitle>Anomalies</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Progress className="w-full mb-4" value={40} />
+            <div className="flex items-center mb-4 justify-between">
+              <p className="text-sm text-muted-foreground">ANOMALIES: 10</p>
+              <p className="text-sm text-muted-foreground">INPUT DATA: 100</p>
+            </div>
+          </CardContent>
+        </Card> */
+}
+
+type OperableData = {
+  type: "gaps" | "duplicates" | "anomalies";
+  data: any[][];
+  count: number;
+  foreGroundText: string;
+};
+
+const operableData: OperableData[] = [
+  {
+    type: "gaps",
+    data: [
+      [
+        "New York",
+        "Sales",
+        "Revenue",
+        "USD",
+        "2024",
+        1431,
+        1567,
+        1987,
+        2198,
+        2456,
+        2789,
+        3012,
+        3211,
+        3412,
+        3613,
+        3814,
+        4015,
+      ],
+      [
+        "Chicago",
+        "IT",
+        "Profit",
+        "GBP",
+        "2026",
+        1298,
+        1421,
+        1549,
+        1682,
+        1821,
+        1966,
+        2274,
+        2437,
+        2606,
+        2781,
+        2962,
+        3151,
+      ],
+      [
+        "Houston",
+        "Finance",
+        "Growth",
+        "JPY",
+        "2027",
+        2119,
+        2293,
+        2473,
+        2661,
+        2857,
+        3063,
+        3505,
+        3743,
+        3993,
+        4255,
+        4529,
+        4817,
+      ],
+      [
+        "Seattle",
+        "HR",
+        "Loss",
+        "CNY",
+        "2023",
+        1567,
+        1712,
+        1863,
+        2022,
+        2191,
+        2369,
+        2557,
+        2756,
+        2967,
+        3191,
+        3682,
+        3951,
+      ],
+    ],
+    count: 4,
+    foreGroundText: "GAPS",
+  },
+  {
+    type: "duplicates",
+    data: [
+      [
+        "Seattle",
+        "HR",
+        "Loss",
+        "CNY",
+        "2023",
+        1567,
+        1712,
+        1863,
+        2191,
+        2369,
+        2557,
+        2756,
+        2967,
+        3191,
+        3429,
+        3682,
+        3951,
+      ],
+    ],
+    count: 1,
+    foreGroundText: "DUPLICATES",
+  },
+  {
+    type: "anomalies",
+    data: [
+      [
+        "New York",
+        "Sales",
+        "Revenue",
+        "USD",
+        "2024",
+        1431,
+        2341,
+        1987,
+        2198,
+        2456,
+        2789,
+        3012,
+        3211,
+        3412,
+        3613,
+        3814,
+        4015,
+      ],
+      [
+        "Los Angeles",
+        "Marketing",
+        "Expenses",
+        "EUR",
+        "2025",
+        1876,
+        2012,
+        2145,
+        2289,
+        2434,
+        2581,
+        2732,
+        3041,
+        3201,
+        3364,
+        3529,
+        3697,
+      ],
+      [
+        "Chicago",
+        "IT",
+        "Profit",
+        "GBP",
+        "2026",
+        1298,
+        1421,
+        1549,
+        1682,
+        1821,
+        2117,
+        2274,
+        2437,
+        2606,
+        2781,
+        2962,
+        3151,
+      ],
+    ],
+    count: 3,
+    foreGroundText: "ANOMALIES",
+  },
+];
+
 export default function Component({ params }: { params: { id: string } }) {
   const [completeData, setCompleteData] = useState(mockData);
-  const [gapsData, setGapsData] = useState([
-    ...mockData,
-    [
-      "Chicago",
-      "Support",
-      "Tickets",
-      "Count",
-      "2023",
-      "100",
-      "120",
-      "",
-      "130",
-      "140",
-      "150",
-      "160",
-      "170",
-      "180",
-      "190",
-      "200",
-      "210",
-    ],
-  ]);
-  const [duplicatesData, setDuplicatesData] = useState([
-    ...mockData,
-    [
-      "New York",
-      "Sales",
-      "Revenue",
-      "USD",
-      "2023",
-      "1000",
-      "1200",
-      "1100",
-      "1300",
-      "1400",
-      "1500",
-      "1600",
-      "1700",
-      "1800",
-      "1900",
-      "2000",
-      "2100",
-    ],
-  ]);
-  const [anomaliesData, setAnomaliesData] = useState([
-    ...mockData,
-    [
-      "San Francisco",
-      "Sales",
-      "Revenue",
-      "USD",
-      "2023",
-      "1000",
-      "1200",
-      "1100",
-      "1300",
-      "1400",
-      "15000",
-      "1600",
-      "1700",
-      "1800",
-      "1900",
-      "2000",
-      "2100",
-    ],
-  ]);
+  const [startDate, setStartDate] = React.useState<Date>();
+  const [endDate, setEndDate] = React.useState<Date>();
 
   const [loading, setLoading] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -200,124 +603,144 @@ export default function Component({ params }: { params: { id: string } }) {
   };
 
   return (
-    <div className="container mx-auto p-4 space-y-16">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="space-y-2">
-          <Label>START DATE</Label>
-          <Input type="date" placeholder="Start Date" />
-        </div>
-
-        <div className="space-y-2">
-          <Label>END DATE</Label>
-          <Input type="date" placeholder="End Date" />
-        </div>
-
-        <div className="space-y-2">
-          <Label>LOCATION</Label>
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Location" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="new-york">New York</SelectItem>
-              <SelectItem value="los-angeles">Los Angeles</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <Label>CATEGORIES</Label>
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Categories" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="sales">Sales</SelectItem>
-              <SelectItem value="marketing">Marketing</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Data Gaps</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Button
-              onClick={() =>
-                openModal("Data Gaps", gapsData, [
-                  {
-                    name: "Drop",
-                    action: () => console.log("drop"),
-                  },
-                  { name: "Mean", action: () => console.log("mean") },
-                  { name: "Median", action: () => console.log("median") },
-                  { name: "Mode", action: () => console.log("mode") },
-                  {
-                    name: "Placeholder",
-                    action: () => console.log("placeholder"),
-                  },
-                ])
-              }
-            >
-              View Data Gaps
-            </Button>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Duplicates</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Button
-              onClick={() =>
-                openModal("Duplicates", duplicatesData, [
-                  { name: "Drop", action: () => console.log("drop") },
-                ])
-              }
-            >
-              View Duplicates
-            </Button>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Anomalies</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Button
-              onClick={() =>
-                openModal("Anomalies", anomaliesData, [
-                  { name: "Drop", action: () => console.log("drop") },
-                ])
-              }
-            >
-              View Anomalies
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="overflow-x-auto">{renderTable(completeData, [])}</div>
-
-      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="max-w-[90vw] w-full">
-          <DialogHeader>
-            <DialogTitle>{modalContent.title}</DialogTitle>
-          </DialogHeader>
-          <div className="overflow-x-auto">
-            {renderTable(modalContent.data, modalContent.actions, true)}
+    <ScrollArea className="w-full h-[calc(100vh-4rem)]">
+      <div className="container mx-auto p-4 space-y-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="space-y-2">
+            <Label>START DATE</Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-[280px] justify-start text-left font-normal",
+                    !startDate && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {startDate ? (
+                    format(startDate, "PPP")
+                  ) : (
+                    <span>START DATE</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                  mode="single"
+                  selected={startDate}
+                  onSelect={setStartDate}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
           </div>
-        </DialogContent>
-      </Dialog>
-    </div>
+
+          <div className="space-y-2">
+            <Label>END DATE</Label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant={"outline"}
+                  className={cn(
+                    "w-[280px] justify-start text-left font-normal",
+                    !endDate && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {endDate ? format(endDate, "PPP") : <span>START DATE</span>}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                  mode="single"
+                  selected={endDate}
+                  onSelect={setEndDate}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          <div className="space-y-2">
+            <Label>LOCATION</Label>
+            <Select>
+              <SelectTrigger>
+                <SelectValue placeholder="Location" />
+              </SelectTrigger>
+              <SelectContent>
+                {Array.from(
+                  new Set(mockData.map((item) => item[0].toString()))
+                ).map((item) => {
+                  const slugify = (str: string) =>
+                    str.toLowerCase().replace(/\s+/g, "-");
+                  return <SelectItem value={slugify(item)}>{item}</SelectItem>;
+                })}
+                <SelectItem value="los-angeles">Los Angeles</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label>CATEGORIES</Label>
+            <Select>
+              <SelectTrigger>
+                <SelectValue placeholder="Categories" />
+              </SelectTrigger>
+              <SelectContent>
+                {Array.from(
+                  new Set(mockData.map((item) => item[1].toString()))
+                ).map((item) => {
+                  const slugify = (str: string) =>
+                    str.toLowerCase().replace(/\s+/g, "-");
+                  return <SelectItem value={slugify(item)}>{item}</SelectItem>;
+                })}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        {/* cards  */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {operableData.map((item, index) => (
+            <SingleCard
+              openModal={openModal}
+              cardItem={item}
+              inputNumber={mockData.length}
+            />
+          ))}
+        </div>
+
+        <div className="overflow-x-auto">{renderTable(completeData, [])}</div>
+
+        <Dialog open={modalOpen} onOpenChange={setModalOpen}>
+          <DialogContent className="max-w-[90vw] w-full">
+            <DialogHeader>
+              <DialogTitle>{modalContent.title}</DialogTitle>
+            </DialogHeader>
+            <div className="overflow-x-auto">
+              {renderTable(modalContent.data, modalContent.actions, true)}
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+    </ScrollArea>
   );
 }
 
-const renderTable = (data: any, actions: Action[], showActions = false) => {
+const renderTable = (data: any[], actions: Action[], showActions = false) => {
   const { handleDataContext, setHandleDataContext } = useAppContext();
+
+  useEffect(() => {
+    if (data.length > 0) {
+      data.forEach((_, idx) => {
+        setHandleDataContext((prevHandleDataContext: any) => ({
+          ...prevHandleDataContext,
+          [idx]: null,
+        }));
+      });
+    }
+  }, [data, setHandleDataContext]);
 
   return (
     <Table>
@@ -350,7 +773,7 @@ const renderTable = (data: any, actions: Action[], showActions = false) => {
       <TableBody>
         {data.map((row: any, index: number) => (
           <TableRow
-            onClick={() => console.log(index, handleDataContext[index])}
+            // onClick={() => console.log(index, handleDataContext)}
             key={index}
           >
             {row.map((cell: any, cellIndex: number) => (
@@ -363,9 +786,7 @@ const renderTable = (data: any, actions: Action[], showActions = false) => {
                 <TableCell className="text-center" key={actionIndex}>
                   <Checkbox
                     // disabled function check
-                    disabled={
-                      handleDataContext && handleDataContext[index] && true
-                    }
+
                     onCheckedChange={(check) => {
                       setHandleDataContext({
                         ...handleDataContext,
@@ -380,5 +801,99 @@ const renderTable = (data: any, actions: Action[], showActions = false) => {
         ))}
       </TableBody>
     </Table>
+  );
+};
+
+type Params = {
+  name: string;
+  foreGroundText: string;
+  actions: Action[];
+};
+const SingleCard = ({
+  openModal,
+  cardItem,
+  inputNumber,
+}: {
+  openModal: any;
+  cardItem: OperableData;
+  inputNumber?: number;
+}) => {
+  const [params, setParams] = useState<Params | null>(null);
+
+  useEffect(() => {
+    switch (cardItem.type) {
+      case "gaps":
+        setParams({
+          name: "Data Gaps",
+          foreGroundText: "DATA GAPS",
+          actions: [
+            {
+              name: "Drop",
+              action: () => console.log("drop"),
+            },
+            { name: "Mean", action: () => console.log("mean") },
+            { name: "Median", action: () => console.log("median") },
+            { name: "Mode", action: () => console.log("mode") },
+            {
+              name: "Placeholder",
+              action: () => console.log("placeholder"),
+            },
+          ],
+        });
+        break;
+
+      case "duplicates":
+        setParams({
+          name: "Duplicates",
+          foreGroundText: "DUPLICATES",
+          actions: [
+            {
+              name: "Drop",
+              action: () => console.log("drop"),
+            },
+          ],
+        });
+        break;
+
+      default:
+        setParams({
+          name: "Anomalies",
+          foreGroundText: "ANOMALIES",
+          actions: [
+            {
+              name: "Drop",
+              action: () => console.log("drop"),
+            },
+          ],
+        });
+        break;
+    }
+  }, [cardItem]);
+
+  return (
+    <Card
+      onClick={() =>
+        openModal("Data Gaps", cardItem.data, params?.actions || [])
+      }
+      className="hover:bg-muted/15 cursor-pointer"
+    >
+      <CardHeader>
+        <CardTitle>{params?.name || ""}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Progress
+          className="w-full mb-4"
+          value={Math.floor((cardItem.count / (inputNumber || 100)) * 100)}
+        />
+        <div className="flex items-center mb-4 justify-between">
+          <p className="text-sm text-muted-foreground">
+            {params?.foreGroundText || ""}: {cardItem.count}
+          </p>
+          <p className="text-sm text-muted-foreground">
+            INPUT DATA: {inputNumber || "100"}
+          </p>
+        </div>
+      </CardContent>
+    </Card>
   );
 };

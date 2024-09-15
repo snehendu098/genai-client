@@ -20,7 +20,6 @@ import type { ChartConfig } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis } from "recharts";
 import { Pie, PieChart } from "recharts";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import clsx from "clsx";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const cards: { title: string; number: string; spanTxt?: string }[] = [
@@ -85,9 +84,9 @@ const scopeCards = [
   },
 ];
 
-const donutChartData = [
-  { scope: "scope-1", visitors: 1, fill: "#fff" },
-  { scope: "scope-2", visitors: 10, fill: "#994" },
+const donutChart1Data = [
+  { scope: "scope-1", visitors: 20, fill: "#fff" },
+  { scope: "scope-2", visitors: 80, fill: "#994" },
 ];
 
 const donutChart2Data = [
@@ -104,27 +103,6 @@ const donutChart3Data = [
   { scope: "Air Travel", visitors: 40, fill: "#22c55e" },
 ];
 
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-} satisfies ChartConfig;
-
-const stackChartConfig = {
-  scope1: {
-    label: "Scope 1",
-    color: "#10b981",
-  },
-  scope2: {
-    label: "Scope 2",
-    color: "#f59e0b",
-  },
-  scope3: {
-    label: "Scope 3",
-    color: "#ef4444",
-  },
-} satisfies ChartConfig;
-
 const stackChartData = [
   { month: "January", scope1: 186, scope2: 80, scope3: 400 },
   { month: "February", scope1: 305, scope2: 200, scope3: 400 },
@@ -134,7 +112,6 @@ const stackChartData = [
   { month: "June", scope1: 214, scope2: 140, scope3: 400 },
 ];
 
-// dummy data
 const topEmissionsByCategoryData = [
   {
     companyName: "Chevron Corp",
@@ -198,6 +175,37 @@ const topEmissionsByCategoryData = [
   },
 ];
 
+const chartConfig = {
+  visitors: {
+    label: "Visitors",
+  },
+} satisfies ChartConfig;
+
+const stackChartConfig = {
+  scope1: {
+    label: "Scope 1",
+    color: "#10b981",
+  },
+  scope2: {
+    label: "Scope 2",
+    color: "#f59e0b",
+  },
+  scope3: {
+    label: "Scope 3",
+    color: "#ef4444",
+  },
+} satisfies ChartConfig;
+
+const completeData = {
+  cards,
+  scopeCards,
+  donutChart1Data,
+  donutChart2Data,
+  donutChart3Data,
+  stackChartData,
+  topEmissionsByCategoryData,
+};
+
 const MeasurePage = ({ params }: { params: { id: string } }) => {
   function extractFirstLetters(data: string) {
     const words = data.split(" ");
@@ -231,7 +239,7 @@ const MeasurePage = ({ params }: { params: { id: string } }) => {
       {/* Static 4 bars */}
       <>
         <div className="w-full grid grid-cols-4 gap-4">
-          {cards.map((value, idx) => (
+          {completeData.cards.map((value, idx) => (
             <SingleCard key={idx} {...value} />
           ))}
         </div>
@@ -245,7 +253,7 @@ const MeasurePage = ({ params }: { params: { id: string } }) => {
             {/* Top 4 */}
             <>
               <div className="grid grid-cols-4 gap-4">
-                {scopeCards.map((item, idx) => (
+                {completeData.scopeCards.map((item, idx) => (
                   <ScopeCard item={item} key={idx} />
                 ))}
                 <div className="p-4 rounded-md bg-muted">
@@ -253,7 +261,7 @@ const MeasurePage = ({ params }: { params: { id: string } }) => {
                   <ChartContainer config={chartConfig} className="mx-auto">
                     <PieChart className="h-full w-full">
                       <Pie
-                        data={donutChartData}
+                        data={completeData.donutChart1Data}
                         dataKey="visitors"
                         nameKey="scope"
                         innerRadius={20}
@@ -268,7 +276,7 @@ const MeasurePage = ({ params }: { params: { id: string } }) => {
             {/* Stack chart */}
             <div className="p-4 my-6 rounded-md bg-muted mt-6">
               <ChartContainer config={stackChartConfig}>
-                <BarChart accessibilityLayer data={stackChartData}>
+                <BarChart accessibilityLayer data={completeData.stackChartData}>
                   <CartesianGrid vertical={false} />
                   <XAxis
                     dataKey="month"
@@ -317,7 +325,7 @@ const MeasurePage = ({ params }: { params: { id: string } }) => {
                           content={<ChartTooltipContent hideLabel />}
                         />
                         <Pie
-                          data={donutChart2Data}
+                          data={completeData.donutChart2Data}
                           dataKey="visitors"
                           nameKey="scope"
                           innerRadius={20}
@@ -360,7 +368,7 @@ const MeasurePage = ({ params }: { params: { id: string } }) => {
                           content={<ChartTooltipContent hideLabel />}
                         />
                         <Pie
-                          data={donutChart3Data}
+                          data={completeData.donutChart3Data}
                           dataKey="visitors"
                           nameKey="scope"
                           innerRadius={20}
@@ -374,7 +382,7 @@ const MeasurePage = ({ params }: { params: { id: string } }) => {
                 </div>
                 {/* Data Show */}
                 <div className="w-full flex flex-col space-y-2">
-                  {donutChart3Data.map((item, idx) => (
+                  {completeData.donutChart3Data.map((item, idx) => (
                     <div
                       key={idx}
                       className="rounded-md bg-zinc-900 flex items-center justify-between p-4"
@@ -396,7 +404,7 @@ const MeasurePage = ({ params }: { params: { id: string } }) => {
             <ScrollArea className="p-4 rounded-md bg-muted h-[37.8vh] mt-6">
               <div className="flex flex-col w-full">
                 <p className="text-2xl mb-2">Top Emissions by Category</p>
-                {topEmissionsByCategoryData.map((item, idx) => (
+                {completeData.topEmissionsByCategoryData.map((item, idx) => (
                   <div className="w-full bg-zinc-900 mb-2 shadow-xl rounded-md p-4 grid grid-cols-5">
                     <div className="col-span-4 flex rounded-md items-center space-x-3">
                       <Avatar>
