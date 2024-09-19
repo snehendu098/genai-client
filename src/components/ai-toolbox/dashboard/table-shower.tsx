@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { PrincipleChecklist } from "@/constants/dashboard";
-import { useAppContext } from "@/context/pdf-page-provider";
+import { useAppContext } from "@/context/app-provider";
 import { Button } from "@/components/ui/button";
 
 const TableDataShow = ({

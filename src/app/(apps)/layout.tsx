@@ -1,5 +1,5 @@
 import NavBar from "@/components/ai-toolbox/dashboard/navbar";
-import { AppWrapper } from "@/context/pdf-page-provider";
+import { AppWrapper } from "@/context/app-provider";
 import React from "react";
 
 const App = ({ children }: { children: React.ReactNode }) => {

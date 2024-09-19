@@ -9,7 +9,7 @@ import { SingleDoc } from "@/models/ai-toolbox/Doc.model";
 import { Viewer, Worker } from "@react-pdf-viewer/core";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { pageNavigationPlugin } from "@react-pdf-viewer/page-navigation";
-import { useAppContext } from "@/context/pdf-page-provider";
+import { useAppContext } from "@/context/app-provider";
 
 const AppLayouts = ({
   params,

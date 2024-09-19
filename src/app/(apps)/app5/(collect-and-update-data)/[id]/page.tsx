@@ -29,7 +29,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 import axios from "axios";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useAppContext } from "@/context/pdf-page-provider";
+import { IExcelProcessingData, useAppContext } from "@/context/app-provider";
 import { Progress } from "@/components/ui/progress";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -41,6 +41,7 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { extractData } from "@/helpers/data-processing";
 
 // Mock data for demonstration
 const mockData = [
@@ -348,28 +349,6 @@ type ModalProps = {
   actions: Action[];
 };
 
-{
-  /* <Card
-          onClick={() =>
-            openModal("Anomalies", anomaliesData, [
-              { name: "Drop", action: () => console.log("drop") },
-            ])
-          }
-          className="hover:bg-muted/15"
-        >
-          <CardHeader>
-            <CardTitle>Anomalies</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Progress className="w-full mb-4" value={40} />
-            <div className="flex items-center mb-4 justify-between">
-              <p className="text-sm text-muted-foreground">ANOMALIES: 10</p>
-              <p className="text-sm text-muted-foreground">INPUT DATA: 100</p>
-            </div>
-          </CardContent>
-        </Card> */
-}
-
 type OperableData = {
   type: "gaps" | "duplicates" | "anomalies";
   data: any[][];
@@ -377,186 +356,187 @@ type OperableData = {
   foreGroundText: string;
 };
 
-const operableData: OperableData[] = [
-  {
-    type: "gaps",
-    data: [
-      [
-        "New York",
-        "Sales",
-        "Revenue",
-        "USD",
-        "2024",
-        1431,
-        1567,
-        1987,
-        2198,
-        2456,
-        2789,
-        3012,
-        3211,
-        3412,
-        3613,
-        3814,
-        4015,
-      ],
-      [
-        "Chicago",
-        "IT",
-        "Profit",
-        "GBP",
-        "2026",
-        1298,
-        1421,
-        1549,
-        1682,
-        1821,
-        1966,
-        2274,
-        2437,
-        2606,
-        2781,
-        2962,
-        3151,
-      ],
-      [
-        "Houston",
-        "Finance",
-        "Growth",
-        "JPY",
-        "2027",
-        2119,
-        2293,
-        2473,
-        2661,
-        2857,
-        3063,
-        3505,
-        3743,
-        3993,
-        4255,
-        4529,
-        4817,
-      ],
-      [
-        "Seattle",
-        "HR",
-        "Loss",
-        "CNY",
-        "2023",
-        1567,
-        1712,
-        1863,
-        2022,
-        2191,
-        2369,
-        2557,
-        2756,
-        2967,
-        3191,
-        3682,
-        3951,
-      ],
-    ],
-    count: 4,
-    foreGroundText: "GAPS",
-  },
-  {
-    type: "duplicates",
-    data: [
-      [
-        "Seattle",
-        "HR",
-        "Loss",
-        "CNY",
-        "2023",
-        1567,
-        1712,
-        1863,
-        2191,
-        2369,
-        2557,
-        2756,
-        2967,
-        3191,
-        3429,
-        3682,
-        3951,
-      ],
-    ],
-    count: 1,
-    foreGroundText: "DUPLICATES",
-  },
-  {
-    type: "anomalies",
-    data: [
-      [
-        "New York",
-        "Sales",
-        "Revenue",
-        "USD",
-        "2024",
-        1431,
-        2341,
-        1987,
-        2198,
-        2456,
-        2789,
-        3012,
-        3211,
-        3412,
-        3613,
-        3814,
-        4015,
-      ],
-      [
-        "Los Angeles",
-        "Marketing",
-        "Expenses",
-        "EUR",
-        "2025",
-        1876,
-        2012,
-        2145,
-        2289,
-        2434,
-        2581,
-        2732,
-        3041,
-        3201,
-        3364,
-        3529,
-        3697,
-      ],
-      [
-        "Chicago",
-        "IT",
-        "Profit",
-        "GBP",
-        "2026",
-        1298,
-        1421,
-        1549,
-        1682,
-        1821,
-        2117,
-        2274,
-        2437,
-        2606,
-        2781,
-        2962,
-        3151,
-      ],
-    ],
-    count: 3,
-    foreGroundText: "ANOMALIES",
-  },
-];
+// const operableData: OperableData[] = [
+//   {
+//     type: "gaps",
+//     data: [
+//       [
+//         "New York",
+//         "Sales",
+//         "Revenue",
+//         "USD",
+//         "2024",
+//         1431,
+//         1567,
+//         1987,
+//         2198,
+//         2456,
+//         2789,
+//         3012,
+//         3211,
+//         3412,
+//         3613,
+//         3814,
+//         4015,
+//       ],
+//       [
+//         "Chicago",
+//         "IT",
+//         "Profit",
+//         "GBP",
+//         "2026",
+//         1298,
+//         1421,
+//         1549,
+//         1682,
+//         1821,
+//         1966,
+//         2274,
+//         2437,
+//         2606,
+//         2781,
+//         2962,
+//         3151,
+//       ],
+//       [
+//         "Houston",
+//         "Finance",
+//         "Growth",
+//         "JPY",
+//         "2027",
+//         2119,
+//         2293,
+//         2473,
+//         2661,
+//         2857,
+//         3063,
+//         3505,
+//         3743,
+//         3993,
+//         4255,
+//         4529,
+//         4817,
+//       ],
+//       [
+//         "Seattle",
+//         "HR",
+//         "Loss",
+//         "CNY",
+//         "2023",
+//         1567,
+//         1712,
+//         1863,
+//         2022,
+//         2191,
+//         2369,
+//         2557,
+//         2756,
+//         2967,
+//         3191,
+//         3682,
+//         3951,
+//       ],
+//     ],
+//     count: 4,
+//     foreGroundText: "GAPS",
+//   },
+//   {
+//     type: "duplicates",
+//     data: [
+//       [
+//         "Seattle",
+//         "HR",
+//         "Loss",
+//         "CNY",
+//         "2023",
+//         1567,
+//         1712,
+//         1863,
+//         2191,
+//         2369,
+//         2557,
+//         2756,
+//         2967,
+//         3191,
+//         3429,
+//         3682,
+//         3951,
+//       ],
+//     ],
+//     count: 1,
+//     foreGroundText: "DUPLICATES",
+//   },
+//   {
+//     type: "anomalies",
+//     data: [
+//       [
+//         "New York",
+//         "Sales",
+//         "Revenue",
+//         "USD",
+//         "2024",
+//         1431,
+//         2341,
+//         1987,
+//         2198,
+//         2456,
+//         2789,
+//         3012,
+//         3211,
+//         3412,
+//         3613,
+//         3814,
+//         4015,
+//       ],
+//       [
+//         "Los Angeles",
+//         "Marketing",
+//         "Expenses",
+//         "EUR",
+//         "2025",
+//         1876,
+//         2012,
+//         2145,
+//         2289,
+//         2434,
+//         2581,
+//         2732,
+//         3041,
+//         3201,
+//         3364,
+//         3529,
+//         3697,
+//       ],
+//       [
+//         "Chicago",
+//         "IT",
+//         "Profit",
+//         "GBP",
+//         "2026",
+//         1298,
+//         1421,
+//         1549,
+//         1682,
+//         1821,
+//         2117,
+//         2274,
+//         2437,
+//         2606,
+//         2781,
+//         2962,
+//         3151,
+//       ],
+//     ],
+//     count: 3,
+//     foreGroundText: "ANOMALIES",
+//   },
+// ];
 
 export default function Component({ params }: { params: { id: string } }) {
   const [completeData, setCompleteData] = useState(mockData);
   const [startDate, setStartDate] = React.useState<Date>();
   const [endDate, setEndDate] = React.useState<Date>();
+  const [operableData, setOperableData] = useState<OperableData[]>([]);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -565,6 +545,9 @@ export default function Component({ params }: { params: { id: string } }) {
     data: [],
     actions: [],
   });
+
+  const { excelProcessedData }: { excelProcessedData: IExcelProcessingData } =
+    useAppContext();
 
   const openModal = (title: any, data: any, actions: Action[]) => {
     setModalContent({ title, data, actions });
@@ -602,10 +585,48 @@ export default function Component({ params }: { params: { id: string } }) {
     }
   };
 
+  useEffect(() => {
+    if (operableData.length === 0) {
+      const anomalies = extractData(
+        excelProcessedData.data,
+        excelProcessedData.anomalies
+      );
+      const gaps = extractData(
+        excelProcessedData.data,
+        excelProcessedData.gaps
+      );
+      const duplicates = extractData(
+        excelProcessedData.data,
+        excelProcessedData.duplicates
+      );
+
+      setOperableData([
+        {
+          type: "gaps",
+          data: gaps,
+          count: gaps.length,
+          foreGroundText: "GAPS",
+        },
+        {
+          type: "duplicates",
+          data: duplicates,
+          count: duplicates.length,
+          foreGroundText: "DUPLICATES",
+        },
+        {
+          type: "anomalies",
+          data: anomalies,
+          count: anomalies.length,
+          foreGroundText: "ANOMALIES",
+        },
+      ]);
+    }
+  }, [operableData]);
+
   return (
     <ScrollArea className="w-full h-[calc(100vh-4rem)]">
-      <div className="container mx-auto p-4 space-y-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="container p-4 space-y-16">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
           <div className="space-y-2">
             <Label>START DATE</Label>
             <Popover>
@@ -613,7 +634,7 @@ export default function Component({ params }: { params: { id: string } }) {
                 <Button
                   variant={"outline"}
                   className={cn(
-                    "w-[280px] justify-start text-left font-normal",
+                    "max-w-[280px] w-full justify-start text-left font-normal",
                     !startDate && "text-muted-foreground"
                   )}
                 >
@@ -643,7 +664,7 @@ export default function Component({ params }: { params: { id: string } }) {
                 <Button
                   variant={"outline"}
                   className={cn(
-                    "w-[280px] justify-start text-left font-normal",
+                    "max-w-[280px] w-full justify-start text-left font-normal",
                     !endDate && "text-muted-foreground"
                   )}
                 >
@@ -670,13 +691,15 @@ export default function Component({ params }: { params: { id: string } }) {
               </SelectTrigger>
               <SelectContent>
                 {Array.from(
-                  new Set(mockData.map((item) => item[0].toString()))
+                  new Set(
+                    excelProcessedData.data.map((item) => item[0].toString())
+                  )
                 ).map((item) => {
                   const slugify = (str: string) =>
                     str.toLowerCase().replace(/\s+/g, "-");
                   return <SelectItem value={slugify(item)}>{item}</SelectItem>;
                 })}
-                <SelectItem value="los-angeles">Los Angeles</SelectItem>
+                {/* <SelectItem value="los-angeles">Los Angeles</SelectItem> */}
               </SelectContent>
             </Select>
           </div>
@@ -689,11 +712,17 @@ export default function Component({ params }: { params: { id: string } }) {
               </SelectTrigger>
               <SelectContent>
                 {Array.from(
-                  new Set(mockData.map((item) => item[1].toString()))
+                  new Set(
+                    excelProcessedData.data.map((item) => item[1].toString())
+                  )
                 ).map((item) => {
                   const slugify = (str: string) =>
                     str.toLowerCase().replace(/\s+/g, "-");
-                  return <SelectItem value={slugify(item)}>{item}</SelectItem>;
+                  return (
+                    <SelectItem key={item} value={slugify(item)}>
+                      {item}
+                    </SelectItem>
+                  );
                 })}
               </SelectContent>
             </Select>
@@ -704,14 +733,17 @@ export default function Component({ params }: { params: { id: string } }) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {operableData.map((item, index) => (
             <SingleCard
+              key={index}
               openModal={openModal}
               cardItem={item}
-              inputNumber={mockData.length}
+              inputNumber={excelProcessedData.data.length}
             />
           ))}
         </div>
 
-        <div className="overflow-x-auto">{renderTable(completeData, [])}</div>
+        <div className="overflow-x-auto">
+          {renderTable(excelProcessedData.data, [])}
+        </div>
 
         <Dialog open={modalOpen} onOpenChange={setModalOpen}>
           <DialogContent className="max-w-[90vw] w-full">
@@ -728,8 +760,14 @@ export default function Component({ params }: { params: { id: string } }) {
   );
 }
 
-const renderTable = (data: any[], actions: Action[], showActions = false) => {
-  const { handleDataContext, setHandleDataContext } = useAppContext();
+const renderTable = (
+  data: any[],
+  actions: Action[],
+  showActions = false,
+  main = false
+) => {
+  const { handleDataContext, setHandleDataContext, excelProcessedData } =
+    useAppContext();
 
   useEffect(() => {
     if (data.length > 0) {
@@ -773,7 +811,7 @@ const renderTable = (data: any[], actions: Action[], showActions = false) => {
       <TableBody>
         {data.map((row: any, index: number) => (
           <TableRow
-            // onClick={() => console.log(index, handleDataContext)}
+            // onClick={() => console.log(excelProcessedData.data.indexOf(row))}
             key={index}
           >
             {row.map((cell: any, cellIndex: number) => (
@@ -792,7 +830,7 @@ const renderTable = (data: any[], actions: Action[], showActions = false) => {
                         ...handleDataContext,
                         [index]: check ? index : null,
                       });
-                      console.log(handleDataContext);
+                      // console.log(handleDataContext);
                     }}
                   />
                 </TableCell>
@@ -809,6 +847,7 @@ type Params = {
   foreGroundText: string;
   actions: Action[];
 };
+
 const SingleCard = ({
   openModal,
   cardItem,
